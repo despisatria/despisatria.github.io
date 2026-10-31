@@ -318,15 +318,12 @@ const contactFooter = (cvControl, current) => `
   <div class="foot-inner">
     <div class="foot-main">
       <h2 class="foot-title" id="contact-title">${escape(cv.contactTitle).replace(cv.contactCircle, `<span class="pen-word">${cv.contactCircle}${penRing}</span>`)}</h2>
-      <p class="note foot-aside">(${escape(cv.contactAside)})</p>
+      <p class="note foot-aside">${escape(cv.contactAside)}</p>
     </div>
     <div class="foot-side">
       <p>${escape(cv.contactNote)}</p>
       <a class="foot-email" href="mailto:${contact.email}">${escape(contact.email)}</a>
-      <dl class="foot-groups">
-        <div><dt>Chat</dt><dd>${out(contact.whatsapp, 'WhatsApp')}</dd></div>
-        <div><dt>Profiles</dt><dd>${out(contact.linkedin, 'LinkedIn')}${out(contact.github, 'GitHub')}${out(contact.instagram, 'Instagram')}</dd></div>
-      </dl>
+      <p class="foot-links">${out(contact.whatsapp, 'WhatsApp')}${out(contact.linkedin, 'LinkedIn')}${out(contact.github, 'GitHub')}${out(contact.instagram, 'Instagram')}</p>
       ${cvControl}
     </div>
   </div>

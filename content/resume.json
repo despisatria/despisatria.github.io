@@ -481,11 +481,11 @@
   "availability": "Open to freelance and part-time QA projects",
   "location": "Bandung, West Java, Indonesia",
   "contactTitle": "“Quality is everyone’s responsibility.”",
-  "contactAside": "W. Edwards Deming, and principle no. 1 in my QA guide book",
+  "contactAside": "W. Edwards Deming",
   "contactCircle": "everyone’s",
   "cvUrl": "https://drive.google.com/uc?export=download&id=1x5IjS5VYK3cgNaJh23TKadtP98V1HhaS",
   "testimonialsNote": "Recommendations from designers, product managers, engineers, and QA engineers I have worked with, written on my LinkedIn profile. [Read the originals on LinkedIn](https://www.linkedin.com/in/despisatria/details/recommendations/).",
-  "contactNote": "Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.",
+  "contactNote": "Need testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role.",
   "howIWork": {
     "title": "How I work",
     "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the release in production.",
