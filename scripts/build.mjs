@@ -84,12 +84,14 @@ const hero = frame('Overview', 'about', `
       </div>
       <p class="print-only">${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</p>
     </div>
-    <figure class="pinned-photo">
-      <img src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="480" height="480" fetchpriority="high">
-    </figure>
+    <div class="hero-side">
+      <figure class="pinned-photo">
+        <img src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="480" height="480" fetchpriority="high">
+      </figure>
+      <p class="note note-avail">${penArrow('arrow-avail')}${escape(cv.availability)}</p>
+    </div>
   </div>
-  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>
-  <p class="note note-avail">${penArrow('arrow-avail')}${escape(cv.availability)}</p>`, 'wrap-hero', true);
+  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>`, 'wrap-hero', true);
 
 const experience = frame('Experience', 'experience', `
   <div class="frame">

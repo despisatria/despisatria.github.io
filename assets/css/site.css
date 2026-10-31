@@ -127,12 +127,12 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .pinned-photo { position: relative; margin: 8px 0 0; padding: 12px 12px 36px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 6px 18px rgb(0 0 0 / 12%); transform: rotate(2deg); }
 .pinned-photo::before { content: ""; position: absolute; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
 .pinned-photo img { aspect-ratio: 1; object-fit: cover; width: 100%; }
-.note-years, .note-avail { position: absolute; display: flex; align-items: center; gap: 6px; }
-.note-years { right: 250px; top: -6px; }
+.note-years { position: absolute; display: flex; align-items: center; gap: 6px; right: 250px; top: -6px; }
 .note-years .arrow-left { transform: scaleX(-1) rotate(40deg) translateY(10px); }
-/* Availability is written under the card like a note pinned to it, pointing back up at the profile. */
-.note-avail { right: 24px; bottom: -44px; }
-.note-avail .arrow-avail { transform: rotate(-110deg) scaleY(-1); }
+/* Availability is written under the photo, running past the card's edge onto the board, and points up at me. */
+.hero-side { position: relative; }
+.note-avail { position: absolute; top: calc(100% + 4px); right: -64px; width: 260px; display: flex; align-items: flex-start; gap: 4px; }
+.note-avail .arrow-avail { flex: none; margin-top: -18px; transform: rotate(-110deg) scaleY(-1); }
 
 /* How I work: a flow pinned on the board. The first two steps happen before any code, so the pen marks them. */
 .flow-wrap { position: relative; }
@@ -339,6 +339,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .case-results .note-inline { grid-column: 1; }
   .case-results ul { grid-column: 2; grid-row: 2 / span 2; }
   .note-years { right: 240px; }
+  .note-avail { right: -20px; }
 }
 @media (max-width: 860px) {
   .hero { grid-template-columns: minmax(0, 1fr) 180px; }
@@ -352,7 +353,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .do-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .do-list div:nth-child(3) { border-top: 1px dashed var(--line); padding-top: 14px; }
   .note-years, .note-avail { position: static; margin: 16px 0 0; }
-  .note-avail { margin-top: 6px; }
+  .note-avail { width: auto; margin-top: 6px; }
   .note-years .arrow-left, .note-avail .arrow-avail { display: none; }
   .pair { grid-template-columns: 1fr; }
   .connector { height: 72px; margin-top: 0; }
@@ -381,7 +382,8 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .menu-print { display: inline-flex; margin-top: 8px; justify-content: center; }
   .board { padding-top: 24px; }
   .hero { grid-template-columns: 1fr; }
-  .pinned-photo { order: -1; width: 168px; padding: 8px 8px 22px; margin: 14px 0 4px 6px; }
+  .hero-side { order: -1; }
+  .pinned-photo { width: 168px; padding: 8px 8px 22px; margin: 14px 0 4px 6px; }
   .pinned-photo::before { width: 64px; height: 20px; top: -9px; }
   .case-cols, .case-results, .teaser-cols { grid-template-columns: 1fr; display: grid; }
   .teaser-cols { gap: 8px; }
