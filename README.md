@@ -24,5 +24,6 @@ To preview locally, open `index.html` in a browser, or run `python3 -m http.serv
 ## Notes
 
 - The page is always light themed (`color-scheme: light`), whatever the visitor's system setting.
-- **Download CV** prints the page. The print layout leaves out the portfolio and recommendations and links to the site instead.
+- **Download CV** prints the page as a plain CV (summary, experience, skills, other experience, education). The case study, work samples, and recommendations stay on the site, which the printed header links to.
+- The design brief and the reason behind each visual choice are written at the top of `assets/css/site.css`.
 - `details-*.html` and the files under `assets/` that the new page does not use are left over from the previous template.

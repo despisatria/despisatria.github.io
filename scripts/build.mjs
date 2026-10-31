@@ -21,181 +21,199 @@ function inline(text) {
 
 function link(url, label, cls = '') {
   const external = /^https?:/.test(url);
-  const attrs = external ? ' target="_blank" rel="noopener"' : '';
-  return `<a href="${url}"${cls ? ` class="${cls}"` : ''}${attrs}>${label}</a>`;
+  return `<a href="${url}"${cls ? ` class="${cls}"` : ''}${external ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
 }
 
 const paragraphs = (text, cls = '') => text.split('\n').filter(Boolean).map((p) => `<p${cls ? ` class="${cls}"` : ''}>${inline(p)}</p>`).join('');
-const list = (items, cls = '') => items.length ? `<ul${cls ? ` class="${cls}"` : ''}>${items.map((i) => `<li>${inline(i)}</li>`).join('')}</ul>` : '';
-const icon = (name) => `<i class="bi bi-${name}" aria-hidden="true"></i>`;
+const list = (items) => (items.length ? `<ul>${items.map((i) => `<li>${inline(i)}</li>`).join('')}</ul>` : '');
+const span = (roles) => `${roles.at(-1).period.split(' - ')[0]} - ${roles[0].period.split(' - ')[1]}`;
 const initials = (name) => name.split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
 
-const { contact } = cv;
+// A hand-drawn arrow for the reviewer's annotations; it points the note at what it describes.
+const penArrow = (cls) => `<svg class="pen-arrow ${cls}" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg>`;
 
-const socials = `
-  <a class="icon-btn" href="${contact.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${icon('linkedin')}</a>
-  <a class="icon-btn" href="${contact.github}" target="_blank" rel="noopener" aria-label="GitHub">${icon('github')}</a>
-  <a class="icon-btn" href="${contact.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a>`;
-
-const hero = `
-<section id="about" class="hero">
-  <img class="hero-photo" src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="240" height="240">
-  <div class="hero-text">
-    <p class="eyebrow">${escape(cv.title)}</p>
-    <h1>${escape(cv.name)}</h1>
-    ${cv.summary.map((p) => `<p class="lead">${inline(p)}</p>`).join('')}
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="mailto:${contact.email}">${icon('envelope')} Email me</a>
-      <a class="btn" href="${contact.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} WhatsApp</a>
-      <span class="socials">${socials}</span>
-    </div>
-    <p class="print-only print-contact">${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</p>
-  </div>
-</section>
-<ul class="stats" aria-label="Highlights">
-  ${cv.highlights.map((h) => `<li><strong>${escape(h.value)}</strong><span>${escape(h.label)}</span></li>`).join('')}
-</ul>`;
-
-const experience = `
-<section id="experience" class="section">
-  <h2>Experience</h2>
-  <div class="timeline">
-  ${cv.experience.map((c) => `
-    <article class="company">
-      <h3>${escape(c.company)}</h3>
-      ${paragraphs(c.about, 'about')}
-      ${c.roles.map((r) => `
-      <div class="role">
-        <div class="role-head">
-          <h4>${escape(r.title)} <span class="muted">· ${escape(r.type)}</span></h4>
-          <span class="period">${escape(r.period)}</span>
-        </div>
-        ${list(r.points)}
-      </div>`).join('')}
-    </article>`).join('')}
-  </div>
+// The frame label is the section heading, like a frame name on a board. Frames with their own
+// title (About, Case study) keep the label as a plain caption.
+const frame = (label, id, body, cls = '', titled = false) => `
+<section class="frame-wrap ${cls}" id="${id}" aria-labelledby="${id}-title">
+  ${titled ? `<p class="frame-label">${escape(label)}</p>` : `<h2 class="frame-label" id="${id}-title">${escape(label)}</h2>`}
+  ${body}
 </section>`;
 
-const cs = cv.caseStudy;
-const caseStudy = `
-<article class="case-study card" id="case-study">
-  <p class="tag">Case study</p>
-  <h3>${escape(cs.title)}</h3>
-  <p class="meta">${escape(cs.meta)}</p>
-  <div class="cs-grid">
-    <div>
-      <h4>The problem</h4>${paragraphs(cs.problem)}
-      <h4>The goal</h4>${paragraphs(cs.goal)}
-      <h4>What I did</h4>${list(cs.actions)}
-    </div>
-    <div>
-      <h4>Results</h4>
-      <div class="metric-row">
-        ${cs.metrics.map((m) => `<div class="metric"><span class="metric-label">${escape(m.label)}</span><span class="metric-value"><s>${escape(m.from)}</s> ${icon('arrow-right')} <strong>${escape(m.to)}</strong></span><span class="metric-note">Q1 → Q2 2026</span></div>`).join('')}
+const { contact } = cv;
+const navLinks = [
+  ['#experience', 'Experience'],
+  ['#case-study', 'Case study'],
+  ['#work', 'Work'],
+  ['#skills', 'Skills'],
+  ['#recommendations', 'Recommendations'],
+  ['#contact', 'Contact'],
+].map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
+
+const hero = frame('About', 'about', `
+  <div class="frame hero">
+    <div class="hero-text">
+      <h1 id="about-title">${escape(cv.name)}</h1>
+      <p class="hero-role">${escape(cv.title)}</p>
+      ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
+      <div class="hero-actions">
+        <a class="btn btn-ink" href="mailto:${contact.email}">Email me</a>
+        <a class="btn" href="${contact.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+        <span class="hero-links">
+          <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="${contact.github}" target="_blank" rel="noopener">GitHub</a>
+          <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
+        </span>
       </div>
-      ${list(cs.results)}
-      <h4>What I’d improve next</h4>${paragraphs(cs.next)}
+      <p class="print-only">${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</p>
     </div>
+    <figure class="pinned-photo">
+      <img src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="480" height="480" fetchpriority="high">
+    </figure>
   </div>
-</article>`;
+  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>
+  <p class="note note-tests">${escape(cv.annotations[1])}${penArrow('arrow-down')}</p>`, 'wrap-hero', true);
 
-const projectCard = (p) => `
-<article class="card project" id="${p.id}">
-  <h3>${escape(p.title)}</h3>
-  <p class="meta">${escape(p.meta)}</p>
-  ${paragraphs(p.intro)}
-  ${list(p.points)}
-  ${p.notes.map((n) => `<p class="note">${inline(n)}</p>`).join('')}
-  ${p.links.length ? `<p class="links">${p.links.map((l) => link(l.url, `${escape(l.label)} ${icon('arrow-up-right')}`)).join('')}</p>` : ''}
-</article>`;
+const experience = frame('Experience', 'experience', `
+  <div class="frame">
+    ${cv.experience.map((c) => `
+    <article class="job">
+      <div class="job-side">
+        <h3>${escape(c.company)}</h3>
+        <p class="job-period">${escape(span(c.roles))}</p>
+      </div>
+      <div class="job-main">
+        ${paragraphs(c.about, 'job-about')}
+        ${c.roles.map((r) => `
+        <div class="job-role">
+          <h4>${escape(r.title)} <span class="muted">(${escape(r.type)}) · ${escape(r.period)}</span></h4>
+          ${list(r.points)}
+        </div>`).join('')}
+      </div>
+    </article>`).join('')}
+  </div>`);
 
-const portfolio = `
-<section id="portfolio" class="section">
-  <h2>Portfolio</h2>
-  ${caseStudy}
-  <div class="card-grid">
-    ${cv.portfolio.map(projectCard).join('')}
-    <article class="card project">
+const cs = cv.caseStudy;
+const caseStudy = frame('Case study', 'case-study', `
+  <article class="frame case">
+    <h2 id="case-study-title">${escape(cs.title)}</h2>
+    <p class="meta">${escape(cs.meta)}</p>
+    <div class="case-cols">
+      <div>
+        <h3>The problem</h3>${paragraphs(cs.problem)}
+        <h3>The goal</h3>${paragraphs(cs.goal)}
+      </div>
+      <div>
+        <h3>What I did</h3>${list(cs.actions)}
+      </div>
+      <div class="case-results">
+        <h3>Results</h3>
+        <dl class="figures">
+          ${cs.metrics.map((m) => `<div><dt>${escape(m.label)}</dt><dd><span class="was">${escape(m.from)}</span> to <span class="circled">${escape(m.to)}</span></dd></div>`).join('')}
+        </dl>
+        <p class="note note-inline">${escape(cs.metricsNote)}</p>
+        ${list(cs.results)}
+      </div>
+    </div>
+    <div class="case-next">
+      <h3>What I’d improve next</h3>${paragraphs(cs.next)}
+    </div>
+  </article>`, 'wrap-case', true);
+
+const project = (p, cls = '') => `
+  <article class="frame project ${cls}" id="${p.id}">
+    <h3>${escape(p.title)}</h3>
+    <p class="meta">${escape(p.meta)}</p>
+    ${paragraphs(p.intro)}
+    ${list(p.points)}
+    ${p.notes.map((n) => `<p class="small">${inline(n)}</p>`).join('')}
+    ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
+  </article>`;
+
+const [app, appTests, suites] = cv.portfolio;
+const work = frame('Selected work', 'work', `
+  <div class="pair">
+    ${project(app)}
+    <div class="connector" aria-hidden="true"><span class="note">tested by</span></div>
+    ${project(appTests)}
+  </div>
+  <div class="work-row">
+    ${project(suites, 'project-suites')}
+    <article class="frame project">
       <h3>${escape(cv.assessments.title)}</h3>
       <p class="meta">${escape(cv.assessments.meta)}</p>
       ${list(cv.assessments.points)}
     </article>
   </div>
-  <a class="archive card" href="${cv.archive.url}" target="_blank" rel="noopener">
-    <span><strong>${escape(cv.archive.title)}</strong> ${escape(cv.archive.text)}</span>
-    <span class="archive-cta">Open on Google Drive ${icon('arrow-up-right')}</span>
-  </a>
-</section>`;
+  <p class="archive"><strong>${escape(cv.archive.title)}.</strong> ${escape(cv.archive.text)} ${link(cv.archive.url, 'Open the archive on Google Drive')}</p>`);
 
-const skills = `
-<section id="skills" class="section">
-  <h2>Skills</h2>
-  <div class="skill-groups">
-  ${cv.skills.map((g) => `
-    <div>
-      <h3>${escape(g.group)}</h3>
-      <ul class="chips">${g.items.map((i) => `<li>${escape(i)}</li>`).join('')}</ul>
-    </div>`).join('')}
-  </div>
-</section>`;
+const skills = frame('Skills and tools', 'skills', `
+  <div class="frame skills">
+    <div class="skill-cols">
+    ${cv.skills.map((g) => `
+      <div>
+        <h3>${escape(g.group)}</h3>
+        <ul class="skill-list">${g.items.map((i) => `<li>${escape(i)}</li>`).join('')}</ul>
+      </div>`).join('')}
+    </div>
+  </div>`);
 
-const other = `
-<section id="more" class="section">
-  <h2>Projects, mentoring &amp; education</h2>
-  <div class="other-grid">
-  ${cv.otherExperience.map((o) => `
-    <article class="card">
-      <h3>${escape(o.title)}</h3>
-      <p class="meta">${escape(o.org)}${o.period ? ` · ${escape(o.period)}` : ''}</p>
-      ${paragraphs(o.about)}
-      ${list(o.points)}
-      ${o.projects ? `
-      <details class="projects">
-        <summary>${o.projects.length} client projects</summary>
-        <ul class="project-list">
-          ${o.projects.map((p) => `<li><strong>${escape(p.name)}</strong> <span class="period">${escape(p.period)}</span><p>${inline(p.text)}</p></li>`).join('')}
-        </ul>
-      </details>` : ''}
+const other = frame('Projects, mentoring and education', 'more', `
+  <div class="frame">
+    ${cv.otherExperience.map((o) => `
+    <article class="job">
+      <div class="job-side">
+        <h3>${escape(o.org)}</h3>
+        ${o.period ? `<p class="job-period">${escape(o.period)}</p>` : ''}
+      </div>
+      <div class="job-main">
+        <h4>${escape(o.title)}</h4>
+        ${paragraphs(o.about, 'job-about')}
+        ${list(o.points)}
+        ${o.projects ? `
+        <details class="clients">
+          <summary>Show the ${o.projects.length} client projects</summary>
+          <ul class="client-list">
+            ${o.projects.map((p) => `<li><strong>${escape(p.name)}</strong> <span class="muted">${escape(p.period)}</span><br>${inline(p.text)}</li>`).join('')}
+          </ul>
+        </details>` : ''}
+      </div>
     </article>`).join('')}
-  ${cv.education.map((e) => `
-    <article class="card education">
-      <p class="tag">${icon('mortarboard')} Education</p>
-      <h3>${escape(e.school)}</h3>
-      <p class="meta">${escape(e.degree)} · ${escape(e.detail)} · ${escape(e.period)}</p>
+    ${cv.education.map((e) => `
+    <article class="job">
+      <div class="job-side">
+        <h3>Education</h3>
+        <p class="job-period">${escape(e.period)}</p>
+      </div>
+      <div class="job-main">
+        <h4>${escape(e.school)}</h4>
+        <p>${escape(e.degree)} · ${escape(e.detail)}</p>
+      </div>
     </article>`).join('')}
-  </div>
-</section>`;
+  </div>`);
 
-const recommendations = `
-<section id="recommendations" class="section">
-  <h2>Recommendations</h2>
-  <p class="section-intro">What teammates, designers, engineers, and product managers say about working with me.</p>
-  <div class="quotes">
+const recommendations = frame('Recommendations', 'recommendations', `
+  <div class="notes">
   ${cv.recommendations.map((r) => `
-    <figure class="quote card">
+    <figure class="sticky">
       <blockquote class="clamp">${paragraphs(r.text)}</blockquote>
-      <button class="more" type="button" hidden>Read more</button>
+      <button class="more" type="button" hidden>Read the full note</button>
       <figcaption>
-        ${r.photo ? `<img src="${r.photo}" alt="" width="44" height="44" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(r.name)}</span>`}
-        <span><strong>${escape(r.name)}</strong><span class="muted">${escape(r.role)}</span></span>
+        ${r.photo ? `<img src="${r.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(r.name)}</span>`}
+        <span><strong>${escape(r.name)}</strong><br>${escape(r.role)}</span>
       </figcaption>
     </figure>`).join('')}
-  </div>
-</section>`;
+  </div>`);
 
-const footer = `
-<footer id="contact" class="footer">
-  <div class="wrap">
-    <h2>Let’s work together</h2>
-    <p>Open to QA roles and conversations about quality, test automation, and building QA teams.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="mailto:${contact.email}">${icon('envelope')} ${escape(contact.email)}</a>
-      <a class="btn" href="${contact.whatsapp}" target="_blank" rel="noopener">${icon('whatsapp')} ${escape(contact.phone)}</a>
-      <span class="socials">${socials}</span>
-    </div>
-    <p class="fineprint">© ${new Date().getFullYear()} ${escape(cv.name)}</p>
-  </div>
-</footer>`;
+const contactFrame = frame('Contact', 'contact', `
+  <div class="frame contact">
+    <dl class="contact-list">
+      <div><dt>Email</dt><dd><a href="mailto:${contact.email}">${escape(contact.email)}</a></dd></div>
+      <div><dt>WhatsApp</dt><dd><a href="${contact.whatsapp}" target="_blank" rel="noopener">${escape(contact.phone)}</a></dd></div>
+      <div><dt>LinkedIn</dt><dd><a href="${contact.linkedin}" target="_blank" rel="noopener">linkedin.com/in/despisatria</a></dd></div>
+      <div><dt>GitHub</dt><dd><a href="${contact.github}" target="_blank" rel="noopener">github.com/despisatria</a></dd></div>
+    </dl>
+  </div>`, 'wrap-contact');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -227,47 +245,47 @@ const html = `<!DOCTYPE html>
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
   <link href="assets/css/site.css" rel="stylesheet">
   <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 </head>
 <body>
 <!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
 <a class="skip" href="#main">Skip to content</a>
-<header class="topbar">
-  <div class="wrap topbar-inner">
-    <a class="brand" href="#about">${escape(cv.name)}</a>
-    <nav aria-label="Sections">
-      <a href="#experience">Experience</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#skills">Skills</a>
-      <a href="#recommendations">Recommendations</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <button class="btn btn-small" type="button" data-print>${icon('download')} Download CV</button>
-  </div>
+<header class="bar">
+  <a class="bar-name" href="#about">${escape(cv.name)}</a>
+  <nav class="bar-nav" aria-label="Sections">${navLinks}</nav>
+  <details class="bar-menu">
+    <summary>Menu</summary>
+    <nav aria-label="Sections menu">${navLinks}<button class="btn menu-print" type="button" data-print>Download CV</button></nav>
+  </details>
+  <button class="btn bar-print" type="button" data-print>Download CV</button>
 </header>
-<main id="main" class="wrap">
+<main id="main" class="board">
 ${hero}
+${caseStudy}
 ${experience}
-${portfolio}
+${work}
 ${skills}
 ${other}
 ${recommendations}
+${contactFrame}
 </main>
-${footer}
+<footer class="foot"><p>© ${new Date().getFullYear()} ${escape(cv.name)}</p></footer>
 <script>
-  document.querySelector('[data-print]').addEventListener('click', () => window.print());
-  window.addEventListener('beforeprint', () => document.querySelectorAll('details').forEach((d) => { d.open = true; }));
-  for (const quote of document.querySelectorAll('.quote')) {
-    const text = quote.querySelector('.clamp');
-    const button = quote.querySelector('.more');
+  document.querySelectorAll('[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
+  window.addEventListener('beforeprint', () => document.querySelectorAll('details.clients').forEach((d) => { d.open = true; }));
+  const menu = document.querySelector('.bar-menu');
+  menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
+  for (const note of document.querySelectorAll('.sticky')) {
+    const text = note.querySelector('.clamp');
+    const button = note.querySelector('.more');
     if (text.scrollHeight <= text.clientHeight + 4) { text.classList.remove('clamp'); continue; }
     button.hidden = false;
     button.addEventListener('click', () => {
       const open = text.classList.toggle('clamp') === false;
-      button.textContent = open ? 'Show less' : 'Read more';
+      button.textContent = open ? 'Show less' : 'Read the full note';
     });
   }
 </script>
