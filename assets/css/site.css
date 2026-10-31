@@ -126,13 +126,17 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .flow-wrap { position: relative; }
 .note-flow { display: flex; align-items: flex-end; gap: 4px; margin: 0 0 6px 8px; }
 .note-flow .arrow-flow { transform: rotate(70deg) translate(6px, -2px); }
-.flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 28px; counter-reset: none; }
+.flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 28px; }
 .flow-step { position: relative; margin: 0; padding: 16px 14px 18px; }
 .flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -23px; top: 14px; color: var(--pen); font: 600 24px/1 var(--hand); }
 .flow-early { box-shadow: inset 0 3px 0 var(--pen); }
 .flow-num { display: block; font: 600 22px/1 var(--hand); color: var(--pen); }
 .flow-step h3 { font-size: 15px; font-weight: 800; margin: 6px 0 6px; }
 .flow-step p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+/* Hotfix is not a step in the sequence; it can interrupt any of them, so it hangs off the flow as a dashed branch. */
+.flow-branch { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+.flow-branch .note { flex: none; font-size: 22px; }
+.flow-hotfix { max-width: 560px; border: 1.5px dashed var(--pen); }
 
 /* Case study: the focal frame. */
 .wrap-case .frame { border: 2px solid var(--ink); }
@@ -261,8 +265,8 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .bar-menu { display: block; }
   .case-cols { grid-template-columns: 1fr 1fr; }
   /* The flow wraps into rows; an arrow at the end of a row would point at nothing. */
-  .flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 20px; }
-  .flow-step:nth-child(4n)::after { display: none; }
+  .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 20px; }
+  .flow-step:nth-child(3n)::after { display: none; }
   .case-results { grid-column: 1 / -1; display: grid; grid-template-columns: 220px 1fr; column-gap: 32px; }
   .case-results h3 { grid-column: 1 / -1; }
   .case-results .note-inline { grid-column: 1; }
@@ -272,8 +276,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 @media (max-width: 860px) {
   .hero { grid-template-columns: minmax(0, 1fr) 200px; }
   .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .flow-step:nth-child(4n)::after { display: block; }
+  .flow-step:nth-child(3n)::after { display: block; }
   .flow-step:nth-child(2n)::after { display: none; }
+  .flow-branch { flex-direction: column; align-items: flex-start; gap: 6px; }
   .teaser-grid, .duo { grid-template-columns: 1fr; }
   .note-years { position: static; margin: 16px 0 0; }
   .note-years .arrow-left { display: none; }

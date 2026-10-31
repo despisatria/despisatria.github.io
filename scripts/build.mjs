@@ -156,6 +156,10 @@ const howIWork = frame(hw.title, 'how-i-work', `
     <ol class="flow">
       ${hw.steps.map((s, i) => `<li class="frame flow-step${i < 2 ? ' flow-early' : ''}"><span class="flow-num">${String(i + 1).padStart(2, '0')}</span><h3>${escape(s.title)}</h3><p>${escape(s.text)}</p></li>`).join('')}
     </ol>
+    <div class="flow-branch">
+      <p class="note">${escape(hw.branch.note)}</p>
+      <div class="frame flow-step flow-hotfix"><h3>${escape(hw.branch.title)}</h3><p>${escape(hw.branch.text)}</p></div>
+    </div>
   </div>`);
 
 const [app, appTests, suites] = cv.portfolio;

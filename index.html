@@ -67,12 +67,16 @@
 <section class="frame-wrap " id="how-i-work" aria-labelledby="how-i-work-title">
   <h2 class="frame-label" id="how-i-work-title">How I work</h2>
   
-  <p class="section-note">QA joins the squad from the first conversation about a feature, not after the code is done.</p>
+  <p class="section-note">The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the quarterly report.</p>
   <div class="flow-wrap">
     <p class="note note-flow">QA starts here, before any code<svg class="pen-arrow arrow-flow" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg></p>
     <ol class="flow">
-      <li class="frame flow-step flow-early"><span class="flow-num">01</span><h3>Pre-grooming</h3><p>Read the requirement with Product and raise questions, risks, and edge cases before the sprint starts.</p></li><li class="frame flow-step flow-early"><span class="flow-num">02</span><h3>Design review</h3><p>Check flows, states, and copy in the design while changes are still cheap.</p></li><li class="frame flow-step"><span class="flow-num">03</span><h3>Test cases</h3><p>Write test cases in the team’s shared template, linked to each task.</p></li><li class="frame flow-step"><span class="flow-num">04</span><h3>Testing</h3><p>Manual and exploratory testing on web, mobile, and API, with automated regression in CI.</p></li><li class="frame flow-step"><span class="flow-num">05</span><h3>Release prep</h3><p>Run the release preparation checklist with the squad before every release.</p></li><li class="frame flow-step"><span class="flow-num">06</span><h3>Sprint recap</h3><p>Recap findings and the Fix Rate each sprint. Engineers use it in their own sprint reports.</p></li><li class="frame flow-step"><span class="flow-num">07</span><h3>Quarter report</h3><p>Report QA metrics per squad every quarter, so quality trends are visible to management.</p></li>
+      <li class="frame flow-step flow-early"><span class="flow-num">01</span><h3>Requirement &amp; design</h3><p>Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features.</p></li><li class="frame flow-step flow-early"><span class="flow-num">02</span><h3>Sprint planning</h3><p>Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback.</p></li><li class="frame flow-step"><span class="flow-num">03</span><h3>During the sprint</h3><p>A QA subtask on every story, test cases in a shared template, execution against acceptance criteria, and bugs filed as feedback tickets.</p></li><li class="frame flow-step"><span class="flow-num">04</span><h3>Sprint review</h3><p>Present the test summary and demo each story from its test cases: the happy path first, then edge cases.</p></li><li class="frame flow-step"><span class="flow-num">05</span><h3>Release preparation</h3><p>Sanity and targeted regression on staging, a release test report, the go-ahead to PM and Tech Lead, then sanity and smoke tests in production.</p></li><li class="frame flow-step"><span class="flow-num">06</span><h3>Quarter report</h3><p>QA metrics per squad: feedback adoption, early feedback, execution and pass rate, fix rate, and defect escape.</p></li>
     </ol>
+    <div class="flow-branch">
+      <p class="note">any time production breaks</p>
+      <div class="frame flow-step flow-hotfix"><h3>Hotfix handling</h3><p>When an issue comes in through Customer Support: confirm it is a real bug, offer users a workaround, test the fix on staging with sanity and smoke tests, then check it again in production.</p></div>
+    </div>
   </div>
 </section>
 

@@ -482,17 +482,21 @@
   "contactNote": "Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.",
   "howIWork": {
     "title": "How I work",
-    "intro": "QA joins the squad from the first conversation about a feature, not after the code is done.",
+    "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the quarterly report.",
     "note": "QA starts here, before any code",
     "steps": [
-      { "title": "Pre-grooming", "text": "Read the requirement with Product and raise questions, risks, and edge cases before the sprint starts." },
-      { "title": "Design review", "text": "Check flows, states, and copy in the design while changes are still cheap." },
-      { "title": "Test cases", "text": "Write test cases in the team’s shared template, linked to each task." },
-      { "title": "Testing", "text": "Manual and exploratory testing on web, mobile, and API, with automated regression in CI." },
-      { "title": "Release prep", "text": "Run the release preparation checklist with the squad before every release." },
-      { "title": "Sprint recap", "text": "Recap findings and the Fix Rate each sprint. Engineers use it in their own sprint reports." },
-      { "title": "Quarter report", "text": "Report QA metrics per squad every quarter, so quality trends are visible to management." }
-    ]
+      { "title": "Requirement & design", "text": "Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features." },
+      { "title": "Sprint planning", "text": "Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback." },
+      { "title": "During the sprint", "text": "A QA subtask on every story, test cases in a shared template, execution against acceptance criteria, and bugs filed as feedback tickets." },
+      { "title": "Sprint review", "text": "Present the test summary and demo each story from its test cases: the happy path first, then edge cases." },
+      { "title": "Release preparation", "text": "Sanity and targeted regression on staging, a release test report, the go-ahead to PM and Tech Lead, then sanity and smoke tests in production." },
+      { "title": "Quarter report", "text": "QA metrics per squad: feedback adoption, early feedback, execution and pass rate, fix rate, and defect escape." }
+    ],
+    "branch": {
+      "note": "any time production breaks",
+      "title": "Hotfix handling",
+      "text": "When an issue comes in through Customer Support: confirm it is a real bug, offer users a workaround, test the fix on staging with sanity and smoke tests, then check it again in production."
+    }
   },
   "whatIDo": [
     { "title": "QA standards and metrics", "text": "A guide book, shared templates, and a metrics framework used across squads." },
