@@ -163,7 +163,7 @@ const howIWork = frame(hw.title, 'how-i-work', `
   </div>`);
 
 const [app, appTests, suites] = cv.portfolio;
-const workTeaser = frame('Selected work', 'work', `
+const workTeaser = frame('Recent work', 'work', `
   <div class="teaser-grid">
     ${[app, appTests, suites].map((p) => `
     <article class="frame project-teaser">
@@ -210,7 +210,7 @@ const project = (p, cls = '') => `
     ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
   </article>`;
 
-const work = frame('Selected work', 'work', `
+const work = frame('Recent work', 'work', `
   <div class="pair">
     ${project(app)}
     <div class="connector" aria-hidden="true"><span class="note">tested by</span></div>
