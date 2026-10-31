@@ -1,6 +1,7 @@
 {
   "name": "Desphi Satria Nurjaya",
   "title": "Software Quality Assurance Engineer",
+  "headline": "Quality starts before the first line of code.",
   "photo": "assets/img/profile.jpg",
   "summary": [
     "Software Quality Assurance Engineer with 7+ years of experience testing web and mobile products across logistics, e-commerce, fintech, and agritech. Hands-on in manual and automated testing across Mobile, Website, and API, as well as performance testing. Currently leading and mentoring the QA team across multiple products and squads, defining QA standards and release-readiness practices, and working closely with Product, Engineering, and Design to catch defects early.",
@@ -496,7 +497,7 @@
   "howIWork": {
     "title": "How I work",
     "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the release in production.",
-    "note": "QA starts here, before any code",
+    "note": "these two happen before any code",
     "steps": [
       { "title": "Requirement & design", "text": "Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features." },
       { "title": "Sprint planning", "text": "Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback." },

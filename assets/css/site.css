@@ -116,7 +116,11 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 /* About */
 .wrap-hero { padding-top: 8px; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--gap); align-items: start; }
-.hero h1 { font-size: clamp(38px, 6vw, 64px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+/* The headline is how I work; the name signs it underneath instead of shouting from the top. */
+.hero h1 { font-size: clamp(34px, 5.2vw, 58px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.06; max-width: 15ch; }
+.hero-byline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin: 18px 0 18px; }
+.hero-name { font-size: clamp(18px, 2vw, 21px); font-weight: 800; }
+.hero-title { color: var(--muted); font-size: clamp(15px, 1.6vw, 17px); font-weight: 600; }
 .hero-role { font-size: clamp(18px, 2vw, 21px); font-weight: 600; margin: 12px 0 20px; }
 .hero-summary { max-width: 64ch; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-top: 24px; }

@@ -75,8 +75,8 @@ const figures = (m) => `<dl class="figures">
 const hero = frame('Overview', 'about', `
   <div class="frame hero">
     <div class="hero-text">
-      <h1 id="about-title">${escape(cv.name)}</h1>
-      <p class="hero-role">${escape(cv.title)}</p>
+      <h1 id="about-title">${escape(cv.headline)}</h1>
+      <p class="hero-byline"><span class="hero-name">${escape(cv.name)}</span><span class="hero-title">${escape(cv.title)}</span></p>
       <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>${escape(cv.availability)}</p>
       ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
       <div class="hero-actions">
