@@ -75,9 +75,9 @@ const figures = (m) => `<dl class="figures">
 const hero = frame('Overview', 'about', `
   <div class="frame hero">
     <div class="hero-text">
-      <h1 id="about-title">${escape(cv.headline)}</h1>
+      <h1 id="about-title">${escape(cv.headline).replace(cv.headlineMark, `<span class="pen-under">${cv.headlineMark}<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 12 C 46 7, 112 15, 196 8"/><path d="M38 17 C 92 13, 140 16, 182 13"/></svg></span>`)}</h1>
       <p class="hero-byline"><span class="hero-name">${escape(cv.name)}</span><span class="hero-title">${escape(cv.title)}</span></p>
-      ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
+      <p class="hero-summary">${inline(cv.heroSummary)}</p>
       <div class="hero-actions">
         <a class="btn btn-ink" href="portfolio">See my work</a>
         <a class="btn" href="#contact">Get in touch <span aria-hidden="true">↓</span></a>
