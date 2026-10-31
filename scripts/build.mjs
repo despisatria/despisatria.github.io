@@ -360,7 +360,7 @@ function page({ file, title, description, heading, body, extra = '' }) {
 <!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar">
-  <a class="bar-name" href="index.html">${escape(cv.name)}</a>
+  <a class="bar-name" href="index.html"><span class="bar-mark" aria-hidden="true">${initials(cv.name)}</span><span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
   <nav class="bar-nav" aria-label="Pages">${navLinks(file)}</nav>
   <details class="bar-menu">
     <summary>Menu</summary>

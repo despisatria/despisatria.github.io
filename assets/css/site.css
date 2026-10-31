@@ -68,7 +68,12 @@ a, button, summary { cursor: pointer; }
   display: flex; align-items: center; gap: 24px;
   padding: 10px var(--gap); background: var(--paper); border-bottom: 1px solid var(--line);
 }
-.bar-name { font-weight: 800; text-decoration: none; white-space: nowrap; }
+/* The mark repeats the reviewer-red circle from the annotations, so the bar carries the same motif as the board. */
+.bar-name { gap: 12px; text-decoration: none; }
+.bar-mark { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border: 2px solid var(--pen); border-radius: 50%; color: var(--pen); font-weight: 800; font-size: 14px; letter-spacing: .5px; }
+.bar-id { display: grid; line-height: 1.25; }
+.bar-id strong { font-weight: 800; white-space: nowrap; }
+.bar-role { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; }
 .bar-nav { display: flex; gap: 4px; margin-left: auto; }
 .bar-nav a, .bar-menu nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; }
 .bar-nav a:hover, .bar-menu nav a:hover { color: var(--ink); }
@@ -244,7 +249,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 @media (max-width: 640px) {
   body { font-size: 15px; }
   .bar { gap: 8px; }
-  .bar-name { font-size: 15px; white-space: normal; line-height: 1.2; }
+  .bar-name { font-size: 15px; gap: 10px; }
+  .bar-mark { width: 36px; height: 36px; font-size: 13px; }
+  .bar-role { font-size: 12px; }
   .bar-print { display: none; }
   .menu-print { display: inline-flex; margin-top: 8px; justify-content: center; }
   .board { padding-top: 24px; }
