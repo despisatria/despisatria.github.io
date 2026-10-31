@@ -77,7 +77,6 @@ const hero = frame('Overview', 'about', `
     <div class="hero-text">
       <h1 id="about-title">${escape(cv.headline)}</h1>
       <p class="hero-byline"><span class="hero-name">${escape(cv.name)}</span><span class="hero-title">${escape(cv.title)}</span></p>
-      <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>${escape(cv.availability)}</p>
       ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
       <div class="hero-actions">
         <a class="btn btn-ink" href="portfolio">See my work</a>
@@ -89,7 +88,8 @@ const hero = frame('Overview', 'about', `
       <img src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="480" height="480" fetchpriority="high">
     </figure>
   </div>
-  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>`, 'wrap-hero', true);
+  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>
+  <p class="note note-avail">${escape(cv.availability)}${penArrow('arrow-avail')}</p>`, 'wrap-hero', true);
 
 const experience = frame('Experience', 'experience', `
   <div class="frame">
@@ -155,9 +155,7 @@ const howIWork = frame(hw.title, 'how-i-work', `
   <div class="flow-wrap">
     <div class="flow-head">
       <div class="flow-span">
-        <p class="note note-flow"><svg class="flow-arrow" viewBox="0 0 100 64" aria-hidden="true"><path d="M97 8 C70 2, 46 8, 34 24 C26 35, 22 46, 20 60"/><path d="M10 47 L20 61 L30 49"/></svg>${escape(hw.note)}</p>
-        <svg class="flow-brace" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M1 15 Q1 8 6 8 L44 8 Q50 8 50 2 Q50 8 56 8 L94 8 Q99 8 99 15"/></svg>
-      </div>
+        <p class="note note-flow"><svg class="flow-arrow" viewBox="0 0 100 64" aria-hidden="true"><path d="M97 8 C70 2, 46 8, 34 24 C26 35, 22 46, 20 60"/><path d="M10 47 L20 61 L30 49"/></svg>${escape(hw.note)}</p>      </div>
     </div>
     <ol class="flow">
       ${hw.steps.map((s, i) => `<li class="frame flow-step${i < 2 ? ' flow-early' : ''}"><span class="flow-num">${String(i + 1).padStart(2, '0')}</span><h3>${escape(s.title)}</h3><p>${escape(s.text)}</p></li>`).join('')}
