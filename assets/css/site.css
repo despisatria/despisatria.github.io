@@ -72,6 +72,8 @@ a, button, summary { cursor: pointer; }
 .bar-nav { display: flex; gap: 4px; margin-left: auto; }
 .bar-nav a, .bar-menu nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; }
 .bar-nav a:hover, .bar-menu nav a:hover { color: var(--ink); }
+/* The current page is underlined in reviewer red, the same mark the links use. */
+.bar-nav a[aria-current="page"], .bar-menu nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--pen); text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .bar-menu { display: none; position: relative; margin-left: auto; }
 .bar-menu summary { list-style: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1.5px solid var(--line); border-radius: 6px; font-weight: 600; }
 .bar-menu summary::-webkit-details-marker { display: none; }
@@ -82,6 +84,7 @@ a, button, summary { cursor: pointer; }
 /* Board and frames */
 .board { width: min(1180px, 100% - 2 * var(--gap)); margin: 0 auto; padding: 40px 0 24px; }
 .frame-wrap { position: relative; margin-bottom: clamp(48px, 7vw, 88px); }
+.page-title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -0.02em; margin: 8px 0 clamp(24px, 4vw, 40px); }
 .frame-label { margin: 0 0 10px 2px; font-size: 13px; font-weight: 600; color: var(--muted); }
 h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
 .frame { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 3vw, 36px); }
@@ -118,10 +121,17 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .figures { display: grid; gap: 14px; margin: 4px 0 6px; }
 .figures div { display: grid; gap: 2px; }
 .figures dt { font-size: 14px; color: var(--muted); }
-.figures dd { margin: 0; font-size: 28px; font-weight: 800; }
-.was { color: var(--muted); font-weight: 600; font-size: 22px; text-decoration: line-through; text-decoration-color: var(--pen); }
-.circled { display: inline-block; padding: 0 10px; border: 2.5px solid var(--pen); border-radius: 50% 46% 52% 44%; transform: rotate(-3deg); }
+.trend { margin: 4px 0 0; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 4px 10px; }
+.q { display: grid; justify-items: start; }
+.q-label { font-size: 12px; color: var(--muted); }
+.q-val { font-size: 20px; font-weight: 600; color: var(--muted); }
+.q-step { color: var(--muted); padding-bottom: 4px; }
+/* The latest quarter is the evidence, so the reviewer circles it. */
+.q-now .q-label { color: var(--ink); font-weight: 600; }
+.q-now .q-val { font-size: 28px; font-weight: 800; color: var(--ink); padding: 0 10px; border: 2.5px solid var(--pen); border-radius: 50% 46% 52% 44%; transform: rotate(-3deg); }
 .note-inline { font-size: 21px; margin-bottom: 14px; }
+.teaser-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 8px; }
+.teaser-cols .btn { margin-top: 8px; }
 .case-next { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); max-width: 90ch; }
 
 /* Experience and the other timeline-like lists */
@@ -129,6 +139,8 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .frame > .job:first-child { border-top: 0; padding-top: 0; }
 .frame > .job:last-child { padding-bottom: 0; }
 .job-side h3 { font-size: 18px; font-weight: 800; }
+.logo { display: block; width: 40px; height: 40px; margin-bottom: 10px; border-radius: 6px; object-fit: contain; }
+.logo-mono { display: grid; place-items: center; background: var(--board); border: 1px solid var(--line); font-weight: 800; font-size: 14px; color: var(--muted); }
 .job-period { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
 .job-about { color: var(--muted); font-size: 15px; font-style: italic; max-width: 80ch; }
 .job-role + .job-role { margin-top: 18px; }
@@ -149,6 +161,27 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .work-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start; }
 .archive { margin: 24px 0 0; max-width: 90ch; font-size: 15px; }
 .archive a { font-weight: 600; }
+
+/* Earlier work: smaller frames, the app screens on top and the redacted samples as evidence below. */
+.section-note { color: var(--muted); font-size: 15px; margin: -4px 0 18px 2px; }
+.earlier-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.earlier { padding: 0; overflow: hidden; }
+.earlier-cover { background: #e3e2dc; border-bottom: 1px solid var(--line); }
+.earlier-cover img { width: 100%; height: 240px; object-fit: contain; padding: 12px; }
+.earlier-body { padding: 20px 24px 22px; }
+.earlier h3 { font-size: 19px; font-weight: 800; }
+.earlier h3 .muted { font-size: 15px; font-weight: 600; margin-left: 4px; }
+.samples { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.samples li { margin: 0; }
+.samples a { display: grid; gap: 6px; text-decoration: none; font-size: 13px; font-weight: 600; color: var(--muted); }
+.samples a:hover { color: var(--ink); }
+.samples img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; object-position: top left; border: 1px solid var(--line); border-radius: 4px; }
+.samples a:hover img { border-color: var(--pen); }
+.viewer { width: min(1200px, 100% - 32px); max-height: calc(100dvh - 32px); padding: 16px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.viewer::backdrop { background: rgb(29 29 27 / 70%); }
+.viewer form { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.viewer img { width: 100%; height: auto; max-height: calc(100dvh - 160px); object-fit: contain; }
+.viewer-caption { margin: 10px 0 0; font-weight: 600; }
 
 /* Skills: plain lists, two columns of running text. */
 .skill-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -176,7 +209,9 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .contact-list dt { color: var(--muted); font-size: 14px; }
 .contact-list dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 .contact-list dd a, .bar-name { display: inline-flex; align-items: center; min-height: 44px; }
-.foot { text-align: center; color: var(--muted); font-size: 13px; padding: 0 0 32px; }
+.foot { text-align: center; color: var(--muted); font-size: 14px; padding: 0 16px 32px; }
+.foot p { margin: 0 0 4px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
 
 /* Small laptops and tablets */
 @media (max-width: 1080px) {
@@ -198,7 +233,8 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
   .pair { grid-template-columns: 1fr; }
   .connector { height: 72px; margin-top: 0; }
   .connector::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 2px dashed var(--pen); }
-  .work-row { grid-template-columns: 1fr; }
+  .work-row, .earlier-grid { grid-template-columns: 1fr; }
+  .logo { margin: 0 4px 0 0; width: 32px; height: 32px; }
   .job { grid-template-columns: 1fr; gap: 8px; }
   .job-side { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
   .job-period { margin: 0; }
@@ -214,7 +250,8 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
   .pinned-photo { order: -1; width: 168px; padding: 8px 8px 22px; margin: 14px 0 4px 6px; }
   .pinned-photo::before { width: 64px; height: 20px; top: -9px; }
   .hero-links { margin-left: 0; }
-  .case-cols, .case-results { grid-template-columns: 1fr; display: grid; }
+  .case-cols, .case-results, .teaser-cols { grid-template-columns: 1fr; display: grid; }
+  .teaser-cols { gap: 8px; }
   .case-results ul { grid-column: 1; grid-row: auto; }
   .skill-cols { grid-template-columns: 1fr; }
   .contact-list div { grid-template-columns: 1fr; padding: 8px 0; }
@@ -225,8 +262,12 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 @media print {
   @page { margin: 14mm; }
   body { background: #fff; font-size: 10.5pt; line-height: 1.5; }
-  .bar, .skip, .hero-actions, .note, .connector, #case-study, #work, #recommendations, #contact, .foot, p.frame-label, details.clients > summary { display: none !important; }
-  .print-only { display: block; font-weight: 600; }
+  .bar, .skip, .hero-actions, .note, .connector, #case-study, #work, #earlier, .viewer, #recommendations, #contact, .foot, p.frame-label, details.clients > summary { display: none !important; }
+  .print-only { display: block; }
+  .page-title { display: none; }
+  .print-header { margin-bottom: 14px; }
+  .print-name { font-size: 24pt; font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+  .print-header .hero-role { margin: 4px 0 8px; font-size: 12pt; }
   .board { width: 100%; padding: 0; }
   .frame-wrap { margin-bottom: 14px; }
   .frame, .wrap-case .frame { border: 0; padding: 0; }

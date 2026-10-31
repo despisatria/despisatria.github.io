@@ -28,6 +28,11 @@ const paragraphs = (text, cls = '') => text.split('\n').filter(Boolean).map((p) 
 const list = (items) => (items.length ? `<ul>${items.map((i) => `<li>${inline(i)}</li>`).join('')}</ul>` : '');
 const span = (roles) => `${roles.at(-1).period.split(' - ')[0]} - ${roles[0].period.split(' - ')[1]}`;
 const initials = (name) => name.split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+// Company logo, or a monogram when the company has no usable logo.
+const logo = (src, name) => (src
+  ? `<img class="logo" src="${src}" alt="" width="40" height="40" loading="lazy">`
+  : `<span class="logo logo-mono" aria-hidden="true">${initials(name)}</span>`);
+const imgTag = (i, alt, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="${i.src}" alt="${escape(alt)}" width="${i.width}" height="${i.height}" loading="lazy">`;
 
 // A hand-drawn arrow for the reviewer's annotations; it points the note at what it describes.
 const penArrow = (cls) => `<svg class="pen-arrow ${cls}" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg>`;
@@ -41,14 +46,19 @@ const frame = (label, id, body, cls = '', titled = false) => `
 </section>`;
 
 const { contact } = cv;
-const navLinks = [
-  ['#experience', 'Experience'],
-  ['#case-study', 'Case study'],
-  ['#work', 'Work'],
-  ['#skills', 'Skills'],
-  ['#recommendations', 'Recommendations'],
-  ['#contact', 'Contact'],
-].map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
+
+// The site is split into pages so no page turns into an endless scroll.
+const PAGES = [
+  { file: 'index.html', label: 'About' },
+  { file: 'resume.html', label: 'Resume' },
+  { file: 'portfolio.html', label: 'Portfolio' },
+  { file: 'recommendations.html', label: 'Recommendations' },
+];
+const navLinks = (current) => PAGES.map((p) => `<a href="${p.file}"${p.file === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('');
+
+const figures = (m) => `<dl class="figures">
+  ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}
+</dl>`;
 
 const hero = frame('About', 'about', `
   <div class="frame hero">
@@ -79,6 +89,7 @@ const experience = frame('Experience', 'experience', `
     ${cv.experience.map((c) => `
     <article class="job">
       <div class="job-side">
+        ${logo(c.logo, c.company)}
         <h3>${escape(c.company)}</h3>
         <p class="job-period">${escape(span(c.roles))}</p>
       </div>
@@ -108,15 +119,31 @@ const caseStudy = frame('Case study', 'case-study', `
       </div>
       <div class="case-results">
         <h3>Results</h3>
-        <dl class="figures">
-          ${cs.metrics.map((m) => `<div><dt>${escape(m.label)}</dt><dd><span class="was">${escape(m.from)}</span> to <span class="circled">${escape(m.to)}</span></dd></div>`).join('')}
-        </dl>
+        ${figures(cs.metrics)}
         <p class="note note-inline">${escape(cs.metricsNote)}</p>
         ${list(cs.results)}
       </div>
     </div>
     <div class="case-next">
       <h3>What I’d improve next</h3>${paragraphs(cs.next)}
+    </div>
+  </article>`, 'wrap-case', true);
+
+// Home keeps the case study short: the goal and the evidence, with the full story on the portfolio page.
+const caseTeaser = frame('Case study', 'case-study', `
+  <article class="frame case case-teaser">
+    <h2 id="case-study-title">${escape(cs.title)}</h2>
+    <p class="meta">${escape(cs.meta)}</p>
+    <div class="teaser-cols">
+      <div>
+        <h3>The goal</h3>${paragraphs(cs.goal)}
+        <p><a class="btn" href="portfolio.html#case-study">Read the full case study</a></p>
+      </div>
+      <div>
+        <h3>Results</h3>
+        ${figures(cs.metrics)}
+        <p class="note note-inline">${escape(cs.metricsNote)}</p>
+      </div>
     </div>
   </article>`, 'wrap-case', true);
 
@@ -144,6 +171,26 @@ const work = frame('Selected work', 'work', `
       <p class="meta">${escape(cv.assessments.meta)}</p>
       ${list(cv.assessments.points)}
     </article>
+  </div>`);
+
+const ew = cv.earlierWork;
+const earlier = frame(ew.title, 'earlier', `
+  <p class="section-note">${escape(ew.note)} Select a sample to see it full size.</p>
+  <div class="earlier-grid">
+  ${ew.projects.map((p) => `
+    <article class="frame earlier">
+      <div class="earlier-cover">${imgTag(p.cover, `${p.title} app screens`)}</div>
+      <div class="earlier-body">
+        <h3>${escape(p.title)} <span class="muted">${escape(p.year)}</span></h3>
+        <p class="meta">${escape(p.context)} · ${escape(p.role)}</p>
+        <p class="small">${escape(p.about)}</p>
+        <p class="small">${escape(p.task)}</p>
+        <p class="small"><strong>Platform:</strong> ${escape(p.platform)}. <strong>Tools:</strong> ${escape(p.tools)}.</p>
+        ${p.samples.length ? `<ul class="samples">${p.samples.map((s) => `
+          <li><a href="${s.full.src}" data-viewer data-caption="${escape(`${p.title}: ${s.label}`)}">${imgTag(s.thumb, `${p.title}: ${s.label}`)}<span>${escape(s.label)}</span></a></li>`).join('')}
+        </ul>` : ''}
+      </div>
+    </article>`).join('')}
   </div>
   <p class="archive"><strong>${escape(cv.archive.title)}.</strong> ${escape(cv.archive.text)} ${link(cv.archive.url, 'Open the archive on Google Drive')}</p>`);
 
@@ -163,6 +210,7 @@ const other = frame('Projects, mentoring and education', 'more', `
     ${cv.otherExperience.map((o) => `
     <article class="job">
       <div class="job-side">
+        ${logo(o.logo, o.org)}
         <h3>${escape(o.org)}</h3>
         ${o.period ? `<p class="job-period">${escape(o.period)}</p>` : ''}
       </div>
@@ -182,6 +230,7 @@ const other = frame('Projects, mentoring and education', 'more', `
     ${cv.education.map((e) => `
     <article class="job">
       <div class="job-side">
+        ${logo(e.logo, e.school)}
         <h3>Education</h3>
         <p class="job-period">${escape(e.period)}</p>
       </div>
@@ -192,7 +241,8 @@ const other = frame('Projects, mentoring and education', 'more', `
     </article>`).join('')}
   </div>`);
 
-const recommendations = frame('Recommendations', 'recommendations', `
+const recommendations = `
+<section class="frame-wrap" id="recommendations" aria-label="Recommendations">
   <div class="notes">
   ${cv.recommendations.map((r) => `
     <figure class="sticky">
@@ -203,7 +253,8 @@ const recommendations = frame('Recommendations', 'recommendations', `
         <span><strong>${escape(r.name)}</strong><br>${escape(r.role)}</span>
       </figcaption>
     </figure>`).join('')}
-  </div>`);
+  </div>
+</section>`;
 
 const contactFrame = frame('Contact', 'contact', `
   <div class="frame contact">
@@ -226,55 +277,42 @@ const jsonLd = {
   sameAs: [contact.linkedin, contact.github],
 };
 
-const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>${escape(cv.name)} | Software QA Engineer - Resume &amp; Portfolio</title>
-  <meta name="description" content="${DESCRIPTION}">
-  <meta name="keywords" content="software quality assurance, QA engineer, test automation, Playwright, Maestro, API testing, performance testing, Postman, JMeter, QA lead, Indonesia">
-  <link rel="canonical" href="${SITE_URL}">
-  <meta property="og:type" content="profile">
-  <meta property="og:title" content="${escape(cv.name)} | Software QA Engineer">
-  <meta property="og:description" content="${DESCRIPTION}">
-  <meta property="og:image" content="${SITE_URL}${cv.photo}">
-  <meta property="og:url" content="${SITE_URL}">
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
-  <link href="assets/css/site.css" rel="stylesheet">
-  <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-</head>
-<body>
-<!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
-<a class="skip" href="#main">Skip to content</a>
-<header class="bar">
-  <a class="bar-name" href="#about">${escape(cv.name)}</a>
-  <nav class="bar-nav" aria-label="Sections">${navLinks}</nav>
-  <details class="bar-menu">
-    <summary>Menu</summary>
-    <nav aria-label="Sections menu">${navLinks}<button class="btn menu-print" type="button" data-print>Download CV</button></nav>
-  </details>
-  <button class="btn bar-print" type="button" data-print>Download CV</button>
-</header>
-<main id="main" class="board">
-${hero}
-${caseStudy}
-${experience}
-${work}
-${skills}
-${other}
-${recommendations}
-${contactFrame}
-</main>
-<footer class="foot"><p>© ${new Date().getFullYear()} ${escape(cv.name)}</p></footer>
+// Printed CV header: the resume page has no hero, so print adds name, summary, and contact.
+const printHeader = `
+<div class="print-only print-header">
+  <p class="print-name">${escape(cv.name)}</p>
+  <p class="hero-role">${escape(cv.title)}</p>
+  ${cv.summary.map((p) => `<p>${inline(p)}</p>`).join('')}
+  <p><strong>${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</strong></p>
+</div>`;
+
+const viewerDialog = `
+<dialog class="viewer" aria-label="Sample">
+  <form method="dialog"><button class="btn" type="submit">Close</button></form>
+  <img src="" alt="" width="1600" height="720">
+  <p class="viewer-caption"></p>
+</dialog>`;
+
+const script = `
 <script>
-  document.querySelectorAll('[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
+  // Samples open in a dialog; without JavaScript the links open the full image instead.
+  const viewer = document.querySelector('.viewer');
+  if (viewer) {
+    document.querySelectorAll('[data-viewer]').forEach((a) => a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const img = viewer.querySelector('img');
+      img.src = a.href; img.alt = a.querySelector('img').alt;
+      viewer.querySelector('.viewer-caption').textContent = a.dataset.caption;
+      viewer.showModal();
+    }));
+    viewer.addEventListener('click', (e) => { if (e.target === viewer) viewer.close(); });
+  }
+  // Download CV prints the resume page; other pages link to it with ?print.
+  document.querySelectorAll('button[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
   window.addEventListener('beforeprint', () => document.querySelectorAll('details.clients').forEach((d) => { d.open = true; }));
+  if (new URLSearchParams(location.search).has('print') && document.querySelector('button[data-print]')) {
+    window.addEventListener('load', () => document.fonts.ready.then(() => setTimeout(() => window.print(), 300)));
+  }
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
@@ -288,10 +326,96 @@ ${contactFrame}
       button.textContent = open ? 'Show less' : 'Read the full note';
     });
   }
-</script>
+</script>`;
+
+function page({ file, title, description, heading, body, extra = '' }) {
+  const url = file === 'index.html' ? SITE_URL : SITE_URL + file;
+  const printControl = file === 'resume.html'
+    ? (cls) => `<button class="btn ${cls}" type="button" data-print>Download CV</button>`
+    : (cls) => `<a class="btn ${cls}" href="resume.html?print">Download CV</a>`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>${title}</title>
+  <meta name="description" content="${description}">
+  <meta name="keywords" content="software quality assurance, QA engineer, test automation, Playwright, Maestro, API testing, performance testing, Postman, JMeter, QA lead, Indonesia">
+  <link rel="canonical" href="${url}">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:image" content="${SITE_URL}${cv.photo}">
+  <meta property="og:url" content="${url}">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="assets/css/site.css" rel="stylesheet">
+  ${file === 'index.html' ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
+</head>
+<body>
+<!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="bar-name" href="index.html">${escape(cv.name)}</a>
+  <nav class="bar-nav" aria-label="Pages">${navLinks(file)}</nav>
+  <details class="bar-menu">
+    <summary>Menu</summary>
+    <nav aria-label="Pages menu">${navLinks(file)}${printControl('menu-print')}</nav>
+  </details>
+  ${printControl('bar-print')}
+</header>
+<main id="main" class="board">
+${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
+${body}
+</main>
+<footer class="foot">
+  <p><a href="mailto:${contact.email}">${escape(contact.email)}</a> · <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a> · <a href="${contact.github}" target="_blank" rel="noopener">GitHub</a></p>
+  <p>© ${new Date().getFullYear()} ${escape(cv.name)}</p>
+</footer>
+${extra}
+${script}
 </body>
 </html>
 `;
+}
 
-writeFileSync(`${root}index.html`, html);
-console.log('index.html built');
+const NAME = escape(cv.name);
+const pages = [
+  {
+    file: 'index.html',
+    title: `${NAME} | Software QA Engineer - Resume &amp; Portfolio`,
+    description: DESCRIPTION,
+    body: `${hero}\n${caseTeaser}\n${contactFrame}`,
+  },
+  {
+    file: 'resume.html',
+    title: `Resume | ${NAME}`,
+    description: 'Experience, skills, and education of Desphi Satria Nurjaya, Software QA Engineer: Mengantar, Telkom Indonesia, Finansialku, and Variable Indonesia.',
+    heading: 'Resume',
+    body: `${printHeader}\n${experience}\n${other}\n${skills}`,
+  },
+  {
+    file: 'portfolio.html',
+    title: `Portfolio | ${NAME}`,
+    description: 'QA case study, test automation work, and earlier test documentation samples by Desphi Satria Nurjaya.',
+    heading: 'Portfolio',
+    body: `${caseStudy}\n${work}\n${earlier}`,
+    extra: viewerDialog,
+  },
+  {
+    file: 'recommendations.html',
+    title: `Recommendations | ${NAME}`,
+    description: 'Recommendations from designers, engineers, product managers, and QA engineers who worked with Desphi Satria Nurjaya.',
+    heading: 'Recommendations',
+    body: recommendations,
+  },
+];
+
+for (const p of pages) {
+  writeFileSync(`${root}${p.file}`, page(p));
+}
+console.log(`built ${pages.map((p) => p.file).join(', ')}`);

@@ -52,7 +52,8 @@
             "Investigated user-reported issues and coordinated with developers and stakeholders for quick resolution."
           ]
         }
-      ]
+      ],
+      "logo": "assets/img/logos/mengantar.png"
     },
     {
       "company": "Telkom Indonesia",
@@ -71,7 +72,8 @@
             "Coordinated with cross-functional teams to resolve user-reported bugs and facilitate user demos."
           ]
         }
-      ]
+      ],
+      "logo": "assets/img/logos/telkom.svg"
     },
     {
       "company": "Finansialku",
@@ -90,7 +92,8 @@
             "Resolved user-reported bugs with cross-functional teams and provided direct technical support, guiding app navigation and troubleshooting."
           ]
         }
-      ]
+      ],
+      "logo": "assets/img/logos/finansialku.png"
     },
     {
       "company": "Variable Indonesia",
@@ -106,7 +109,8 @@
             "Assisted the Project Manager and managed freelance teams, ensuring smooth project execution and coordination."
           ]
         }
-      ]
+      ],
+      "logo": null
     }
   ],
   "portfolio": [
@@ -203,18 +207,42 @@
     ],
     "metrics": [
       {
-        "label": "Feedback adoption",
-        "from": "95%",
-        "to": "99%"
+        "label": "Feedback adoption rate",
+        "values": [
+          [
+            "Q4 2025",
+            "77.3%"
+          ],
+          [
+            "Q1 2026",
+            "95%"
+          ],
+          [
+            "Q2 2026",
+            "99%"
+          ]
+        ]
       },
       {
         "label": "Defect escape rate",
-        "from": "4.9%",
-        "to": "3.6%"
+        "values": [
+          [
+            "Q4 2025",
+            "5.3%"
+          ],
+          [
+            "Q1 2026",
+            "4.9%"
+          ],
+          [
+            "Q2 2026",
+            "3.6%"
+          ]
+        ]
       }
     ],
     "next": "Back every explanation of a metric drop with data, add owners and targets to each action item, define explicit release go/no-go criteria and hotfix severity levels, and keep refining metric thresholds based on real usage.",
-    "metricsNote": "Q1 → Q2 2026, team averages"
+    "metricsNote": "Team averages. Q4 2025 was the first audit."
   },
   "assessments": {
     "title": "Hiring Assessments",
@@ -284,11 +312,12 @@
       "title": "Independent Builder (AI-Assisted Development)",
       "org": "Ceria Belajar",
       "period": "March 2026 - Present",
-      "about": "Ceria Belajar is a free, ad-free educational game website for Indonesian PAUD and kindergarten learners, featuring 8+ learning categories (letters, numbers, colors, reading, and more), audio and music, multi-child profiles, and a medal-based progress system, accessible on phones, tablets, and computers. Designed, built, and continuously updated using AI-assisted development, and deployed on Cloudflare Pages. [See it in the portfolio](#ceria-belajar)",
+      "about": "Ceria Belajar is a free, ad-free educational game website for Indonesian PAUD and kindergarten learners, featuring 8+ learning categories (letters, numbers, colors, reading, and more), audio and music, multi-child profiles, and a medal-based progress system, accessible on phones, tablets, and computers. Designed, built, and continuously updated using AI-assisted development, and deployed on Cloudflare Pages. [See it in the portfolio](portfolio.html#ceria-belajar)",
       "points": [
         "Built and maintain a public end-to-end test suite for the app (Playwright, TypeScript, Page Object Model) with 72 test runs on desktop and mobile, GitHub Actions CI, and a live Allure report. [ceria-belajar-automation](https://github.com/despisatria/ceria-belajar-automation)",
         "Found 3 bugs in the medal and star reward system plus several accessibility gaps through the suite; all were fixed in the app and are now guarded by regression tests."
-      ]
+      ],
+      "logo": "assets/img/logos/ceria-belajar.png"
     },
     {
       "title": "Software Quality Assurance Mentor",
@@ -299,7 +328,8 @@
         "Mentored and trained 11 students to become proficient Software Quality Assurance professionals.",
         "Delivered comprehensive training through structured lessons and hands-on practice in manual testing, automated testing, API testing, and performance testing.",
         "Provided guidance and feedback to enhance students' technical skills and confidence in real-world QA methodologies."
-      ]
+      ],
+      "logo": "assets/img/logos/eduwork.svg"
     },
     {
       "title": "Software Quality Assurance Tester",
@@ -353,7 +383,8 @@
           "period": "March 2020 - August 2020",
           "text": "*Project from* ***Communic8 Agency***. Daikin EStore is an application that provides easy access for Daikin dealers and service partners."
         }
-      ]
+      ],
+      "logo": null
     }
   ],
   "education": [
@@ -361,7 +392,8 @@
       "school": "Universitas Pendidikan Indonesia",
       "degree": "Computer Science Education (S.Pd.)",
       "detail": "GPA: 3.66/4.00",
-      "period": "2015 - 2019"
+      "period": "2015 - 2019",
+      "logo": "assets/img/logos/upi.png"
     }
   ],
   "recommendations": [
@@ -441,5 +473,331 @@
   "annotations": [
     "7+ years in software QA",
     "550+ automated test cases across 4 suites"
-  ]
+  ],
+  "earlierWork": {
+    "title": "Earlier work (2019 - 2023)",
+    "note": "Personal and company details in the samples are blacked out.",
+    "projects": [
+      {
+        "slug": "agree-mart",
+        "title": "Agree Mart",
+        "year": "2022",
+        "context": "Telkom Indonesia",
+        "about": "Agree Mart is a B2C Fresh Food Marketplace platform based on Apps and Web that seeks to bring together sellers and buyers to meet daily needs.",
+        "role": "Manual & Automation Tester",
+        "platform": "Mobile (Android & iOS) App",
+        "tools": "Coda, Postman, Jira, Katalon Studio",
+        "task": "My task is starting from review requirements based on UI Design, understand the specifications from design and provide feedback, creating test scenarios using Coda, executing it with UI Functional Testing, and reporting issues using Jira, perform API testing using Postman, develop and maintain automation test scripts using Katalon Studio.",
+        "cover": {
+          "src": "assets/img/work/agree-mart.jpg",
+          "width": 649,
+          "height": 720
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/agree-mart-scenario.jpg",
+              "width": 1464,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-mart-scenario-thumb.jpg",
+              "width": 480,
+              "height": 236
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/agree-mart-report.jpg",
+              "width": 1503,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-mart-report-thumb.jpg",
+              "width": 480,
+              "height": 230
+            }
+          },
+          {
+            "label": "Sample automation script",
+            "full": {
+              "src": "assets/img/work/agree-mart-automation.jpg",
+              "width": 1519,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-mart-automation-thumb.jpg",
+              "width": 480,
+              "height": 228
+            }
+          }
+        ]
+      },
+      {
+        "slug": "agree-ecosystem",
+        "title": "Agree Ecosystem",
+        "year": "2022",
+        "context": "Telkom Indonesia",
+        "about": "Agree Ecosystem is an application for partners (Agriculture, Livestock, Fisheries) to be able to partner with Agree companies. The Agree Ecosystem is used by partners to find companies that match commodities and make partnerships and can also report all partner activities to offtakers if they are already partners.",
+        "role": "Manual Tester",
+        "platform": "Mobile (Android) App",
+        "tools": "Spreadsheet, Postman, Jira",
+        "task": "My task is starting from review requirements based on UI Design, understand the specifications from design and provide feedback, creating test scenarios using Google Spreadsheet, executing it with UI Functional Testing, and reporting issues using Jira, and perform API testing using Postman.",
+        "cover": {
+          "src": "assets/img/work/agree-ecosystem.jpg",
+          "width": 720,
+          "height": 637
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/agree-ecosystem-scenario.jpg",
+              "width": 1462,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-ecosystem-scenario-thumb.jpg",
+              "width": 480,
+              "height": 236
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/agree-ecosystem-report.jpg",
+              "width": 1473,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-ecosystem-report-thumb.jpg",
+              "width": 480,
+              "height": 235
+            }
+          }
+        ]
+      },
+      {
+        "slug": "agree-field-assistant",
+        "title": "Agree Field Assistant",
+        "year": "2021",
+        "context": "Telkom Indonesia",
+        "about": "Agree Field Assistant is an application used by field officers, which is used for validating potential partners and conducting land surveys.",
+        "role": "Manual & Automation Tester",
+        "platform": "Mobile (Android) App",
+        "tools": "Spreadsheet, Postman, Jira, Katalon Studio",
+        "task": "My task is starting from review requirements based on UI Design, understand the specifications from design and provide feedback, creating test scenarios using Google Spreadsheet, executing it with UI Functional Testing, and reporting issues using Jira, perform API testing using Postman, develop and maintain automation test scripts using Katalon Studio.",
+        "cover": {
+          "src": "assets/img/work/agree-field-assistant.jpg",
+          "width": 720,
+          "height": 663
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/agree-field-assistant-scenario.jpg",
+              "width": 1464,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-field-assistant-scenario-thumb.jpg",
+              "width": 480,
+              "height": 236
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/agree-field-assistant-report.jpg",
+              "width": 1397,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-field-assistant-report-thumb.jpg",
+              "width": 480,
+              "height": 247
+            }
+          },
+          {
+            "label": "Sample automation script",
+            "full": {
+              "src": "assets/img/work/agree-field-assistant-automation.jpg",
+              "width": 1519,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/agree-field-assistant-automation-thumb.jpg",
+              "width": 480,
+              "height": 228
+            }
+          }
+        ]
+      },
+      {
+        "slug": "my-first-step-bjb",
+        "title": "My First Step BJB",
+        "year": "2021",
+        "context": "Freelance, Arcom",
+        "about": "My First Step BJB is an application used by newcomers to make it easier to live and understand the work environment and culture at Bank BJB during the probation period.",
+        "role": "Manual Tester",
+        "platform": "Web and Mobile (Android & iOS) App",
+        "tools": "Coda, Postman",
+        "task": "My task is starting by analyzing requirements from design UI, creating a test scenario document using Coda, UI Functional Testing, API testing using Postman, and reporting issues using Coda.",
+        "cover": {
+          "src": "assets/img/work/my-first-step-bjb.jpg",
+          "width": 720,
+          "height": 505
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/my-first-step-bjb-scenario.jpg",
+              "width": 1570,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/my-first-step-bjb-scenario-thumb.jpg",
+              "width": 480,
+              "height": 220
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/my-first-step-bjb-report.jpg",
+              "width": 1600,
+              "height": 565
+            },
+            "thumb": {
+              "src": "assets/img/work/my-first-step-bjb-report-thumb.jpg",
+              "width": 480,
+              "height": 169
+            }
+          }
+        ]
+      },
+      {
+        "slug": "finansialku",
+        "title": "Finansialku.com",
+        "year": "2020",
+        "context": "Finansialku",
+        "about": "Finansialku is a financial application that helps in managing and making financial planning, so that you can control your finances and achieve your financial goals.",
+        "role": "Manual & Automation Tester",
+        "platform": "Web and Mobile (Android & iOS) App",
+        "tools": "Spreadsheet, Coda, Postman, Katalon Studio, Gitlab",
+        "task": "My task is developing software testing life cycle in Finansialku, starting from review requirements based on UI Design, understand the specifications from design and provide feedback, creating test scenarios using Google Spreadsheet, executing it with UI Functional Testing, and reporting issues using Coda, perform API testing using Postman, develop and maintain automation test scripts using Katalon Studio.",
+        "cover": {
+          "src": "assets/img/work/finansialku.jpg",
+          "width": 655,
+          "height": 720
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/finansialku-scenario.jpg",
+              "width": 1600,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/finansialku-scenario-thumb.jpg",
+              "width": 480,
+              "height": 216
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/finansialku-report.jpg",
+              "width": 1572,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/finansialku-report-thumb.jpg",
+              "width": 480,
+              "height": 220
+            }
+          },
+          {
+            "label": "Sample automation script",
+            "full": {
+              "src": "assets/img/work/finansialku-automation.jpg",
+              "width": 1531,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/finansialku-automation-thumb.jpg",
+              "width": 480,
+              "height": 226
+            }
+          }
+        ]
+      },
+      {
+        "slug": "daikin",
+        "title": "Daikin Accessories",
+        "year": "2020",
+        "context": "Freelance, Communic8 Agency",
+        "about": "Daikin Accessories is an application that provides easy access for Daikin Dealers and Service Partners to get high quality AC accessories and materials.",
+        "role": "Manual Tester",
+        "platform": "Web and Mobile (Android & iOS) App",
+        "tools": "Coda, Postman",
+        "task": "My task is starting by analyzing requirements from design UI, creating a test scenario document using Coda, UI Functional Testing, API testing using Postman, and reporting issues using Coda.",
+        "cover": {
+          "src": "assets/img/work/daikin.jpg",
+          "width": 720,
+          "height": 599
+        },
+        "samples": [
+          {
+            "label": "Sample test scenario",
+            "full": {
+              "src": "assets/img/work/daikin-scenario.jpg",
+              "width": 1518,
+              "height": 720
+            },
+            "thumb": {
+              "src": "assets/img/work/daikin-scenario-thumb.jpg",
+              "width": 480,
+              "height": 228
+            }
+          },
+          {
+            "label": "Sample issue report",
+            "full": {
+              "src": "assets/img/work/daikin-report.jpg",
+              "width": 1600,
+              "height": 661
+            },
+            "thumb": {
+              "src": "assets/img/work/daikin-report-thumb.jpg",
+              "width": 480,
+              "height": 198
+            }
+          }
+        ]
+      },
+      {
+        "slug": "dicicilaja",
+        "title": "Dicicilaja.com",
+        "year": "2019",
+        "context": "Variable Indonesia",
+        "about": "Dicicilaja.com is a multipurpose financing application. Serving financing transactions with attractive service products from trusted partners from all over Indonesia.",
+        "role": "Manual Tester",
+        "platform": "Web and Mobile (Android) App",
+        "tools": "Coda, Spreadsheet",
+        "task": "My task is starting by analyzing requirements from design UI, creating a test scenario document using google spreadsheet, and reporting issues using coda.",
+        "cover": {
+          "src": "assets/img/work/dicicilaja.jpg",
+          "width": 624,
+          "height": 720
+        },
+        "samples": []
+      }
+    ]
+  }
 }
