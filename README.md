@@ -4,8 +4,9 @@ Resume and portfolio of Desphi Satria Nurjaya, served by GitHub Pages at https:/
 
 ## How it works
 
-- `content/resume.json` holds all the text: summary, experience, portfolio, skills, and recommendations.
-- `scripts/build.mjs` turns that file into four pages: `index.html` (About), `resume.html`, `portfolio.html`, and `recommendations.html`. It has no dependencies.
+- `content/resume.json` holds all the text: summary, availability, how I work, experience, portfolio, skills, and recommendations.
+- `scripts/build.mjs` turns that file into four pages: `index.html` (Overview), `resume.html` (Experience), `portfolio.html` (Portfolio), and `recommendations.html` (Testimonials). It has no dependencies.
+- The logo and the circles around the latest metrics are one pen stroke, kept as SVG paths in `scripts/build.mjs` and `assets/css/site.css`. The favicons in `assets/img/` are rendered from the same stroke.
 - Images live in `assets/img/`: company logos in `logos/`, earlier project screens and redacted samples in `work/`.
 - `assets/css/site.css` is the stylesheet, including the print layout used by the **Download CV** button.
 

@@ -70,6 +70,7 @@ const hero = frame('Overview', 'about', `
     <div class="hero-text">
       <h1 id="about-title">${escape(cv.name)}</h1>
       <p class="hero-role">${escape(cv.title)}</p>
+      <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>${escape(cv.availability)}</p>
       ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
       <div class="hero-actions">
         <a class="btn btn-ink" href="mailto:${contact.email}">Email me</a>
@@ -134,6 +135,48 @@ const caseStudy = frame('Case study', 'case-study', `
     </div>
   </article>`, 'wrap-case', true);
 
+// One note from a teammate sits next to the case it speaks about; the rest live on the testimonials page.
+const quoted = cv.recommendations.find((r) => r.name === cv.featuredQuote.from);
+const featuredQuote = `
+        <figure class="sticky sticky-quote">
+          <blockquote><p>${escape(cv.featuredQuote.text)}</p></blockquote>
+          <figcaption>
+            ${quoted.photo ? `<img src="${quoted.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(quoted.name)}</span>`}
+            <span><strong>${escape(quoted.name)}</strong><br>${escape(quoted.role)}</span>
+          </figcaption>
+          <a class="quote-more" href="recommendations.html">Read all testimonials</a>
+        </figure>`;
+
+// The workflow is drawn as a flow on the board: each step a card, arrows in the reviewer's pen.
+const hw = cv.howIWork;
+const howIWork = frame(hw.title, 'how-i-work', `
+  <p class="section-note">${escape(hw.intro)}</p>
+  <div class="flow-wrap">
+    <p class="note note-flow">${escape(hw.note)}${penArrow('arrow-flow')}</p>
+    <ol class="flow">
+      ${hw.steps.map((s, i) => `<li class="frame flow-step${i < 2 ? ' flow-early' : ''}"><span class="flow-num">${String(i + 1).padStart(2, '0')}</span><h3>${escape(s.title)}</h3><p>${escape(s.text)}</p></li>`).join('')}
+    </ol>
+  </div>`);
+
+const [app, appTests, suites] = cv.portfolio;
+const workTeaser = frame('Selected work', 'work', `
+  <div class="teaser-grid">
+    ${[app, appTests, suites].map((p) => `
+    <article class="frame project-teaser">
+      <h3>${escape(p.title)}</h3>
+      <p class="meta">${escape(p.meta)}</p>
+      <p>${escape(p.teaser)}</p>
+      <a class="teaser-link" href="portfolio.html#${p.id}">See the details</a>
+    </article>`).join('')}
+  </div>`);
+
+const whatIDo = frame('What I do', 'what-i-do', `
+  <div class="frame">
+    <dl class="do-list">
+      ${cv.whatIDo.map((d) => `<div><dt>${escape(d.title)}</dt><dd>${escape(d.text)}</dd></div>`).join('')}
+    </dl>
+  </div>`);
+
 // Home keeps the case study short: the goal and the evidence, with the full story on the portfolio page.
 const caseTeaser = frame('Case study', 'case-study', `
   <article class="frame case case-teaser">
@@ -143,6 +186,7 @@ const caseTeaser = frame('Case study', 'case-study', `
       <div>
         <h3>The goal</h3>${paragraphs(cs.goal)}
         <p><a class="btn" href="portfolio.html#case-study">Read the full case study</a></p>
+        ${featuredQuote}
       </div>
       <div>
         <h3>Results</h3>
@@ -162,7 +206,6 @@ const project = (p, cls = '') => `
     ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
   </article>`;
 
-const [app, appTests, suites] = cv.portfolio;
 const work = frame('Selected work', 'work', `
   <div class="pair">
     ${project(app)}
@@ -263,6 +306,7 @@ const recommendations = `
 
 const contactFrame = frame('Contact', 'contact', `
   <div class="frame contact">
+    <p class="contact-note">${escape(cv.contactNote)}</p>
     <dl class="contact-list">
       <div><dt>Email</dt><dd><a href="mailto:${contact.email}">${escape(contact.email)}</a></dd></div>
       <div><dt>WhatsApp</dt><dd><a href="${contact.whatsapp}" target="_blank" rel="noopener">${escape(contact.phone)}</a></dd></div>
@@ -321,7 +365,7 @@ const script = `
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
-  for (const note of document.querySelectorAll('.sticky')) {
+  for (const note of document.querySelectorAll('.notes .sticky')) {
     const text = note.querySelector('.clamp');
     const button = note.querySelector('.more');
     if (text.scrollHeight <= text.clientHeight + 4) { text.classList.remove('clamp'); continue; }
@@ -394,7 +438,7 @@ const pages = [
     file: 'index.html',
     title: `${NAME} | Software QA Engineer - Resume &amp; Portfolio`,
     description: DESCRIPTION,
-    body: `${hero}\n${caseTeaser}\n${contactFrame}`,
+    body: `${hero}\n${howIWork}\n${caseTeaser}\n${workTeaser}\n<div class="duo">${whatIDo}\n${contactFrame}</div>`,
   },
   {
     file: 'resume.html',

@@ -119,6 +119,7 @@
       "id": "ceria-belajar",
       "title": "Ceria Belajar",
       "meta": "Personal project · March 2026 - Present",
+      "teaser": "A free, ad-free learning web app for Indonesian kindergarten children that I designed, built, and keep shipping.",
       "intro": "A free, ad-free educational game web app for Indonesian PAUD and kindergarten children, designed, built, and shipped as an independent builder with AI-assisted development.",
       "points": [
         "8+ learning categories: letters, numbers, Hijaiyah and Iqro, reading, typing, matching, colors, English, science, and math, with audio and music.",
@@ -149,6 +150,7 @@
       "id": "ceria-belajar-automation",
       "title": "Ceria Belajar · Test Automation",
       "meta": "Personal project · 2026 · Public repository",
+      "teaser": "A public Playwright suite for that app, with CI and a live Allure report. It found 3 bugs in the reward system, all now fixed.",
       "intro": "An end-to-end test suite for my own app, Ceria Belajar. Because the app is mine, everything is public: the code, the CI pipeline, and the live test report.",
       "points": [
         "72 automated test runs covering child profiles, medals, and stars, on desktop and a mobile viewport.",
@@ -175,6 +177,7 @@
       "id": "mengantar-suites",
       "title": "Test Automation Suites",
       "meta": "Mengantar",
+      "teaser": "550+ automated test cases across four suites: Public API, web checkout, the web app, and mobile.",
       "intro": "550+ automated test cases across four suites that I lead and contribute to, all following one consistent structure. The code is proprietary, so this is a high-level overview.",
       "points": [
         "**Public API** (Playwright): 200+ test cases",
@@ -475,6 +478,34 @@
     "7+ years in software QA",
     "550+ automated test cases across 4 suites"
   ],
+  "availability": "Open to freelance and part-time QA projects",
+  "contactNote": "Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.",
+  "howIWork": {
+    "title": "How I work",
+    "intro": "QA joins the squad from the first conversation about a feature, not after the code is done.",
+    "note": "QA starts here, before any code",
+    "steps": [
+      { "title": "Pre-grooming", "text": "Read the requirement with Product and raise questions, risks, and edge cases before the sprint starts." },
+      { "title": "Design review", "text": "Check flows, states, and copy in the design while changes are still cheap." },
+      { "title": "Test cases", "text": "Write test cases in the team’s shared template, linked to each task." },
+      { "title": "Testing", "text": "Manual and exploratory testing on web, mobile, and API, with automated regression in CI." },
+      { "title": "Release prep", "text": "Run the release preparation checklist with the squad before every release." },
+      { "title": "Sprint recap", "text": "Recap findings and the Fix Rate each sprint. Engineers use it in their own sprint reports." },
+      { "title": "Quarter report", "text": "Report QA metrics per squad every quarter, so quality trends are visible to management." }
+    ]
+  },
+  "whatIDo": [
+    { "title": "QA standards and metrics", "text": "A guide book, shared templates, and a metrics framework used across squads." },
+    { "title": "Test automation", "text": "Playwright for web and API, Maestro for mobile, run in GitHub Actions with Allure reports." },
+    { "title": "Manual and exploratory testing", "text": "Web, mobile, and API, plus performance testing with JMeter." },
+    { "title": "Customer issues and integrations", "text": "Reproduce and triage escalated issues, and help partners integrate through the Public API and WooCommerce plugin." },
+    { "title": "Mentoring", "text": "1-on-1s, knowledge sharing, and hands-on guidance for QA engineers." },
+    { "title": "AI-assisted testing", "text": "Claude Code for test design, test data investigation, and automation." }
+  ],
+  "featuredQuote": {
+    "from": "enie yuliani",
+    "text": "…he actively drove initiatives that strengthened our QA process, and he made knowledge sharing a habit rather than an occasional event."
+  },
   "earlierWork": {
     "title": "Earlier work (2019 - 2023)",
     "note": "Personal and company details in the samples are blacked out.",

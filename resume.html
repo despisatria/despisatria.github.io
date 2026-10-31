@@ -226,7 +226,7 @@
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
-  for (const note of document.querySelectorAll('.sticky')) {
+  for (const note of document.querySelectorAll('.notes .sticky')) {
     const text = note.querySelector('.clamp');
     const button = note.querySelector('.more');
     if (text.scrollHeight <= text.clientHeight + 4) { text.classList.remove('clamp'); continue; }

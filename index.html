@@ -43,6 +43,7 @@
     <div class="hero-text">
       <h1 id="about-title">Desphi Satria Nurjaya</h1>
       <p class="hero-role">Software Quality Assurance Engineer</p>
+      <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>Open to freelance and part-time QA projects</p>
       <p class="hero-summary">Software Quality Assurance Engineer with 7+ years of experience testing web and mobile products across logistics, e-commerce, fintech, and agritech. Hands-on in manual and automated testing across Mobile, Website, and API, as well as performance testing. Currently leading and mentoring the QA team across multiple products and squads, defining QA standards and release-readiness practices, and working closely with Product, Engineering, and Design to catch defects early.</p><p class="hero-summary">I focus on building quality into the whole delivery process, not just at the end, and I keep exploring better tools and methods, including AI-assisted testing, to make QA faster and more reliable.</p>
       <div class="hero-actions">
         <a class="btn btn-ink" href="mailto:despi.satria@gmail.com">Email me</a>
@@ -63,6 +64,18 @@
   <p class="note note-tests">550+ automated test cases across 4 suites<svg class="pen-arrow arrow-down" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg></p>
 </section>
 
+<section class="frame-wrap " id="how-i-work" aria-labelledby="how-i-work-title">
+  <h2 class="frame-label" id="how-i-work-title">How I work</h2>
+  
+  <p class="section-note">QA joins the squad from the first conversation about a feature, not after the code is done.</p>
+  <div class="flow-wrap">
+    <p class="note note-flow">QA starts here, before any code<svg class="pen-arrow arrow-flow" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg></p>
+    <ol class="flow">
+      <li class="frame flow-step flow-early"><span class="flow-num">01</span><h3>Pre-grooming</h3><p>Read the requirement with Product and raise questions, risks, and edge cases before the sprint starts.</p></li><li class="frame flow-step flow-early"><span class="flow-num">02</span><h3>Design review</h3><p>Check flows, states, and copy in the design while changes are still cheap.</p></li><li class="frame flow-step"><span class="flow-num">03</span><h3>Test cases</h3><p>Write test cases in the team’s shared template, linked to each task.</p></li><li class="frame flow-step"><span class="flow-num">04</span><h3>Testing</h3><p>Manual and exploratory testing on web, mobile, and API, with automated regression in CI.</p></li><li class="frame flow-step"><span class="flow-num">05</span><h3>Release prep</h3><p>Run the release preparation checklist with the squad before every release.</p></li><li class="frame flow-step"><span class="flow-num">06</span><h3>Sprint recap</h3><p>Recap findings and the Fix Rate each sprint. Engineers use it in their own sprint reports.</p></li><li class="frame flow-step"><span class="flow-num">07</span><h3>Quarter report</h3><p>Report QA metrics per squad every quarter, so quality trends are visible to management.</p></li>
+    </ol>
+  </div>
+</section>
+
 <section class="frame-wrap wrap-case" id="case-study" aria-labelledby="case-study-title">
   <p class="frame-label">Case study</p>
   
@@ -73,6 +86,15 @@
       <div>
         <h3>The goal</h3><p>Give every squad one way of working, and make QA’s contribution visible and measurable beyond test execution.</p>
         <p><a class="btn" href="portfolio.html#case-study">Read the full case study</a></p>
+        
+        <figure class="sticky sticky-quote">
+          <blockquote><p>…he actively drove initiatives that strengthened our QA process, and he made knowledge sharing a habit rather than an occasional event.</p></blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">EY</span>
+            <span><strong>enie yuliani</strong><br>Software Quality Assurance</span>
+          </figcaption>
+          <a class="quote-more" href="recommendations.html">Read all testimonials</a>
+        </figure>
       </div>
       <div>
         <h3>Results</h3>
@@ -85,10 +107,47 @@
   </article>
 </section>
 
+<section class="frame-wrap " id="work" aria-labelledby="work-title">
+  <h2 class="frame-label" id="work-title">Selected work</h2>
+  
+  <div class="teaser-grid">
+    
+    <article class="frame project-teaser">
+      <h3>Ceria Belajar</h3>
+      <p class="meta">Personal project · March 2026 - Present</p>
+      <p>A free, ad-free learning web app for Indonesian kindergarten children that I designed, built, and keep shipping.</p>
+      <a class="teaser-link" href="portfolio.html#ceria-belajar">See the details</a>
+    </article>
+    <article class="frame project-teaser">
+      <h3>Ceria Belajar · Test Automation</h3>
+      <p class="meta">Personal project · 2026 · Public repository</p>
+      <p>A public Playwright suite for that app, with CI and a live Allure report. It found 3 bugs in the reward system, all now fixed.</p>
+      <a class="teaser-link" href="portfolio.html#ceria-belajar-automation">See the details</a>
+    </article>
+    <article class="frame project-teaser">
+      <h3>Test Automation Suites</h3>
+      <p class="meta">Mengantar</p>
+      <p>550+ automated test cases across four suites: Public API, web checkout, the web app, and mobile.</p>
+      <a class="teaser-link" href="portfolio.html#mengantar-suites">See the details</a>
+    </article>
+  </div>
+</section>
+<div class="duo">
+<section class="frame-wrap " id="what-i-do" aria-labelledby="what-i-do-title">
+  <h2 class="frame-label" id="what-i-do-title">What I do</h2>
+  
+  <div class="frame">
+    <dl class="do-list">
+      <div><dt>QA standards and metrics</dt><dd>A guide book, shared templates, and a metrics framework used across squads.</dd></div><div><dt>Test automation</dt><dd>Playwright for web and API, Maestro for mobile, run in GitHub Actions with Allure reports.</dd></div><div><dt>Manual and exploratory testing</dt><dd>Web, mobile, and API, plus performance testing with JMeter.</dd></div><div><dt>Customer issues and integrations</dt><dd>Reproduce and triage escalated issues, and help partners integrate through the Public API and WooCommerce plugin.</dd></div><div><dt>Mentoring</dt><dd>1-on-1s, knowledge sharing, and hands-on guidance for QA engineers.</dd></div><div><dt>AI-assisted testing</dt><dd>Claude Code for test design, test data investigation, and automation.</dd></div>
+    </dl>
+  </div>
+</section>
+
 <section class="frame-wrap wrap-contact" id="contact" aria-labelledby="contact-title">
   <h2 class="frame-label" id="contact-title">Contact</h2>
   
   <div class="frame contact">
+    <p class="contact-note">Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.</p>
     <dl class="contact-list">
       <div><dt>Email</dt><dd><a href="mailto:despi.satria@gmail.com">despi.satria@gmail.com</a></dd></div>
       <div><dt>WhatsApp</dt><dd><a href="https://wa.me/6283821056935" target="_blank" rel="noopener">+62 838 2105 6935</a></dd></div>
@@ -96,7 +155,7 @@
       <div><dt>GitHub</dt><dd><a href="https://github.com/despisatria" target="_blank" rel="noopener">github.com/despisatria</a></dd></div>
     </dl>
   </div>
-</section>
+</section></div>
 </main>
 <footer class="foot">
   <p><a href="mailto:despi.satria@gmail.com">despi.satria@gmail.com</a> · <a href="https://www.linkedin.com/in/despisatria" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/despisatria" target="_blank" rel="noopener">GitHub</a></p>
@@ -126,7 +185,7 @@
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
-  for (const note of document.querySelectorAll('.sticky')) {
+  for (const note of document.querySelectorAll('.notes .sticky')) {
     const text = note.querySelector('.clamp');
     const button = note.querySelector('.more');
     if (text.scrollHeight <= text.clientHeight + 4) { text.classList.remove('clamp'); continue; }

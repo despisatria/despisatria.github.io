@@ -118,6 +118,21 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .note-years .arrow-left { transform: scaleX(-1) rotate(40deg) translateY(10px); }
 .note-tests { right: 24px; bottom: -44px; }
 .note-tests .arrow-down { transform: rotate(-150deg); }
+/* Availability is a fact, not a reviewer's note, so it is set in body type with the pen's tick. */
+.availability { display: flex; align-items: center; gap: 8px; margin: -8px 0 18px; font-weight: 600; font-size: 15px; }
+.avail-tick { flex: none; fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* How I work: a flow pinned on the board. The first two steps happen before any code, so the pen marks them. */
+.flow-wrap { position: relative; }
+.note-flow { display: flex; align-items: flex-end; gap: 4px; margin: 0 0 6px 8px; }
+.note-flow .arrow-flow { transform: rotate(70deg) translate(6px, -2px); }
+.flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 28px; counter-reset: none; }
+.flow-step { position: relative; margin: 0; padding: 16px 14px 18px; }
+.flow-step:not(:last-child)::after { content: "→"; position: absolute; right: -23px; top: 14px; color: var(--pen); font: 600 24px/1 var(--hand); }
+.flow-early { box-shadow: inset 0 3px 0 var(--pen); }
+.flow-num { display: block; font: 600 22px/1 var(--hand); color: var(--pen); }
+.flow-step h3 { font-size: 15px; font-weight: 800; margin: 6px 0 6px; }
+.flow-step p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 
 /* Case study: the focal frame. */
 .wrap-case .frame { border: 2px solid var(--ink); }
@@ -135,10 +150,14 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .q-step { color: var(--muted); padding-bottom: 4px; }
 /* The latest quarter is the evidence, so the reviewer circles it. */
 .q-now .q-label { color: var(--ink); font-weight: 600; }
-.q-now .q-val { font-size: 28px; font-weight: 800; color: var(--ink); padding: 0 10px; border: 2.5px solid var(--pen); border-radius: 50% 46% 52% 44%; transform: rotate(-3deg); }
+/* Same pen as the logo: one pressure-varied stroke whose end overshoots its start. */
+.q-now .q-val { font-size: 28px; font-weight: 800; color: var(--ink); padding: 4px 16px; margin: -4px -6px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100' preserveAspectRatio='none'><path d='M41.1 24.2 L48.5 21.9 L56.5 19.8 L64.9 18.0 L73.7 16.6 L82.8 15.5 L92.1 14.6 L101.4 14.1 L110.7 14.0 L119.9 14.3 L128.9 15.0 L137.6 16.1 L145.9 17.6 L153.8 19.5 L161.2 21.7 L167.9 24.2 L173.9 27.0 L179.2 30.1 L183.5 33.3 L186.8 36.7 L189.1 40.1 L190.3 43.4 L190.6 46.6 L190.0 49.9 L188.5 53.4 L185.9 56.9 L182.2 60.5 L177.6 64.0 L172.0 67.4 L165.7 70.6 L158.7 73.6 L151.1 76.3 L143.0 78.7 L134.5 80.8 L125.7 82.6 L116.6 84.1 L107.2 85.3 L97.7 86.1 L88.2 86.5 L78.6 86.6 L69.1 86.2 L59.9 85.3 L51.0 84.0 L42.7 82.3 L34.9 80.1 L28.0 77.5 L21.8 74.7 L16.6 71.6 L12.4 68.2 L9.3 64.6 L7.1 60.9 L6.0 57.1 L5.8 53.1 L6.6 49.1 L8.4 45.0 L11.2 40.9 L14.9 36.9 L19.5 32.9 L25.0 29.1 L31.3 25.6 L38.4 22.2 L46.2 19.2 L54.7 16.5 L63.8 14.3 L73.2 12.4 L73.1 12.1 L63.7 13.9 L54.6 16.2 L46.1 18.7 L38.1 21.6 L30.9 24.7 L24.4 28.2 L18.7 31.9 L13.8 35.7 L9.8 39.8 L6.7 44.0 L4.6 48.4 L3.5 52.9 L3.5 57.4 L4.6 61.9 L6.8 66.3 L10.1 70.6 L14.5 74.5 L19.9 78.2 L26.2 81.5 L33.5 84.4 L41.5 86.8 L50.1 88.8 L59.3 90.3 L68.7 91.3 L78.4 92.0 L88.2 92.1 L98.1 91.9 L107.8 91.3 L117.4 90.2 L126.8 88.9 L135.9 87.2 L144.7 85.1 L153.1 82.7 L161.1 80.0 L168.6 76.9 L175.4 73.5 L181.5 69.8 L186.8 65.8 L191.2 61.4 L194.5 56.8 L196.6 51.9 L197.3 46.8 L196.7 41.7 L194.7 37.0 L191.5 32.6 L187.4 28.7 L182.3 25.1 L176.5 21.9 L169.9 19.1 L162.8 16.6 L155.1 14.5 L146.9 12.8 L138.3 11.4 L129.3 10.4 L120.1 9.8 L110.7 9.6 L101.2 9.8 L91.7 10.4 L82.3 11.4 L73.1 13.1 L64.3 15.2 L55.9 17.7 L48.1 20.6 L40.9 23.9 Z' fill='%23b42318'/></svg>") center / 100% 100% no-repeat; }
 .note-inline { font-size: 21px; margin-bottom: 14px; }
 .teaser-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 8px; }
 .teaser-cols .btn { margin-top: 8px; }
+.case .sticky-quote { max-width: 420px; margin: 32px 0 0 6px; transform: rotate(-1.5deg); }
+.sticky-quote blockquote p { margin: 0; }
+.quote-more { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-size: 14px; font-weight: 600; color: var(--sticky-ink); text-decoration-color: var(--pen); text-underline-offset: 3px; }
 .case-next { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); max-width: 90ch; }
 
 /* Experience and the other timeline-like lists */
@@ -168,6 +187,11 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .project-links { display: flex; flex-wrap: wrap; gap: 0 16px; margin: 4px 0 0; }
 .project-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 .work-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start; }
+.teaser-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+.project-teaser { display: flex; flex-direction: column; }
+.project-teaser h3 { font-size: 19px; font-weight: 800; }
+.project-teaser p:not(.meta) { margin: 0 0 8px; font-size: 15px; }
+.teaser-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; font-weight: 600; }
 .archive { margin: 24px 0 0; max-width: 90ch; font-size: 15px; }
 .archive a { font-weight: 600; }
 
@@ -211,8 +235,17 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .sticky figcaption img, .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: none; }
 .avatar { display: grid; place-items: center; background: var(--paper); font-weight: 800; font-size: 13px; }
 
+/* What I do and Contact share the last row of the overview. */
+.duo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.do-list { margin: 0; display: grid; }
+.do-list div { padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.do-list div:first-child { padding-top: 0; }
+.do-list div:last-child { border-bottom: 0; padding-bottom: 0; }
+.do-list dt { font-weight: 800; font-size: 15px; }
+.do-list dd { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+
 /* Contact */
-.wrap-contact { max-width: 640px; margin-left: auto; }
+.contact-note { margin: 0 0 12px; }
 .contact-list { margin: 0; display: grid; gap: 4px; }
 .contact-list div { display: grid; grid-template-columns: 110px 1fr; align-items: center; min-height: 44px; border-bottom: 1px dashed var(--line); }
 .contact-list dt { color: var(--muted); font-size: 14px; }
@@ -227,6 +260,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .bar-nav { display: none; }
   .bar-menu { display: block; }
   .case-cols { grid-template-columns: 1fr 1fr; }
+  /* The flow wraps into rows; an arrow at the end of a row would point at nothing. */
+  .flow { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 20px; }
+  .flow-step:nth-child(4n)::after { display: none; }
   .case-results { grid-column: 1 / -1; display: grid; grid-template-columns: 220px 1fr; column-gap: 32px; }
   .case-results h3 { grid-column: 1 / -1; }
   .case-results .note-inline { grid-column: 1; }
@@ -235,6 +271,10 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 }
 @media (max-width: 860px) {
   .hero { grid-template-columns: minmax(0, 1fr) 200px; }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow-step:nth-child(4n)::after { display: block; }
+  .flow-step:nth-child(2n)::after { display: none; }
+  .teaser-grid, .duo { grid-template-columns: 1fr; }
   .note-years { position: static; margin: 16px 0 0; }
   .note-years .arrow-left { display: none; }
   .note-tests { position: static; margin: 12px 0 0; }
@@ -250,6 +290,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 }
 @media (max-width: 640px) {
   body { font-size: 15px; }
+  .flow { grid-template-columns: 1fr; }
+  .flow-step:nth-child(n)::after { display: block; content: "↓"; right: auto; left: 24px; top: auto; bottom: -26px; }
+  .flow-step:last-child::after { display: none; }
   .bar { gap: 8px; }
   .bar-name { font-size: 15px; gap: 8px; }
   .bar-mark { width: 42px; height: 42px; margin: -4px 0; }
