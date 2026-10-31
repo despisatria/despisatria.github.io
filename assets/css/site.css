@@ -140,6 +140,8 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .frame > .job:last-child { padding-bottom: 0; }
 .job-side h3 { font-size: 18px; font-weight: 800; }
 .logo { display: block; width: 40px; height: 40px; margin-bottom: 10px; border-radius: 6px; object-fit: contain; }
+/* Some logos have a white background, so every logo gets the same thin edge on white paper. */
+img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-width: 120px; }
 .logo-mono { display: grid; place-items: center; background: var(--board); border: 1px solid var(--line); font-weight: 800; font-size: 14px; color: var(--muted); }
 .job-period { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
 .job-about { color: var(--muted); font-size: 15px; font-style: italic; max-width: 80ch; }

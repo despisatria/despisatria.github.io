@@ -29,8 +29,8 @@ const list = (items) => (items.length ? `<ul>${items.map((i) => `<li>${inline(i)
 const span = (roles) => `${roles.at(-1).period.split(' - ')[0]} - ${roles[0].period.split(' - ')[1]}`;
 const initials = (name) => name.split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
 // Company logo, or a monogram when the company has no usable logo.
-const logo = (src, name) => (src
-  ? `<img class="logo" src="${src}" alt="" width="40" height="40" loading="lazy">`
+const logo = (src, name, width = 40) => (src
+  ? `<img class="logo" src="${src}" alt="" width="${width}" height="40" loading="lazy">`
   : `<span class="logo logo-mono" aria-hidden="true">${initials(name)}</span>`);
 const imgTag = (i, alt, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="${i.src}" alt="${escape(alt)}" width="${i.width}" height="${i.height}" loading="lazy">`;
 
@@ -89,7 +89,7 @@ const experience = frame('Experience', 'experience', `
     ${cv.experience.map((c) => `
     <article class="job">
       <div class="job-side">
-        ${logo(c.logo, c.company)}
+        ${logo(c.logo, c.company, c.logoWidth)}
         <h3>${escape(c.company)}</h3>
         <p class="job-period">${escape(span(c.roles))}</p>
       </div>

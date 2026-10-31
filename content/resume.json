@@ -73,7 +73,8 @@
           ]
         }
       ],
-      "logo": "assets/img/logos/telkom.svg"
+      "logo": "assets/img/logos/telkom.png",
+      "logoWidth": 57
     },
     {
       "company": "Finansialku",
@@ -110,7 +111,7 @@
           ]
         }
       ],
-      "logo": null
+      "logo": "assets/img/logos/variable.png"
     }
   ],
   "portfolio": [
@@ -329,7 +330,7 @@
         "Delivered comprehensive training through structured lessons and hands-on practice in manual testing, automated testing, API testing, and performance testing.",
         "Provided guidance and feedback to enhance students' technical skills and confidence in real-world QA methodologies."
       ],
-      "logo": "assets/img/logos/eduwork.svg"
+      "logo": "assets/img/logos/eduwork.png"
     },
     {
       "title": "Software Quality Assurance Tester",
