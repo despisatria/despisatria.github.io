@@ -238,6 +238,8 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
   transform: rotate(var(--tilt, 0deg));
 }
+/* Links to a card stop below the sticky bar with room for the tape. */
+.pinned { scroll-margin-top: 32px; }
 .pinned::before { content: ""; position: absolute; z-index: 1; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
 .pinned.has-visual, .project-teaser { padding: 12px 12px 0; }
 .project-body { padding: 20px 14px 22px; }

@@ -29,6 +29,7 @@ To preview locally, run `node scripts/serve.mjs` and visit http://localhost:8000
 - The page is always light themed (`color-scheme: light`), whatever the visitor's system setting.
 - **Download CV** downloads the PDF CV from Google Drive (`cvUrl` in `content/resume.json`). Replace the file on Drive, or change `cvUrl`, when the CV changes. Printing the experience page by hand still gives a plain CV.
 - Pages cross-fade when you move between them (cross-document view transitions) and in-page links scroll smoothly. Both are off for visitors who prefer reduced motion.
-- Screenshots in `assets/img/portfolio/` and `assets/img/work/` have internal links, colleagues' names, and test credentials blacked out. Check any new screenshot for the same before adding it.
+- Screenshots in `assets/img/work/` have internal links, colleagues' names, and test credentials blacked out. Check any new screenshot for the same before adding it.
 - The design brief and the reason behind each visual choice are written at the top of `assets/css/site.css`.
-- `details-*.html` and the files under `assets/` that the new page does not use are left over from the previous template.
+- The link preview image (`og:image`) is `assets/img/og-card.png`. The build writes its source, `scripts/og-card.html`, from the same headline, logo, and photo. After changing those, open http://localhost:8000/scripts/og-card.html with `node scripts/serve.mjs` running, take a 1200 × 630 screenshot, and save it over `assets/img/og-card.png`.
+- `details-*.html` are generated redirects: the previous template had one page per earlier project, and each now points at its card on `/portfolio`. The rest of that template has been removed.
