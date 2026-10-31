@@ -131,8 +131,9 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .note-years .arrow-left { transform: scaleX(-1) rotate(40deg) translateY(10px); }
 /* Availability is written under the photo, running past the card's edge onto the board, and points up at me. */
 .hero-side { position: relative; }
-.note-avail { position: absolute; top: calc(100% + 4px); right: -64px; width: 260px; display: flex; align-items: flex-start; gap: 4px; }
-.note-avail .arrow-avail { flex: none; margin-top: -18px; transform: rotate(-110deg) scaleY(-1); }
+.note-avail { position: absolute; top: calc(100% + 4px); right: -72px; width: 300px; display: flex; align-items: flex-start; gap: 4px; font-size: 27px; }
+.note-avail .arrow-avail { flex: none; margin-top: -18px; transform: scaleX(-1) rotate(-110deg) scaleY(-1); }
+@media (max-width: 1240px) { .note-avail { right: -36px; } }
 
 /* How I work: a flow pinned on the board. The first two steps happen before any code, so the pen marks them. */
 .flow-wrap { position: relative; }
