@@ -68,9 +68,11 @@ a, button, summary { cursor: pointer; }
   display: flex; align-items: center; gap: 24px;
   padding: 10px var(--gap); background: var(--paper); border-bottom: 1px solid var(--line);
 }
-/* The mark repeats the reviewer-red circle from the annotations, so the bar carries the same motif as the board. */
+/* The logo is written in the same hand and pen as the annotations, so the bar carries the board's motif. */
 .bar-name { gap: 12px; text-decoration: none; }
-.bar-mark { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border: 2px solid var(--pen); border-radius: 50%; color: var(--pen); font-weight: 800; font-size: 14px; letter-spacing: .5px; }
+.bar-mark { flex: none; width: 52px; height: 52px; margin: -6px 0; }
+.bar-mark path { fill: var(--pen); }
+.bar-mark text { font: 600 36px var(--hand); fill: var(--ink); text-anchor: middle; }
 .bar-id { display: grid; line-height: 1.25; }
 .bar-id strong { font-weight: 800; white-space: nowrap; }
 .bar-role { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; }
@@ -249,8 +251,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 @media (max-width: 640px) {
   body { font-size: 15px; }
   .bar { gap: 8px; }
-  .bar-name { font-size: 15px; gap: 10px; }
-  .bar-mark { width: 36px; height: 36px; font-size: 13px; }
+  .bar-name { font-size: 15px; gap: 8px; }
+  .bar-mark { width: 42px; height: 42px; margin: -4px 0; }
+  .bar-id strong, .bar-role { white-space: normal; }
   .bar-role { font-size: 12px; }
   .bar-print { display: none; }
   .menu-print { display: inline-flex; margin-top: 8px; justify-content: center; }
@@ -265,6 +268,10 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .skill-cols { grid-template-columns: 1fr; }
   .contact-list div { grid-template-columns: 1fr; padding: 8px 0; }
   .sticky:nth-child(n) { transform: none; }
+}
+/* Below 360px the role line would stack the sticky bar four lines high; the name alone identifies the page. */
+@media (max-width: 359px) {
+  .bar-role { display: none; }
 }
 
 /* Download CV prints the page as a plain document. */

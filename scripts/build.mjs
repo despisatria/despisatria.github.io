@@ -37,6 +37,11 @@ const imgTag = (i, alt, cls = '') => `<img${cls ? ` class="${cls}"` : ''} src="$
 // A hand-drawn arrow for the reviewer's annotations; it points the note at what it describes.
 const penArrow = (cls) => `<svg class="pen-arrow ${cls}" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg>`;
 
+// The logo: initials written in the annotation hand, circled by one pressure-varied pen stroke.
+// The stroke is drawn as a filled outline so it thickens and tapers like a real pen; the loop overshoots its start.
+const PEN_CIRCLE = 'M19.5 29.8 L22.9 27.6 L26.6 25.7 L30.5 24.0 L34.5 22.5 L38.7 21.5 L43.0 20.5 L47.3 19.9 L51.7 19.6 L56.0 19.7 L60.2 20.1 L64.4 20.8 L68.4 21.8 L72.2 23.1 L75.8 24.8 L79.2 26.6 L82.2 28.8 L85.0 31.1 L87.3 33.7 L89.2 36.4 L90.6 39.3 L91.6 42.3 L92.1 45.3 L92.1 48.4 L91.6 51.6 L90.6 54.7 L89.2 57.7 L87.3 60.7 L85.0 63.5 L82.3 66.2 L79.3 68.7 L76.0 71.0 L72.5 73.1 L68.7 75.0 L64.8 76.7 L60.8 78.1 L56.5 79.2 L52.2 80.1 L47.8 80.7 L43.4 81.0 L38.9 80.9 L34.6 80.4 L30.3 79.6 L26.2 78.4 L22.4 76.8 L18.9 74.8 L15.7 72.7 L12.9 70.2 L10.6 67.4 L8.7 64.4 L7.3 61.3 L6.3 58.0 L5.9 54.6 L5.9 51.2 L6.4 47.7 L7.3 44.3 L8.7 40.9 L10.5 37.5 L12.7 34.3 L15.3 31.2 L18.4 28.3 L21.8 25.7 L25.5 23.3 L29.6 21.3 L33.9 19.5 L33.8 19.2 L29.5 20.9 L25.4 23.0 L21.5 25.3 L18.0 27.9 L14.8 30.7 L12.0 33.7 L9.6 37.0 L7.6 40.3 L6.0 43.8 L4.9 47.4 L4.2 51.0 L4.1 54.7 L4.4 58.4 L5.2 62.0 L6.5 65.5 L8.4 68.9 L10.8 72.1 L13.7 75.1 L17.0 77.7 L20.8 80.0 L24.9 81.8 L29.3 83.3 L33.9 84.3 L38.6 84.9 L43.4 85.2 L48.2 85.1 L52.9 84.6 L57.6 83.8 L62.1 82.7 L66.5 81.3 L70.8 79.7 L74.9 77.7 L78.8 75.5 L82.5 73.0 L85.9 70.3 L89.0 67.2 L91.7 63.9 L94.0 60.4 L95.7 56.6 L96.9 52.8 L97.4 48.8 L97.3 44.9 L96.6 41.0 L95.3 37.3 L93.3 33.8 L90.9 30.6 L88.1 27.8 L84.9 25.2 L81.4 22.9 L77.6 21.0 L73.6 19.4 L69.5 18.1 L65.1 17.1 L60.7 16.5 L56.1 16.2 L51.5 16.2 L46.9 16.5 L42.4 17.2 L37.9 18.3 L33.6 19.9 L29.5 21.9 L25.7 24.1 L22.3 26.7 L19.3 29.6 Z';
+const brandMark = (text) => `<svg class="bar-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="${PEN_CIRCLE}"/><text x="50" y="62" transform="rotate(-6 50 50)">${text}</text></svg>`;
+
 // The frame label is the section heading, like a frame name on a board. Frames with their own
 // title (About, Case study) keep the label as a plain caption.
 const frame = (label, id, body, cls = '', titled = false) => `
@@ -49,10 +54,10 @@ const { contact } = cv;
 
 // The site is split into pages so no page turns into an endless scroll.
 const PAGES = [
-  { file: 'index.html', label: 'About' },
-  { file: 'resume.html', label: 'Resume' },
+  { file: 'index.html', label: 'Overview' },
+  { file: 'resume.html', label: 'Experience' },
   { file: 'portfolio.html', label: 'Portfolio' },
-  { file: 'recommendations.html', label: 'Recommendations' },
+  { file: 'recommendations.html', label: 'Testimonials' },
 ];
 const navLinks = (current) => PAGES.map((p) => `<a href="${p.file}"${p.file === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('');
 
@@ -60,7 +65,7 @@ const figures = (m) => `<dl class="figures">
   ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}
 </dl>`;
 
-const hero = frame('About', 'about', `
+const hero = frame('Overview', 'about', `
   <div class="frame hero">
     <div class="hero-text">
       <h1 id="about-title">${escape(cv.name)}</h1>
@@ -242,7 +247,7 @@ const other = frame('Projects, mentoring and education', 'more', `
   </div>`);
 
 const recommendations = `
-<section class="frame-wrap" id="recommendations" aria-label="Recommendations">
+<section class="frame-wrap" id="recommendations" aria-label="Testimonials">
   <div class="notes">
   ${cv.recommendations.map((r) => `
     <figure class="sticky">
@@ -360,7 +365,7 @@ function page({ file, title, description, heading, body, extra = '' }) {
 <!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar">
-  <a class="bar-name" href="index.html"><span class="bar-mark" aria-hidden="true">${initials(cv.name)}</span><span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
+  <a class="bar-name" href="index.html">${brandMark(cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join(''))}<span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
   <nav class="bar-nav" aria-label="Pages">${navLinks(file)}</nav>
   <details class="bar-menu">
     <summary>Menu</summary>
@@ -393,9 +398,9 @@ const pages = [
   },
   {
     file: 'resume.html',
-    title: `Resume | ${NAME}`,
+    title: `Experience &amp; Skills | ${NAME}`,
     description: 'Experience, skills, and education of Desphi Satria Nurjaya, Software QA Engineer: Mengantar, Telkom Indonesia, Finansialku, and Variable Indonesia.',
-    heading: 'Resume',
+    heading: 'Experience & Skills',
     body: `${printHeader}\n${experience}\n${other}\n${skills}`,
   },
   {
@@ -408,9 +413,9 @@ const pages = [
   },
   {
     file: 'recommendations.html',
-    title: `Recommendations | ${NAME}`,
+    title: `Testimonials | ${NAME}`,
     description: 'Recommendations from designers, engineers, product managers, and QA engineers who worked with Desphi Satria Nurjaya.',
-    heading: 'Recommendations',
+    heading: 'Testimonials',
     body: recommendations,
   },
 ];
