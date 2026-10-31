@@ -120,6 +120,7 @@
       "title": "Ceria Belajar",
       "meta": "Personal project · March 2026 - Present",
       "teaser": "A free, ad-free learning web app for Indonesian kindergarten children that I designed, built, and keep shipping.",
+      "preview": { "src": "assets/img/work/ceria-app.jpg", "alt": "Ceria Belajar home screen with learning categories such as Dunia Alfabet, Dunia Angka, and Ayo Membaca" },
       "intro": "A free, ad-free educational game web app for Indonesian PAUD and kindergarten children, designed, built, and shipped as an independent builder with AI-assisted development.",
       "points": [
         "8+ learning categories: letters, numbers, Hijaiyah and Iqro, reading, typing, matching, colors, English, science, and math, with audio and music.",
@@ -151,6 +152,7 @@
       "title": "Ceria Belajar · Test Automation",
       "meta": "Personal project · 2026 · Public repository",
       "teaser": "A public Playwright suite for that app, with CI and a live Allure report. It found 3 bugs in the reward system, all now fixed.",
+      "preview": { "src": "assets/img/work/ceria-allure.jpg", "alt": "Allure report overview: 72 test cases, 100% passed, run by GitHub Actions" },
       "intro": "An end-to-end test suite for my own app, Ceria Belajar. Because the app is mine, everything is public: the code, the CI pipeline, and the live test report.",
       "points": [
         "72 automated test runs covering child profiles, medals, and stars, on desktop and a mobile viewport.",
@@ -178,6 +180,12 @@
       "title": "Test Automation Suites",
       "meta": "Mengantar",
       "teaser": "550+ automated test cases across four suites: Public API, web checkout, the web app, and mobile.",
+      "chart": [
+        { "label": "Public API", "tool": "Playwright", "count": 200 },
+        { "label": "Formulir web checkout", "tool": "Playwright", "count": 200 },
+        { "label": "Mengantar web app", "tool": "Playwright", "count": 100 },
+        { "label": "Formulir mobile", "tool": "Maestro", "count": 50 }
+      ],
       "intro": "550+ automated test cases across four suites that I lead and contribute to, all following one consistent structure. The code is proprietary, so this is a high-level overview.",
       "points": [
         "**Public API** (Playwright): 200+ test cases",
@@ -504,12 +512,12 @@
     }
   },
   "whatIDo": [
-    { "title": "QA standards and metrics", "text": "A guide book, shared templates, and a metrics framework used across squads." },
-    { "title": "Test automation", "text": "Playwright for web and API, Maestro for mobile, run in GitHub Actions with Allure reports." },
-    { "title": "Manual and exploratory testing", "text": "Web, mobile, and API, plus performance testing with JMeter." },
+    { "title": "QA standards and metrics", "text": "A guide book, shared templates, and a metrics framework used across squads.", "proof": { "label": "see the case study", "url": "portfolio#case-study" } },
+    { "title": "Test automation", "text": "Playwright for web and API, Maestro for mobile, run in GitHub Actions with Allure reports.", "proof": { "label": "see the suites", "url": "portfolio#mengantar-suites" } },
+    { "title": "Manual and exploratory testing", "text": "Web, mobile, and API, plus performance testing with JMeter.", "proof": { "label": "see earlier test samples", "url": "portfolio#earlier" } },
     { "title": "Customer issues and integrations", "text": "Reproduce and triage escalated issues, and help partners integrate through the Public API and WooCommerce plugin." },
-    { "title": "Mentoring", "text": "1-on-1s, knowledge sharing, and hands-on guidance for QA engineers." },
-    { "title": "AI-assisted testing", "text": "Claude Code for test design, test data investigation, and automation." }
+    { "title": "Mentoring", "text": "1-on-1s, knowledge sharing, and hands-on guidance for QA engineers.", "proof": { "label": "read what my team says", "url": "testimonials" } },
+    { "title": "AI-assisted testing", "text": "Claude Code for test design, test data investigation, and automation.", "proof": { "label": "see Ceria Belajar", "url": "portfolio#ceria-belajar" } }
   ],
   "featuredQuote": {
     "from": "enie yuliani",

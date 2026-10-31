@@ -164,22 +164,36 @@ const howIWork = frame(hw.title, 'how-i-work', `
     </div>
   </div>`);
 
+// The company suites cannot show code or screens, so their card shows the size of each suite instead.
+const suiteChart = (rows) => {
+  const max = Math.max(...rows.map((r) => r.count));
+  const total = rows.reduce((n, r) => n + r.count, 0);
+  return `<div class="suite-chart">
+        <p class="chart-total"><span class="pen-word">${total}+${penRing}</span> test cases</p>
+        <ul>${rows.map((r) => `<li><span class="suite-label">${escape(r.label)} <span class="muted">${escape(r.tool)}</span></span><span class="suite-bar" style="--share: ${r.count / max}"></span><span class="suite-num">${r.count}+</span></li>`).join('')}</ul>
+      </div>`;
+};
+
 const [app, appTests, suites] = cv.portfolio;
 const workTeaser = frame('Recent work', 'work', `
   <div class="teaser-grid">
     ${[app, appTests, suites].map((p) => `
     <article class="frame project-teaser">
-      <h3>${escape(p.title)}</h3>
-      <p class="meta">${escape(p.meta)}</p>
-      <p>${escape(p.teaser)}</p>
-      <a class="teaser-link" href="portfolio#${p.id}">See the details</a>
+      <div class="teaser-visual">${p.preview ? `<img src="${p.preview.src}" alt="${escape(p.preview.alt)}" width="740" height="400" loading="lazy">` : suiteChart(p.chart)}</div>
+      <div class="teaser-body">
+        <h3>${escape(p.title)}</h3>
+        <p class="meta">${escape(p.meta)}</p>
+        <p>${escape(p.teaser)}</p>
+        <a class="teaser-link" href="portfolio#${p.id}">See the details</a>
+      </div>
     </article>`).join('')}
   </div>`);
 
+// Each claim points at its evidence elsewhere on the site, written in the reviewer's pen.
 const whatIDo = frame('What I do', 'what-i-do', `
   <div class="frame">
     <dl class="do-list">
-      ${cv.whatIDo.map((d) => `<div><dt>${escape(d.title)}</dt><dd>${escape(d.text)}</dd></div>`).join('')}
+      ${cv.whatIDo.map((d) => `<div><dt>${escape(d.title)}</dt><dd>${escape(d.text)}</dd>${d.proof ? `<dd class="proof"><a href="${d.proof.url}"><span aria-hidden="true">↳</span> ${escape(d.proof.label)}</a></dd>` : ''}</div>`).join('')}
     </dl>
   </div>`);
 
