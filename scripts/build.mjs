@@ -381,7 +381,7 @@ const script = `
   }
 </script>`;
 
-function page({ file, title, description, heading, body, extra = '' }) {
+function page({ file, title, description, heading, lede, body, extra = '' }) {
   const url = file === 'index.html' ? SITE_URL : SITE_URL + file;
   const printControl = file === 'resume.html'
     ? (cls) => `<button class="btn ${cls}" type="button" data-print>Download CV</button>`
@@ -423,6 +423,7 @@ function page({ file, title, description, heading, body, extra = '' }) {
 </header>
 <main id="main" class="board">
 ${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
+${lede ? `<p class="page-lede">${inline(lede)}</p>` : ''}
 ${body}
 </main>
 <footer class="foot">
@@ -464,6 +465,7 @@ const pages = [
     title: `Testimonials | ${NAME}`,
     description: 'Recommendations from designers, engineers, product managers, and QA engineers who worked with Desphi Satria Nurjaya.',
     heading: 'Testimonials',
+    lede: cv.testimonialsNote,
     body: recommendations,
   },
 ];
