@@ -316,7 +316,7 @@
       "title": "Independent Builder (AI-Assisted Development)",
       "org": "Ceria Belajar",
       "period": "March 2026 - Present",
-      "about": "Ceria Belajar is a free, ad-free educational game website for Indonesian PAUD and kindergarten learners, featuring 8+ learning categories (letters, numbers, colors, reading, and more), audio and music, multi-child profiles, and a medal-based progress system, accessible on phones, tablets, and computers. Designed, built, and continuously updated using AI-assisted development, and deployed on Cloudflare Pages. [See it in the portfolio](portfolio.html#ceria-belajar)",
+      "about": "Ceria Belajar is a free, ad-free educational game website for Indonesian PAUD and kindergarten learners, featuring 8+ learning categories (letters, numbers, colors, reading, and more), audio and music, multi-child profiles, and a medal-based progress system, accessible on phones, tablets, and computers. Designed, built, and continuously updated using AI-assisted development, and deployed on Cloudflare Pages. [See it in the portfolio](portfolio#ceria-belajar)",
       "points": [
         "Built and maintain a public end-to-end test suite for the app (Playwright, TypeScript, Page Object Model) with 72 test runs on desktop and mobile, GitHub Actions CI, and a live Allure report. [ceria-belajar-automation](https://github.com/despisatria/ceria-belajar-automation)",
         "Found 3 bugs in the medal and star reward system plus several accessibility gaps through the suite; all were fixed in the app and are now guarded by regression tests."

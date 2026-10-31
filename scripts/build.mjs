@@ -1,4 +1,5 @@
-// Builds index.html from content/resume.json. No dependencies: run `node scripts/build.mjs`.
+// Builds the site pages from content/resume.json. No dependencies: run `node scripts/build.mjs`.
+// Links omit `.html`: GitHub Pages serves /overview from overview.html (scripts/serve.mjs does the same locally).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -54,13 +55,13 @@ const { contact } = cv;
 
 // The site is split into pages so no page turns into an endless scroll.
 const PAGES = [
-  { file: 'index.html', label: 'Overview' },
-  { file: 'resume.html', label: 'Experience' },
-  { file: 'portfolio.html', label: 'Portfolio' },
-  { file: 'recommendations.html', label: 'Testimonials' },
+  { slug: 'overview', label: 'Overview' },
+  { slug: 'experience', label: 'Experience' },
+  { slug: 'portfolio', label: 'Portfolio' },
+  { slug: 'testimonials', label: 'Testimonials' },
 ];
 // Contact is the footer of every page, so its link stays on the current page.
-const navLinks = (current) => PAGES.map((p) => `<a href="${p.file}"${p.file === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('') + '<a href="#contact">Contact</a>';
+const navLinks = (current) => PAGES.map((p) => `<a href="${p.slug}"${p.slug === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('') + '<a href="#contact">Contact</a>';
 
 const figures = (m) => `<dl class="figures">
   ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}
@@ -74,7 +75,7 @@ const hero = frame('Overview', 'about', `
       <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>${escape(cv.availability)}</p>
       ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
       <div class="hero-actions">
-        <a class="btn btn-ink" href="portfolio.html">See my work</a>
+        <a class="btn btn-ink" href="portfolio">See my work</a>
         <a class="btn" href="#contact">Get in touch <span aria-hidden="true">↓</span></a>
       </div>
       <p class="print-only">${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</p>
@@ -140,7 +141,7 @@ const featuredQuote = `
             ${quoted.photo ? `<img src="${quoted.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(quoted.name)}</span>`}
             <span><strong>${escape(quoted.name)}</strong><br>${escape(quoted.role)}</span>
           </figcaption>
-          <a class="quote-more" href="recommendations.html">Read all testimonials</a>
+          <a class="quote-more" href="testimonials">Read all testimonials</a>
         </figure>`;
 
 // The workflow is drawn as a flow on the board: each step a card, arrows in the reviewer's pen.
@@ -166,7 +167,7 @@ const workTeaser = frame('Recent work', 'work', `
       <h3>${escape(p.title)}</h3>
       <p class="meta">${escape(p.meta)}</p>
       <p>${escape(p.teaser)}</p>
-      <a class="teaser-link" href="portfolio.html#${p.id}">See the details</a>
+      <a class="teaser-link" href="portfolio#${p.id}">See the details</a>
     </article>`).join('')}
   </div>`);
 
@@ -185,7 +186,7 @@ const caseTeaser = frame('Case study', 'case-study', `
     <div class="teaser-cols">
       <div>
         <h3>The goal</h3>${paragraphs(cs.goal)}
-        <p><a class="btn" href="portfolio.html#case-study">Read the full case study</a></p>
+        <p><a class="btn" href="portfolio#case-study">Read the full case study</a></p>
         ${featuredQuote}
       </div>
       <div>
@@ -394,14 +395,8 @@ const script = `
   }
 </script>`;
 
-function page({ file, title, description, heading, lede, body, extra = '' }) {
-  const url = file === 'index.html' ? SITE_URL : SITE_URL + file;
-  const printControl = file === 'resume.html'
-    ? (cls) => `<button class="btn ${cls}" type="button" data-print>Download CV</button>`
-    : (cls) => `<a class="btn ${cls}" href="resume.html?print">Download CV</a>`;
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
+// Shared head tags, also used by the root redirect so link previews of the bare domain still show the card.
+const meta = (url, title, description) => `
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
@@ -413,24 +408,35 @@ function page({ file, title, description, heading, lede, body, extra = '' }) {
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${description}">
   <meta property="og:image" content="${SITE_URL}${cv.photo}">
-  <meta property="og:url" content="${url}">
+  <meta property="og:url" content="${url}">`;
+
+function page({ slug, title, description, heading, lede, body, extra = '' }) {
+  const url = SITE_URL + slug;
+  const printControl = slug === 'experience'
+    ? (cls) => `<button class="btn ${cls}" type="button" data-print>Download CV</button>`
+    : (cls) => `<a class="btn ${cls}" href="experience?print">Download CV</a>`;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>${meta(url, title, description)}
+  <!-- Opt in to page transitions before any external stylesheet, so a slow font file cannot make the new page miss it. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
   <link href="assets/css/site.css" rel="stylesheet">
-  ${file === 'index.html' ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
+  ${slug === 'overview' ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
 </head>
 <body>
 <!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar">
-  <a class="bar-name" href="index.html">${brandMark(cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join(''))}<span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
-  <nav class="bar-nav" aria-label="Pages">${navLinks(file)}</nav>
+  <a class="bar-name" href="overview">${brandMark(cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join(''))}<span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
+  <nav class="bar-nav" aria-label="Pages">${navLinks(slug)}</nav>
   <details class="bar-menu">
     <summary>Menu</summary>
-    <nav aria-label="Pages menu">${navLinks(file)}${printControl('menu-print')}</nav>
+    <nav aria-label="Pages menu">${navLinks(slug)}${printControl('menu-print')}</nav>
   </details>
   ${printControl('bar-print')}
 </header>
@@ -439,9 +445,9 @@ ${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
 ${lede ? `<p class="page-lede">${inline(lede)}</p>` : ''}
 ${body}
 </main>
-${contactFooter(file === 'resume.html'
+${contactFooter(slug === 'experience'
     ? '<button class="foot-cv" type="button" data-print>Download CV <span aria-hidden="true">↓</span></button>'
-    : '<a class="foot-cv" href="resume.html?print">Download CV <span aria-hidden="true">↓</span></a>')}
+    : '<a class="foot-cv" href="experience?print">Download CV <span aria-hidden="true">↓</span></a>')}
 ${extra}
 ${script}
 </body>
@@ -452,20 +458,20 @@ ${script}
 const NAME = escape(cv.name);
 const pages = [
   {
-    file: 'index.html',
+    slug: 'overview',
     title: `${NAME} | Software QA Engineer - Resume &amp; Portfolio`,
     description: DESCRIPTION,
     body: `${hero}\n${howIWork}\n${caseTeaser}\n${workTeaser}\n${whatIDo}`,
   },
   {
-    file: 'resume.html',
+    slug: 'experience',
     title: `Experience &amp; Skills | ${NAME}`,
     description: 'Experience, skills, and education of Desphi Satria Nurjaya, Software QA Engineer: Mengantar, Telkom Indonesia, Finansialku, and Variable Indonesia.',
     heading: 'Experience & Skills',
     body: `${printHeader}\n${experience}\n${other}\n${skills}`,
   },
   {
-    file: 'portfolio.html',
+    slug: 'portfolio',
     title: `Portfolio | ${NAME}`,
     description: 'QA case study, test automation work, and earlier test documentation samples by Desphi Satria Nurjaya.',
     heading: 'Portfolio',
@@ -473,7 +479,7 @@ const pages = [
     extra: viewerDialog,
   },
   {
-    file: 'recommendations.html',
+    slug: 'testimonials',
     title: `Testimonials | ${NAME}`,
     description: 'Recommendations from designers, engineers, product managers, and QA engineers who worked with Desphi Satria Nurjaya.',
     heading: 'Testimonials',
@@ -483,6 +489,21 @@ const pages = [
 ];
 
 for (const p of pages) {
-  writeFileSync(`${root}${p.file}`, page(p));
+  writeFileSync(`${root}${p.slug}.html`, page(p));
 }
-console.log(`built ${pages.map((p) => p.file).join(', ')}`);
+
+// The bare domain sends visitors to /overview, keeping any #anchor. Without JavaScript the meta refresh does it.
+const home = pages[0];
+writeFileSync(`${root}index.html`, `<!DOCTYPE html>
+<html lang="en">
+<head>${meta(SITE_URL + home.slug, home.title, home.description)}
+  <meta http-equiv="refresh" content="0; url=${home.slug}">
+  <script>location.replace('${home.slug}' + location.search + location.hash);</script>
+</head>
+<body>
+<!-- Generated by scripts/build.mjs. -->
+<p><a href="${home.slug}">Continue to ${NAME}'s overview</a></p>
+</body>
+</html>
+`);
+console.log(`built ${pages.map((p) => `${p.slug}.html`).join(', ')}, index.html (redirect to /${home.slug})`);
