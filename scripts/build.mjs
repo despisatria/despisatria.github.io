@@ -155,7 +155,7 @@ const howIWork = frame(hw.title, 'how-i-work', `
   <div class="flow-wrap">
     <div class="flow-head">
       <div class="flow-span">
-        <p class="note note-flow">${escape(hw.note)}</p>
+        <p class="note note-flow"><svg class="flow-arrow" viewBox="0 0 100 64" aria-hidden="true"><path d="M97 8 C70 2, 46 8, 34 24 C26 35, 22 46, 20 60"/><path d="M10 47 L20 61 L30 49"/></svg>${escape(hw.note)}</p>
         <svg class="flow-brace" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M1 15 Q1 8 6 8 L44 8 Q50 8 50 2 Q50 8 56 8 L94 8 Q99 8 99 15"/></svg>
       </div>
     </div>

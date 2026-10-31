@@ -497,7 +497,7 @@
   "howIWork": {
     "title": "How I work",
     "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the release in production.",
-    "note": "these two happen before any code",
+    "note": "QA starts here, before any code",
     "steps": [
       { "title": "Requirement & design", "text": "Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features." },
       { "title": "Sprint planning", "text": "Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback." },
