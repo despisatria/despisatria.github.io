@@ -132,7 +132,7 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .note-years .arrow-left { transform: scaleX(-1) rotate(40deg) translateY(10px); }
 /* Availability is written under the card like a note pinned to it, pointing back up at the profile. */
 .note-avail { right: 24px; bottom: -44px; }
-.note-avail .arrow-avail { transform: rotate(-150deg); }
+.note-avail .arrow-avail { transform: rotate(-110deg) scaleY(-1); }
 
 /* How I work: a flow pinned on the board. The first two steps happen before any code, so the pen marks them. */
 .flow-wrap { position: relative; }
@@ -209,12 +209,24 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .project-links { display: flex; flex-wrap: wrap; gap: 0 16px; margin: 4px 0 0; }
 .project-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 .work-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start; }
-.teaser-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
-/* Recent work cards: the evidence on top (the app, the live report, the suite sizes), the story below. */
-.project-teaser { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
-.teaser-visual { aspect-ratio: 37 / 20; min-height: 204px; background: #e3e2dc; border-bottom: 1px solid var(--line); overflow: hidden; }
+.teaser-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: stretch; padding-top: 12px; }
+/* Recent work cards are prints taped to the board, like the profile photo: the evidence in the picture
+   (the app, the live report, the suite sizes), the story written on the white margin below. */
+.project-teaser {
+  position: relative; display: flex; flex-direction: column;
+  padding: 12px 12px 0; border-radius: 2px;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+.project-teaser::before { content: ""; position: absolute; z-index: 1; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
+.project-teaser:nth-child(1) { transform: rotate(-1.2deg); }
+.project-teaser:nth-child(2) { transform: rotate(0.8deg); }
+.project-teaser:nth-child(3) { transform: rotate(-0.6deg); }
+.project-teaser:hover { transform: rotate(0deg) translateY(-2px); box-shadow: 0 10px 24px rgb(0 0 0 / 16%); }
+@media (prefers-reduced-motion: reduce) { .project-teaser { transition: none; } }
+.teaser-visual { aspect-ratio: 37 / 20; min-height: 204px; background: #e3e2dc; border: 1px solid var(--line); overflow: hidden; }
 .teaser-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.teaser-body { display: flex; flex-direction: column; flex: 1; padding: clamp(18px, 2.4vw, 28px); }
+.teaser-body { display: flex; flex-direction: column; flex: 1; padding: 18px 10px 14px; }
 .project-teaser h3 { font-size: 19px; font-weight: 800; }
 .teaser-body p:not(.meta) { margin: 0 0 8px; font-size: 15px; }
 .suite-chart { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 14px 20px; background-color: var(--board); background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 22px 22px; }
@@ -381,7 +393,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .foot-top { order: 1; }
   .foot-nav { order: 2; width: 100%; }
   .foot-meta { order: 3; width: 100%; padding-bottom: 8px; }
-  .sticky:nth-child(n) { transform: none; }
+  .sticky:nth-child(n), .project-teaser:nth-child(n) { transform: none; }
 }
 /* Below 360px the role line would stack the sticky bar four lines high; the name alone identifies the page. */
 @media (max-width: 359px) {

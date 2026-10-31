@@ -89,7 +89,7 @@ const hero = frame('Overview', 'about', `
     </figure>
   </div>
   <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>
-  <p class="note note-avail">${escape(cv.availability)}${penArrow('arrow-avail')}</p>`, 'wrap-hero', true);
+  <p class="note note-avail">${penArrow('arrow-avail')}${escape(cv.availability)}</p>`, 'wrap-hero', true);
 
 const experience = frame('Experience', 'experience', `
   <div class="frame">
