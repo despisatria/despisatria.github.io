@@ -153,7 +153,12 @@ const hw = cv.howIWork;
 const howIWork = frame(hw.title, 'how-i-work', `
   <p class="section-note">${escape(hw.intro)}</p>
   <div class="flow-wrap">
-    <p class="note note-flow">${escape(hw.note)}${penArrow('arrow-flow')}</p>
+    <div class="flow-head">
+      <div class="flow-span">
+        <p class="note note-flow">${escape(hw.note)}</p>
+        <svg class="flow-brace" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M1 15 Q1 8 6 8 L44 8 Q50 8 50 2 Q50 8 56 8 L94 8 Q99 8 99 15"/></svg>
+      </div>
+    </div>
     <ol class="flow">
       ${hw.steps.map((s, i) => `<li class="frame flow-step${i < 2 ? ' flow-early' : ''}"><span class="flow-num">${String(i + 1).padStart(2, '0')}</span><h3>${escape(s.title)}</h3><p>${escape(s.text)}</p></li>`).join('')}
     </ol>

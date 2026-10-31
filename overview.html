@@ -66,7 +66,12 @@
   
   <p class="section-note">The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the release in production.</p>
   <div class="flow-wrap">
-    <p class="note note-flow">QA starts here, before any code<svg class="pen-arrow arrow-flow" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><path d="M4 32 C 16 8, 36 4, 56 14"/><path d="M47 7 L57 14 L48 22"/></svg></p>
+    <div class="flow-head">
+      <div class="flow-span">
+        <p class="note note-flow">QA starts here, before any code</p>
+        <svg class="flow-brace" viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M1 15 Q1 8 6 8 L44 8 Q50 8 50 2 Q50 8 56 8 L94 8 Q99 8 99 15"/></svg>
+      </div>
+    </div>
     <ol class="flow">
       <li class="frame flow-step flow-early"><span class="flow-num">01</span><h3>Requirement &amp; design</h3><p>Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features.</p></li><li class="frame flow-step flow-early"><span class="flow-num">02</span><h3>Sprint planning</h3><p>Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback.</p></li><li class="frame flow-step"><span class="flow-num">03</span><h3>During the sprint</h3><p>A QA subtask on every story, test cases in a shared template, execution against acceptance criteria, and bugs filed as feedback tickets.</p></li><li class="frame flow-step"><span class="flow-num">04</span><h3>Sprint review</h3><p>Present the test summary and demo each story from its test cases: the happy path first, then edge cases.</p></li><li class="frame flow-step"><span class="flow-num">05</span><h3>Release preparation</h3><p>Sanity and targeted regression on staging, a release test report, the go-ahead to PM and Tech Lead, then sanity and smoke tests in production.</p></li>
     </ol>
