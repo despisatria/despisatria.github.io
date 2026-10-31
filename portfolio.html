@@ -73,39 +73,52 @@
   
   <div class="pair">
     
-  <article class="frame project " id="ceria-belajar">
-    <h3>Ceria Belajar</h3>
-    <p class="meta">Personal project · March 2026 - Present</p>
-    <p>A free, ad-free educational game web app for Indonesian PAUD and kindergarten children, designed, built, and shipped as an independent builder with AI-assisted development.</p>
-    <ul><li>8+ learning categories: letters, numbers, Hijaiyah and Iqro, reading, typing, matching, colors, English, science, and math, with audio and music.</li><li>Multi-child profiles with separate progress, and a medal system to track learning.</li><li>Installable as a Progressive Web App, usable on phones, tablets, and computers.</li><li>Shipped in regular releases with a public changelog.</li></ul>
-    <p class="small"><strong>Built with:</strong> TypeScript, deployed on Cloudflare Pages.</p><p class="small"><strong>Tested with:</strong> a public Playwright suite, described in the next project.</p>
-    <p class="project-links"><a href="https://ceria-belajar.pages.dev/" target="_blank" rel="noopener">Open the app</a><a href="https://ceria-belajar.pages.dev/kabar-ceria" target="_blank" rel="noopener">Release notes</a><a href="https://ceria-belajar.pages.dev/tentang" target="_blank" rel="noopener">About the project</a></p>
+  <article class="frame project pinned has-visual " id="ceria-belajar">
+    <div class="teaser-visual"><img src="assets/img/work/ceria-app.jpg" alt="Ceria Belajar home screen with learning categories such as Dunia Alfabet, Dunia Angka, and Ayo Membaca" width="740" height="400" loading="lazy"></div>
+    <div class="project-body">
+      <h3>Ceria Belajar</h3>
+      <p class="meta">Personal project · March 2026 - Present</p>
+      <p>A free, ad-free educational game web app for Indonesian PAUD and kindergarten children, designed, built, and shipped as an independent builder with AI-assisted development.</p>
+      <ul><li>8+ learning categories: letters, numbers, Hijaiyah and Iqro, reading, typing, matching, colors, English, science, and math, with audio and music.</li><li>Multi-child profiles with separate progress, and a medal system to track learning.</li><li>Installable as a Progressive Web App, usable on phones, tablets, and computers.</li><li>Shipped in regular releases with a public changelog.</li></ul>
+      <p class="small"><strong>Built with:</strong> TypeScript, deployed on Cloudflare Pages.</p><p class="small"><strong>Tested with:</strong> a public Playwright suite, described in the next project.</p>
+      <p class="project-links"><a href="https://ceria-belajar.pages.dev/" target="_blank" rel="noopener">Open the app</a><a href="https://ceria-belajar.pages.dev/kabar-ceria" target="_blank" rel="noopener">Release notes</a><a href="https://ceria-belajar.pages.dev/tentang" target="_blank" rel="noopener">About the project</a></p>
+    </div>
   </article>
     <div class="connector" aria-hidden="true"><span class="note">tested by</span></div>
     
-  <article class="frame project " id="ceria-belajar-automation">
-    <h3>Ceria Belajar · Test Automation</h3>
-    <p class="meta">Personal project · 2026 · Public repository</p>
-    <p>An end-to-end test suite for my own app, Ceria Belajar. Because the app is mine, everything is public: the code, the CI pipeline, and the live test report.</p>
-    <ul><li>72 automated test runs covering child profiles, medals, and stars, on desktop and a mobile viewport.</li><li>Found 3 bugs in the app’s reward system: 19 of 32 medals unlocked the wrong reward, the medal counter skipped one medal, and two screens showed different star counts for the same child. All three are fixed and now guarded by regression tests.</li><li>Surfaced accessibility gaps (controls that could not be used with a keyboard or screen reader, and an animation that ignored the reduce-motion setting) and fixed them in the app.</li><li>Readable reporting: every test states what it verifies and reads as Given / When / Then steps in the Allure report.</li></ul>
-    <p class="small"><strong>Approach:</strong> Page Object Model, test data seeded through localStorage instead of slow UI setup, accessibility-first locators, and known bugs tracked as expected-failure tests that flag themselves once the fix ships.</p><p class="small"><strong>Tools:</strong> Playwright, TypeScript, GitHub Actions, Allure, GitHub Pages.</p>
-    <p class="project-links"><a href="https://github.com/despisatria/ceria-belajar-automation" target="_blank" rel="noopener">GitHub repository</a><a href="https://despisatria.github.io/ceria-belajar-automation/" target="_blank" rel="noopener">Live Allure report</a></p>
+  <article class="frame project pinned has-visual " id="ceria-belajar-automation">
+    <div class="teaser-visual"><img src="assets/img/work/ceria-allure.jpg" alt="Allure report overview: 72 test cases, 100% passed, run by GitHub Actions" width="740" height="400" loading="lazy"></div>
+    <div class="project-body">
+      <h3>Ceria Belajar · Test Automation</h3>
+      <p class="meta">Personal project · 2026 · Public repository</p>
+      <p>An end-to-end test suite for my own app, Ceria Belajar. Because the app is mine, everything is public: the code, the CI pipeline, and the live test report.</p>
+      <ul><li>72 automated test runs covering child profiles, medals, and stars, on desktop and a mobile viewport.</li><li>Found 3 bugs in the app’s reward system: 19 of 32 medals unlocked the wrong reward, the medal counter skipped one medal, and two screens showed different star counts for the same child. All three are fixed and now guarded by regression tests.</li><li>Surfaced accessibility gaps (controls that could not be used with a keyboard or screen reader, and an animation that ignored the reduce-motion setting) and fixed them in the app.</li><li>Readable reporting: every test states what it verifies and reads as Given / When / Then steps in the Allure report.</li></ul>
+      <p class="small"><strong>Approach:</strong> Page Object Model, test data seeded through localStorage instead of slow UI setup, accessibility-first locators, and known bugs tracked as expected-failure tests that flag themselves once the fix ships.</p><p class="small"><strong>Tools:</strong> Playwright, TypeScript, GitHub Actions, Allure, GitHub Pages.</p>
+      <p class="project-links"><a href="https://github.com/despisatria/ceria-belajar-automation" target="_blank" rel="noopener">GitHub repository</a><a href="https://despisatria.github.io/ceria-belajar-automation/" target="_blank" rel="noopener">Live Allure report</a></p>
+    </div>
   </article>
   </div>
   <div class="work-row">
     
-  <article class="frame project project-suites" id="mengantar-suites">
-    <h3>Test Automation Suites</h3>
-    <p class="meta">Mengantar</p>
-    <p>550+ automated test cases across four suites that I lead and contribute to, all following one consistent structure. The code is proprietary, so this is a high-level overview.</p>
-    <ul><li><strong>Public API</strong> (Playwright): 200+ test cases</li><li><strong>Formulir Web checkout</strong> (Playwright): 200+ test cases</li><li><strong>Mengantar Web App</strong> (Playwright): 100+ test cases</li><li><strong>Formulir Mobile</strong> (Maestro Studio): 50+ test cases</li></ul>
-    <p class="small"><strong>Approach:</strong> Page Object Model, reusable fixtures, per-environment configuration, test data generated per run, and tests tagged by type (smoke, regression) and feature.</p><p class="small"><strong>Delivery:</strong> run on GitHub Actions, with Allure reports for the team to review.</p><p class="small"><strong>Tools:</strong> Playwright, Maestro Studio, TypeScript, GitHub Actions, Allure.</p>
-    
+  <article class="frame project pinned has-visual project-suites" id="mengantar-suites">
+    <div class="teaser-visual"><div class="suite-chart">
+        <p class="chart-total"><span class="pen-word">550+<svg class="pen-ring" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path d="M41.1 24.2 L48.5 21.9 L56.5 19.8 L64.9 18.0 L73.7 16.6 L82.8 15.5 L92.1 14.6 L101.4 14.1 L110.7 14.0 L119.9 14.3 L128.9 15.0 L137.6 16.1 L145.9 17.6 L153.8 19.5 L161.2 21.7 L167.9 24.2 L173.9 27.0 L179.2 30.1 L183.5 33.3 L186.8 36.7 L189.1 40.1 L190.3 43.4 L190.6 46.6 L190.0 49.9 L188.5 53.4 L185.9 56.9 L182.2 60.5 L177.6 64.0 L172.0 67.4 L165.7 70.6 L158.7 73.6 L151.1 76.3 L143.0 78.7 L134.5 80.8 L125.7 82.6 L116.6 84.1 L107.2 85.3 L97.7 86.1 L88.2 86.5 L78.6 86.6 L69.1 86.2 L59.9 85.3 L51.0 84.0 L42.7 82.3 L34.9 80.1 L28.0 77.5 L21.8 74.7 L16.6 71.6 L12.4 68.2 L9.3 64.6 L7.1 60.9 L6.0 57.1 L5.8 53.1 L6.6 49.1 L8.4 45.0 L11.2 40.9 L14.9 36.9 L19.5 32.9 L25.0 29.1 L31.3 25.6 L38.4 22.2 L46.2 19.2 L54.7 16.5 L63.8 14.3 L73.2 12.4 L73.1 12.1 L63.7 13.9 L54.6 16.2 L46.1 18.7 L38.1 21.6 L30.9 24.7 L24.4 28.2 L18.7 31.9 L13.8 35.7 L9.8 39.8 L6.7 44.0 L4.6 48.4 L3.5 52.9 L3.5 57.4 L4.6 61.9 L6.8 66.3 L10.1 70.6 L14.5 74.5 L19.9 78.2 L26.2 81.5 L33.5 84.4 L41.5 86.8 L50.1 88.8 L59.3 90.3 L68.7 91.3 L78.4 92.0 L88.2 92.1 L98.1 91.9 L107.8 91.3 L117.4 90.2 L126.8 88.9 L135.9 87.2 L144.7 85.1 L153.1 82.7 L161.1 80.0 L168.6 76.9 L175.4 73.5 L181.5 69.8 L186.8 65.8 L191.2 61.4 L194.5 56.8 L196.6 51.9 L197.3 46.8 L196.7 41.7 L194.7 37.0 L191.5 32.6 L187.4 28.7 L182.3 25.1 L176.5 21.9 L169.9 19.1 L162.8 16.6 L155.1 14.5 L146.9 12.8 L138.3 11.4 L129.3 10.4 L120.1 9.8 L110.7 9.6 L101.2 9.8 L91.7 10.4 L82.3 11.4 L73.1 13.1 L64.3 15.2 L55.9 17.7 L48.1 20.6 L40.9 23.9 Z"/></svg></span> test cases</p>
+        <ul><li><span class="suite-label">Public API <span class="muted">Playwright</span></span><span class="suite-bar" style="--share: 1"></span><span class="suite-num">200+</span></li><li><span class="suite-label">Formulir web checkout <span class="muted">Playwright</span></span><span class="suite-bar" style="--share: 1"></span><span class="suite-num">200+</span></li><li><span class="suite-label">Mengantar web app <span class="muted">Playwright</span></span><span class="suite-bar" style="--share: 0.5"></span><span class="suite-num">100+</span></li><li><span class="suite-label">Formulir mobile <span class="muted">Maestro</span></span><span class="suite-bar" style="--share: 0.25"></span><span class="suite-num">50+</span></li></ul>
+      </div></div>
+    <div class="project-body">
+      <h3>Test Automation Suites</h3>
+      <p class="meta">Mengantar</p>
+      <p>550+ automated test cases across four suites that I lead and contribute to, all following one consistent structure. The code is proprietary, so this is a high-level overview.</p>
+      <ul><li><strong>Public API</strong> (Playwright): 200+ test cases</li><li><strong>Formulir Web checkout</strong> (Playwright): 200+ test cases</li><li><strong>Mengantar Web App</strong> (Playwright): 100+ test cases</li><li><strong>Formulir Mobile</strong> (Maestro Studio): 50+ test cases</li></ul>
+      <p class="small"><strong>Approach:</strong> Page Object Model, reusable fixtures, per-environment configuration, test data generated per run, and tests tagged by type (smoke, regression) and feature.</p><p class="small"><strong>Delivery:</strong> run on GitHub Actions, with Allure reports for the team to review.</p><p class="small"><strong>Tools:</strong> Playwright, Maestro Studio, TypeScript, GitHub Actions, Allure.</p>
+      
+    </div>
   </article>
-    <article class="frame project">
+    <article class="frame project pinned">
       <h3>Hiring Assessments</h3>
       <p class="meta">Case studies completed during hiring processes, 2021 - 2023</p>
       <ul><li><strong>E-commerce Website (2023):</strong> test plan, automated tests for login, shopping cart, and sorting, bug reports, test report, and next-step recommendations for the production release. <a href="https://github.com/despisatria/sample-ecommerce-automation-test" target="_blank" rel="noopener">Automation repo on GitHub</a></li><li><strong>Mini Wallet API (2021):</strong> test scenarios and a detailed test plan built from the API documentation.</li><li><strong>Sampingan Mobile App (2021):</strong> test cases for onboarding, registration, login, and the job-board application flow, plus a bug-reporting approach across web, Android, and backend.</li></ul>
+      <p class="project-links"><a href="https://drive.google.com/file/d/1DZ8hUoDxk39mnony1qar-9XTPzeLlc9P/view?usp=sharing" target="_blank" rel="noopener">Full documents on Google Drive</a></p>
     </article>
   </div>
 </section>
@@ -116,7 +129,7 @@
   <p class="section-note">Personal and company details in the samples are blacked out. Select a sample to see it full size.</p>
   <div class="earlier-grid">
   
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/agree-mart.jpg" alt="Agree Mart app screens" width="649" height="720" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Agree Mart <span class="muted">2022</span></h3>
@@ -131,7 +144,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/agree-ecosystem.jpg" alt="Agree Ecosystem app screens" width="720" height="637" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Agree Ecosystem <span class="muted">2022</span></h3>
@@ -145,7 +158,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/agree-field-assistant.jpg" alt="Agree Field Assistant app screens" width="720" height="663" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Agree Field Assistant <span class="muted">2021</span></h3>
@@ -160,7 +173,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/my-first-step-bjb.jpg" alt="My First Step BJB app screens" width="720" height="505" loading="lazy"></div>
       <div class="earlier-body">
         <h3>My First Step BJB <span class="muted">2021</span></h3>
@@ -174,7 +187,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/finansialku.jpg" alt="Finansialku.com app screens" width="655" height="720" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Finansialku.com <span class="muted">2020</span></h3>
@@ -189,7 +202,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/daikin.jpg" alt="Daikin Accessories app screens" width="720" height="599" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Daikin Accessories <span class="muted">2020</span></h3>
@@ -203,7 +216,7 @@
         </ul>
       </div>
     </article>
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover"><img src="assets/img/work/dicicilaja.jpg" alt="Dicicilaja.com app screens" width="624" height="720" loading="lazy"></div>
       <div class="earlier-body">
         <h3>Dicicilaja.com <span class="muted">2019</span></h3>
@@ -215,7 +228,7 @@
       </div>
     </article>
   </div>
-  <p class="archive"><strong>Archive (2019 - 2023).</strong> Project samples (test scenarios, issue reports, and automation scripts) from Agree Mart, Agree Ecosystem, Agree Field Assistant, HCIS, Flona, My First Step BJB, Daikin, Finansialku, and Dicicilaja, plus the full documents of the hiring assessments above. <a href="https://drive.google.com/file/d/1lv7_yPN_jiHLDruNyYYyrJpcp-5WpaWV/view?usp=sharing" target="_blank" rel="noopener">Open the archive on Google Drive</a></p>
+  <p class="archive"><strong>Archive (2019 - 2023).</strong> Project samples (test scenarios, issue reports, and automation scripts) from Agree Mart, Agree Ecosystem, Agree Field Assistant, HCIS, Flona, My First Step BJB, Daikin, Finansialku, and Dicicilaja, plus the full documents of the hiring assessments above. <a href="https://drive.google.com/file/d/1DZ8hUoDxk39mnony1qar-9XTPzeLlc9P/view?usp=sharing" target="_blank" rel="noopener">Open the archive on Google Drive</a></p>
 </section>
 </main>
 

@@ -271,57 +271,25 @@
   "archive": {
     "title": "Archive (2019 - 2023)",
     "text": "Project samples (test scenarios, issue reports, and automation scripts) from Agree Mart, Agree Ecosystem, Agree Field Assistant, HCIS, Flona, My First Step BJB, Daikin, Finansialku, and Dicicilaja, plus the full documents of the hiring assessments above.",
-    "url": "https://drive.google.com/file/d/1lv7_yPN_jiHLDruNyYYyrJpcp-5WpaWV/view?usp=sharing"
+    "url": "https://drive.google.com/file/d/1DZ8hUoDxk39mnony1qar-9XTPzeLlc9P/view?usp=sharing"
   },
-  "skills": [
-    {
-      "group": "Industry knowledge",
-      "items": [
-        "Manual and Automation Testing",
-        "API Testing",
-        "Test Strategy & Planning",
-        "Smoke, Sanity, and Regression Testing",
-        "Release Readiness",
-        "Team Leadership & Mentoring",
-        "QA Metrics & Reporting",
-        "Bug Tracking and Reporting",
-        "Test Scenario",
-        "Software Testing Life Cycle",
-        "Performance Testing",
-        "Agile Development",
-        "Scrum Development",
-        "SIT and UAT",
-        "User Experience"
-      ]
-    },
-    {
-      "group": "Tools, technology, and programming",
-      "items": [
-        "AI-assisted Testing (Claude Code)",
-        "CODA/Superhuman Docs",
-        "Playwright",
-        "Postman",
-        "Charles Proxy",
-        "Maestro Studio",
-        "Jira",
-        "GitHub Actions",
-        "GIT",
-        "Allure",
-        "MongoDB",
-        "TypeScript",
-        "JavaScript",
-        "JMeter",
-        "Python",
-        "Katalon Studio",
-        "Java",
-        "Appium",
-        "Selenium",
-        "Cypress",
-        "Groovy",
-        "HTML & CSS"
-      ]
-    }
-  ],
+  "skills": {
+    "knowledge": [
+      { "title": "Testing", "items": ["Manual and Automation Testing", "API Testing", "Smoke, Sanity, and Regression Testing", "Test Scenario", "Performance Testing", "SIT and UAT"] },
+      { "title": "Process", "items": ["Test Strategy & Planning", "Release Readiness", "Bug Tracking and Reporting", "Software Testing Life Cycle", "Agile Development", "Scrum Development"] },
+      { "title": "Leadership & quality", "items": ["Team Leadership & Mentoring", "QA Metrics & Reporting", "User Experience"] }
+    ],
+    "tools": [
+      { "title": "AI-assisted testing", "items": ["Claude Code", "Codex", "Google Gemini"] },
+      { "title": "Test automation", "items": ["Playwright", "Maestro Studio", "Katalon Studio", "Appium", "Selenium", "Cypress"] },
+      { "title": "API & performance", "items": ["Postman", "Charles Proxy", "JMeter"] },
+      { "title": "CI & reporting", "items": ["GitHub Actions", "Git", "Allure"] },
+      { "title": "Languages", "items": ["TypeScript", "JavaScript", "Python", "Java", "Groovy", "HTML & CSS"] },
+      { "title": "Work & data", "items": ["Coda/Superhuman Docs", "Jira", "MongoDB"] }
+    ],
+    "daily": ["Claude Code", "Coda/Superhuman Docs", "Playwright", "Postman", "Charles Proxy", "Maestro Studio", "Jira", "GitHub Actions", "Git", "Allure", "MongoDB", "TypeScript"],
+    "dailyNote": "= what I use every day"
+  },
   "otherExperience": [
     {
       "title": "Independent Builder (AI-Assisted Development)",
@@ -399,7 +367,7 @@
           "text": "*Project from* ***Communic8 Agency***. Daikin EStore is an application that provides easy access for Daikin dealers and service partners."
         }
       ],
-      "logo": null
+      "logo": "assets/img/favicon.png"
     }
   ],
   "education": [

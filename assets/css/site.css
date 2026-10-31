@@ -184,7 +184,9 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .case .sticky-quote { max-width: 420px; margin: 32px 0 0 6px; transform: rotate(-1.5deg); }
 .sticky-quote blockquote p { margin: 0; }
 .quote-more { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-size: 14px; font-weight: 600; color: var(--sticky-ink); text-decoration-color: var(--pen); text-underline-offset: 3px; }
-.case-next { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); max-width: 90ch; }
+/* What I'd improve next is the reviewer's to-do, stuck under the case on a sticky note. */
+.case-next { max-width: 780px; margin-top: 32px; padding: 18px 22px 20px; border-radius: 2px; background: var(--sticky); color: var(--sticky-ink); box-shadow: 0 2px 0 rgb(0 0 0 / 5%), 0 10px 18px -10px rgb(0 0 0 / 30%); transform: rotate(-0.6deg); }
+.case-next p { margin-bottom: 0; }
 
 /* Experience and the other timeline-like lists */
 .job { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding: 24px 0; border-top: 1px solid var(--line); }
@@ -222,23 +224,33 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .project h3 { font-size: 21px; font-weight: 800; }
 .project-links { display: flex; flex-wrap: wrap; gap: 0 16px; margin: 4px 0 0; }
 .project-links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
-.work-row { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 24px; align-items: start; }
+.work-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
 .teaser-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: stretch; padding-top: 12px; }
-/* Recent work cards are prints taped to the board, like the profile photo: the evidence in the picture
-   (the app, the live report, the suite sizes), the story written on the white margin below. */
-.project-teaser {
-  position: relative; display: flex; flex-direction: column;
-  padding: 12px 12px 0; border-radius: 2px;
+/* Project cards are prints taped to the board, like the profile photo: the evidence in the picture
+   (the app, the live report, the suite sizes, the old app screens), the story written on the white margin below.
+   Tall cards tilt less than short ones, so long text stays easy to read. */
+.pinned {
+  position: relative; border-radius: 2px;
   box-shadow: 0 6px 18px rgb(0 0 0 / 12%);
+  transform: rotate(var(--tilt, 0deg));
+}
+.pinned::before { content: ""; position: absolute; z-index: 1; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
+.pinned.has-visual, .project-teaser { padding: 12px 12px 0; }
+.project-body { padding: 20px 14px 22px; }
+/* The suites card is wide, so its chart gets a flatter strip instead of a tall empty box. */
+.project-suites .teaser-visual { aspect-ratio: 3 / 1; }
+.pair > .pinned:first-child, .work-row > .pinned:first-child { --tilt: -0.5deg; }
+.pair > .pinned:last-child, .work-row > .pinned:last-child { --tilt: 0.6deg; }
+.project-teaser {
+  display: flex; flex-direction: column;
   transition: transform 160ms ease-out, box-shadow 160ms ease-out;
 }
-.project-teaser::before { content: ""; position: absolute; z-index: 1; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
-.project-teaser:nth-child(1) { transform: rotate(-1.2deg); }
-.project-teaser:nth-child(2) { transform: rotate(0.8deg); }
-.project-teaser:nth-child(3) { transform: rotate(-0.6deg); }
+.project-teaser:nth-child(1) { --tilt: -1.2deg; }
+.project-teaser:nth-child(2) { --tilt: 0.8deg; }
+.project-teaser:nth-child(3) { --tilt: -0.6deg; }
 .project-teaser:hover { transform: rotate(0deg) translateY(-2px); box-shadow: 0 10px 24px rgb(0 0 0 / 16%); }
 @media (prefers-reduced-motion: reduce) { .project-teaser { transition: none; } }
-.teaser-visual { aspect-ratio: 37 / 20; min-height: 204px; background: #e3e2dc; border: 1px solid var(--line); overflow: hidden; }
+.teaser-visual { width: 100%; aspect-ratio: 37 / 20; min-height: 204px; background: #e3e2dc; border: 1px solid var(--line); overflow: hidden; }
 .teaser-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .teaser-body { display: flex; flex-direction: column; flex: 1; padding: 18px 10px 14px; }
 .project-teaser h3 { font-size: 19px; font-weight: 800; }
@@ -258,11 +270,13 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 
 /* Earlier work: smaller frames, the app screens on top and the redacted samples as evidence below. */
 .section-note { color: var(--muted); font-size: 15px; margin: -4px 0 18px 2px; }
-.earlier-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
-.earlier { padding: 0; overflow: hidden; }
-.earlier-cover { background: #e3e2dc; border-bottom: 1px solid var(--line); }
+.earlier-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 32px; align-items: start; padding-top: 12px; }
+.earlier { padding: 12px 12px 0; }
+.earlier:nth-child(odd) { --tilt: -0.5deg; }
+.earlier:nth-child(even) { --tilt: 0.6deg; }
+.earlier-cover { background: #e3e2dc; border: 1px solid var(--line); }
 .earlier-cover img { width: 100%; height: 240px; object-fit: contain; padding: 12px; }
-.earlier-body { padding: 20px 24px 22px; }
+.earlier-body { padding: 18px 12px 22px; }
 .earlier h3 { font-size: 19px; font-weight: 800; }
 .earlier h3 .muted { font-size: 15px; font-weight: 600; margin-left: 4px; }
 .samples { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
@@ -277,11 +291,30 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .viewer img { width: 100%; height: auto; max-height: calc(100dvh - 160px); object-fit: contain; }
 .viewer-caption { margin: 10px 0 0; font-weight: 600; }
 
-/* Skills: plain lists, two columns of running text. */
-.skill-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.skill-cols h3 { font-size: 15px; font-weight: 800; margin-bottom: 10px; }
-.skill-list { list-style: none; padding: 0; columns: 2 180px; column-gap: 24px; }
-.skill-list li { break-inside: avoid; padding: 6px 0; margin: 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+/* Skills: what I know on sticky notes, tools on taped index cards. The pen ticks what I use every day,
+   so the list reads as current hands-on work first and earlier tools second. */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skills-sub { margin: 0 0 16px 2px; font-size: 15px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.skills-sub-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 24px; margin-top: 40px; }
+.tick { flex: none; fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.tick-legend { display: inline-flex; align-items: center; gap: 4px; margin: 0 0 16px; font-size: 22px; }
+.tick-legend .tick { width: 20px; height: 20px; }
+.know-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.know-note { padding: 18px 20px 20px; border-radius: 2px; background: var(--sticky); color: var(--sticky-ink); box-shadow: 0 2px 0 rgb(0 0 0 / 5%), 0 10px 18px -10px rgb(0 0 0 / 30%); }
+.know-note:nth-child(1) { transform: rotate(-1.2deg); }
+.know-note:nth-child(2) { transform: rotate(0.9deg); }
+.know-note:nth-child(3) { transform: rotate(-0.6deg); }
+.know-note h4, .tool-card h4 { margin: 0 0 8px; font-size: 16px; font-weight: 800; }
+.know-note ul, .tool-card ul { list-style: none; margin: 0; padding: 0; }
+.know-note li { margin: 0; padding: 5px 0; border-top: 1px dashed rgb(43 42 34 / 22%); font-size: 15px; }
+.tool-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; padding-top: 12px; align-items: start; }
+.tool-card { position: relative; padding: 20px 20px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 2px; box-shadow: 0 6px 18px rgb(0 0 0 / 10%); }
+.tool-card::before { content: ""; position: absolute; top: -11px; left: 50%; width: 72px; height: 22px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
+.tool-card:nth-child(3n + 1) { transform: rotate(0.7deg); }
+.tool-card:nth-child(3n + 2) { transform: rotate(-0.8deg); }
+.tool-card:nth-child(3n) { transform: rotate(0.4deg); }
+.tool-card li { display: flex; align-items: center; gap: 6px; margin: 0; padding: 4px 0 4px 22px; color: var(--muted); font-size: 15px; }
+.tool-card li.daily { padding-left: 0; color: var(--ink); font-weight: 600; }
 
 /* Recommendations: sticky notes pinned straight on the board. */
 .notes { columns: 3 280px; column-gap: 28px; }
@@ -361,6 +394,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .flow-step:nth-child(2n)::after { display: none; }
   .flow-branch { flex-direction: column; align-items: flex-start; gap: 6px; }
   .teaser-grid, .foot-inner { grid-template-columns: 1fr; }
+  .know-notes, .tool-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* One card per row: a fixed height keeps the previews from turning into full screens. */
   .teaser-visual { aspect-ratio: auto; height: 210px; }
   .do-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -368,10 +402,10 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .note-avail { position: static; margin: 16px 0 0; }
   .note-avail { width: auto; margin-top: 6px; font-size: 28px; }
   .note-avail .arrow-avail { display: none; }
-  .pair { grid-template-columns: 1fr; }
+  .pair { grid-template-columns: minmax(0, 1fr); }
   .connector { height: 72px; margin-top: 0; }
   .connector::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 2px dashed var(--pen); }
-  .work-row, .earlier-grid { grid-template-columns: 1fr; }
+  .work-row, .earlier-grid { grid-template-columns: minmax(0, 1fr); }
   .logo { margin: 0 4px 0 0; width: 32px; height: 32px; }
   .job { grid-template-columns: 1fr; gap: 8px; }
   .job-side { position: static; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
@@ -401,14 +435,15 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .case-cols, .case-results, .teaser-cols { grid-template-columns: 1fr; display: grid; }
   .teaser-cols { gap: 8px; }
   .case-results ul { grid-column: 1; grid-row: auto; }
-  .skill-cols { grid-template-columns: 1fr; }
+  .know-notes, .tool-cards { grid-template-columns: 1fr; }
+  .know-note:nth-child(n), .tool-card:nth-child(n) { transform: none; }
   .do-list { grid-template-columns: 1fr; }
   .do-list div:nth-child(2) { border-top: 1px dashed var(--line); padding-top: 14px; }
   /* Phones: logo and Back to top share the first row, then the page links, then the location. */
   .foot-top { order: 1; }
   .foot-nav { order: 2; width: 100%; }
   .foot-meta { order: 3; width: 100%; padding-bottom: 8px; }
-  .sticky:nth-child(n), .project-teaser:nth-child(n), .job:nth-child(n) .job-side { transform: none; }
+  .sticky:nth-child(n), .pinned:nth-child(n), .job:nth-child(n) .job-side, .case-next { transform: none; }
 }
 /* Below 360px the role line would stack the sticky bar four lines high; the name alone identifies the page. */
 @media (max-width: 359px) {
@@ -445,6 +480,13 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .job-role + .job-role { margin-top: 10px; }
   li, .figures div { break-inside: avoid; }
   h3, h4 { break-after: avoid; }
-  .circled { border-color: #000; }
+  /* Skills print as three plain columns of lists: no paper, tape, tilt, or ticks. */
+  .skills-sub { margin: 8px 0 4px; font-size: 10pt; }
+  .skills-sub-row { margin-top: 6px; }
+  .know-notes, .tool-cards { grid-template-columns: repeat(3, 1fr); gap: 4px 16px; padding: 0; }
+  .know-note, .tool-card { padding: 0; background: none; border: 0; box-shadow: none; transform: none !important; }
+  .tool-card::before, .tick { display: none; }
+  .know-note h4, .tool-card h4 { margin: 4px 0 2px; font-size: 10pt; }
+  .know-note li, .tool-card li, .tool-card li.daily { padding: 0; border: 0; color: #000; font-weight: 400; font-size: 9.5pt; }
   a { text-decoration: none; }
 }

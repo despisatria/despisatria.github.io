@@ -177,12 +177,15 @@ const suiteChart = (rows) => {
       </div>`;
 };
 
+// The picture on a pinned project print: a screenshot, or the suite chart when there is nothing to show.
+const preview = (p) => `<div class="teaser-visual">${p.preview ? `<img src="${p.preview.src}" alt="${escape(p.preview.alt)}" width="740" height="400" loading="lazy">` : suiteChart(p.chart)}</div>`;
+
 const [app, appTests, suites] = cv.portfolio;
 const workTeaser = frame('Recent work', 'work', `
   <div class="teaser-grid">
     ${[app, appTests, suites].map((p) => `
-    <article class="frame project-teaser">
-      <div class="teaser-visual">${p.preview ? `<img src="${p.preview.src}" alt="${escape(p.preview.alt)}" width="740" height="400" loading="lazy">` : suiteChart(p.chart)}</div>
+    <article class="frame project-teaser pinned">
+      ${preview(p)}
       <div class="teaser-body">
         <h3>${escape(p.title)}</h3>
         <p class="meta">${escape(p.meta)}</p>
@@ -220,13 +223,16 @@ const caseTeaser = frame('Case study', 'case-study', `
   </article>`, 'wrap-case', true);
 
 const project = (p, cls = '') => `
-  <article class="frame project ${cls}" id="${p.id}">
-    <h3>${escape(p.title)}</h3>
-    <p class="meta">${escape(p.meta)}</p>
-    ${paragraphs(p.intro)}
-    ${list(p.points)}
-    ${p.notes.map((n) => `<p class="small">${inline(n)}</p>`).join('')}
-    ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
+  <article class="frame project pinned has-visual ${cls}" id="${p.id}">
+    ${preview(p)}
+    <div class="project-body">
+      <h3>${escape(p.title)}</h3>
+      <p class="meta">${escape(p.meta)}</p>
+      ${paragraphs(p.intro)}
+      ${list(p.points)}
+      ${p.notes.map((n) => `<p class="small">${inline(n)}</p>`).join('')}
+      ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
+    </div>
   </article>`;
 
 const work = frame('Recent work', 'work', `
@@ -237,10 +243,11 @@ const work = frame('Recent work', 'work', `
   </div>
   <div class="work-row">
     ${project(suites, 'project-suites')}
-    <article class="frame project">
+    <article class="frame project pinned">
       <h3>${escape(cv.assessments.title)}</h3>
       <p class="meta">${escape(cv.assessments.meta)}</p>
       ${list(cv.assessments.points)}
+      <p class="project-links">${link(cv.archive.url, 'Full documents on Google Drive')}</p>
     </article>
   </div>`);
 
@@ -249,7 +256,7 @@ const earlier = frame(ew.title, 'earlier', `
   <p class="section-note">${escape(ew.note)} Select a sample to see it full size.</p>
   <div class="earlier-grid">
   ${ew.projects.map((p) => `
-    <article class="frame earlier">
+    <article class="frame earlier pinned">
       <div class="earlier-cover">${imgTag(p.cover, `${p.title} app screens`)}</div>
       <div class="earlier-body">
         <h3>${escape(p.title)} <span class="muted">${escape(p.year)}</span></h3>
@@ -265,15 +272,30 @@ const earlier = frame(ew.title, 'earlier', `
   </div>
   <p class="archive"><strong>${escape(cv.archive.title)}.</strong> ${escape(cv.archive.text)} ${link(cv.archive.url, 'Open the archive on Google Drive')}</p>`);
 
+// Skills on the board: what I know on sticky notes, tools on taped index cards, everyday tools ticked by the pen.
+const tick = '<svg class="tick" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>';
+const sk = cv.skills;
 const skills = frame('Skills and tools', 'skills', `
-  <div class="frame skills">
-    <div class="skill-cols">
-    ${cv.skills.map((g) => `
-      <div>
-        <h3>${escape(g.group)}</h3>
-        <ul class="skill-list">${g.items.map((i) => `<li>${escape(i)}</li>`).join('')}</ul>
-      </div>`).join('')}
-    </div>
+  <h3 class="skills-sub">Industry knowledge</h3>
+  <div class="know-notes">
+    ${sk.knowledge.map((k) => `
+    <div class="know-note">
+      <h4>${escape(k.title)}</h4>
+      <ul>${k.items.map((i) => `<li>${escape(i)}</li>`).join('')}</ul>
+    </div>`).join('')}
+  </div>
+  <div class="skills-sub-row">
+    <h3 class="skills-sub">Tools, technology, and programming</h3>
+    <p class="note tick-legend">${tick} ${escape(sk.dailyNote)}</p>
+  </div>
+  <div class="tool-cards">
+    ${sk.tools.map((t) => `
+    <div class="tool-card">
+      <h4>${escape(t.title)}</h4>
+      <ul>${t.items.map((i) => sk.daily.includes(i)
+        ? `<li class="daily">${tick}${escape(i)}<span class="sr-only">, used every day</span></li>`
+        : `<li>${escape(i)}</li>`).join('')}</ul>
+    </div>`).join('')}
   </div>`);
 
 const other = frame('Projects, mentoring and education', 'more', `
