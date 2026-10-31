@@ -480,8 +480,10 @@
   ],
   "availability": "Open to freelance and part-time QA projects",
   "location": "Bandung, West Java, Indonesia",
-  "contactTitle": "Let’s make your next release a boring one.",
-  "contactAside": "boring = nothing breaks in production",
+  "contactTitle": "Quality is everyone’s responsibility.",
+  "contactAside": "principle no. 1 of the QA guide book I wrote",
+  "contactCircle": "everyone’s",
+  "cvUrl": "https://drive.google.com/uc?export=download&id=1x5IjS5VYK3cgNaJh23TKadtP98V1HhaS",
   "testimonialsNote": "Recommendations from designers, product managers, engineers, and QA engineers I have worked with, written on my LinkedIn profile. [Read the originals on LinkedIn](https://www.linkedin.com/in/despisatria/details/recommendations/).",
   "contactNote": "Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.",
   "howIWork": {

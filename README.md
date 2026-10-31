@@ -27,7 +27,7 @@ To preview locally, run `node scripts/serve.mjs` and visit http://localhost:8000
 ## Notes
 
 - The page is always light themed (`color-scheme: light`), whatever the visitor's system setting.
-- **Download CV** prints the experience page as a plain CV (summary, experience, other experience, education, skills). Other pages link to `/experience?print`, which opens the print dialog.
+- **Download CV** downloads the PDF CV from Google Drive (`cvUrl` in `content/resume.json`). Replace the file on Drive, or change `cvUrl`, when the CV changes. Printing the experience page by hand still gives a plain CV.
 - Pages cross-fade when you move between them (cross-document view transitions) and in-page links scroll smoothly. Both are off for visitors who prefer reduced motion.
 - Screenshots in `assets/img/portfolio/` and `assets/img/work/` have internal links, colleagues' names, and test credentials blacked out. Check any new screenshot for the same before adding it.
 - The design brief and the reason behind each visual choice are written at the top of `assets/css/site.css`.

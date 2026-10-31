@@ -41,7 +41,12 @@ const penArrow = (cls) => `<svg class="pen-arrow ${cls}" viewBox="0 0 64 40" wid
 // The logo: initials written in the annotation hand, circled by one pressure-varied pen stroke.
 // The stroke is drawn as a filled outline so it thickens and tapers like a real pen; the loop overshoots its start.
 const PEN_CIRCLE = 'M19.5 29.8 L22.9 27.6 L26.6 25.7 L30.5 24.0 L34.5 22.5 L38.7 21.5 L43.0 20.5 L47.3 19.9 L51.7 19.6 L56.0 19.7 L60.2 20.1 L64.4 20.8 L68.4 21.8 L72.2 23.1 L75.8 24.8 L79.2 26.6 L82.2 28.8 L85.0 31.1 L87.3 33.7 L89.2 36.4 L90.6 39.3 L91.6 42.3 L92.1 45.3 L92.1 48.4 L91.6 51.6 L90.6 54.7 L89.2 57.7 L87.3 60.7 L85.0 63.5 L82.3 66.2 L79.3 68.7 L76.0 71.0 L72.5 73.1 L68.7 75.0 L64.8 76.7 L60.8 78.1 L56.5 79.2 L52.2 80.1 L47.8 80.7 L43.4 81.0 L38.9 80.9 L34.6 80.4 L30.3 79.6 L26.2 78.4 L22.4 76.8 L18.9 74.8 L15.7 72.7 L12.9 70.2 L10.6 67.4 L8.7 64.4 L7.3 61.3 L6.3 58.0 L5.9 54.6 L5.9 51.2 L6.4 47.7 L7.3 44.3 L8.7 40.9 L10.5 37.5 L12.7 34.3 L15.3 31.2 L18.4 28.3 L21.8 25.7 L25.5 23.3 L29.6 21.3 L33.9 19.5 L33.8 19.2 L29.5 20.9 L25.4 23.0 L21.5 25.3 L18.0 27.9 L14.8 30.7 L12.0 33.7 L9.6 37.0 L7.6 40.3 L6.0 43.8 L4.9 47.4 L4.2 51.0 L4.1 54.7 L4.4 58.4 L5.2 62.0 L6.5 65.5 L8.4 68.9 L10.8 72.1 L13.7 75.1 L17.0 77.7 L20.8 80.0 L24.9 81.8 L29.3 83.3 L33.9 84.3 L38.6 84.9 L43.4 85.2 L48.2 85.1 L52.9 84.6 L57.6 83.8 L62.1 82.7 L66.5 81.3 L70.8 79.7 L74.9 77.7 L78.8 75.5 L82.5 73.0 L85.9 70.3 L89.0 67.2 L91.7 63.9 L94.0 60.4 L95.7 56.6 L96.9 52.8 L97.4 48.8 L97.3 44.9 L96.6 41.0 L95.3 37.3 L93.3 33.8 L90.9 30.6 L88.1 27.8 L84.9 25.2 L81.4 22.9 L77.6 21.0 L73.6 19.4 L69.5 18.1 L65.1 17.1 L60.7 16.5 L56.1 16.2 L51.5 16.2 L46.9 16.5 L42.4 17.2 L37.9 18.3 L33.6 19.9 L29.5 21.9 L25.7 24.1 L22.3 26.7 L19.3 29.6 Z';
-const brandMark = (text) => `<svg class="bar-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="${PEN_CIRCLE}"/><text x="50" y="62" transform="rotate(-6 50 50)">${text}</text></svg>`;
+const brandMark = (text, cls = 'bar-mark') => `<svg class="${cls}" viewBox="0 0 100 100" aria-hidden="true"><path d="${PEN_CIRCLE}"/><text x="50" y="62" transform="rotate(-6 50 50)">${text}</text></svg>`;
+const MONOGRAM = cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join('');
+
+// The same pen stretched wide, for circling a figure or a word. It is stretched to its box, so the stroke thins at top and bottom like a quick pen loop.
+const PEN_RING = 'M41.1 24.2 L48.5 21.9 L56.5 19.8 L64.9 18.0 L73.7 16.6 L82.8 15.5 L92.1 14.6 L101.4 14.1 L110.7 14.0 L119.9 14.3 L128.9 15.0 L137.6 16.1 L145.9 17.6 L153.8 19.5 L161.2 21.7 L167.9 24.2 L173.9 27.0 L179.2 30.1 L183.5 33.3 L186.8 36.7 L189.1 40.1 L190.3 43.4 L190.6 46.6 L190.0 49.9 L188.5 53.4 L185.9 56.9 L182.2 60.5 L177.6 64.0 L172.0 67.4 L165.7 70.6 L158.7 73.6 L151.1 76.3 L143.0 78.7 L134.5 80.8 L125.7 82.6 L116.6 84.1 L107.2 85.3 L97.7 86.1 L88.2 86.5 L78.6 86.6 L69.1 86.2 L59.9 85.3 L51.0 84.0 L42.7 82.3 L34.9 80.1 L28.0 77.5 L21.8 74.7 L16.6 71.6 L12.4 68.2 L9.3 64.6 L7.1 60.9 L6.0 57.1 L5.8 53.1 L6.6 49.1 L8.4 45.0 L11.2 40.9 L14.9 36.9 L19.5 32.9 L25.0 29.1 L31.3 25.6 L38.4 22.2 L46.2 19.2 L54.7 16.5 L63.8 14.3 L73.2 12.4 L73.1 12.1 L63.7 13.9 L54.6 16.2 L46.1 18.7 L38.1 21.6 L30.9 24.7 L24.4 28.2 L18.7 31.9 L13.8 35.7 L9.8 39.8 L6.7 44.0 L4.6 48.4 L3.5 52.9 L3.5 57.4 L4.6 61.9 L6.8 66.3 L10.1 70.6 L14.5 74.5 L19.9 78.2 L26.2 81.5 L33.5 84.4 L41.5 86.8 L50.1 88.8 L59.3 90.3 L68.7 91.3 L78.4 92.0 L88.2 92.1 L98.1 91.9 L107.8 91.3 L117.4 90.2 L126.8 88.9 L135.9 87.2 L144.7 85.1 L153.1 82.7 L161.1 80.0 L168.6 76.9 L175.4 73.5 L181.5 69.8 L186.8 65.8 L191.2 61.4 L194.5 56.8 L196.6 51.9 L197.3 46.8 L196.7 41.7 L194.7 37.0 L191.5 32.6 L187.4 28.7 L182.3 25.1 L176.5 21.9 L169.9 19.1 L162.8 16.6 L155.1 14.5 L146.9 12.8 L138.3 11.4 L129.3 10.4 L120.1 9.8 L110.7 9.6 L101.2 9.8 L91.7 10.4 L82.3 11.4 L73.1 13.1 L64.3 15.2 L55.9 17.7 L48.1 20.6 L40.9 23.9 Z';
+const penRing = `<svg class="pen-ring" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path d="${PEN_RING}"/></svg>`;
 
 // The frame label is the section heading, like a frame name on a board. Frames with their own
 // title (About, Case study) keep the label as a plain caption.
@@ -64,7 +69,7 @@ const PAGES = [
 const navLinks = (current) => PAGES.map((p) => `<a href="${p.slug}"${p.slug === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('') + '<a href="#contact">Contact</a>';
 
 const figures = (m) => `<dl class="figures">
-  ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}
+  ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}${i === x.values.length - 1 ? penRing : ''}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}
 </dl>`;
 
 const hero = frame('Overview', 'about', `
@@ -306,29 +311,30 @@ const recommendations = `
 </section>`;
 
 // Contact is the footer of every page: the dark edge of the board, so it is the last thing on each page.
-const contactFooter = (cvControl) => `
+// The dots carry on in chalk, the reviewer circles the promise, and the base row repeats the logo and the pages.
+const out = (url, label) => `<a href="${url}" target="_blank" rel="noopener">${label} <span aria-hidden="true">↗</span></a>`;
+const contactFooter = (cvControl, current) => `
 <footer class="foot" id="contact" aria-labelledby="contact-title">
   <div class="foot-inner">
     <div class="foot-main">
-      <h2 class="foot-title" id="contact-title">${escape(cv.contactTitle)}</h2>
+      <h2 class="foot-title" id="contact-title">${escape(cv.contactTitle).replace(cv.contactCircle, `<span class="pen-word">${cv.contactCircle}${penRing}</span>`)}</h2>
       <p class="note foot-aside">(${escape(cv.contactAside)})</p>
     </div>
     <div class="foot-side">
       <p>${escape(cv.contactNote)}</p>
       <a class="foot-email" href="mailto:${contact.email}">${escape(contact.email)}</a>
-      <ul class="foot-links">
-        <li><a href="${contact.whatsapp}" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a></li>
-        <li><a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
-        <li><a href="${contact.github}" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
-        <li><a href="${contact.instagram}" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a></li>
-        <li>${cvControl}</li>
-      </ul>
+      <dl class="foot-groups">
+        <div><dt>Chat</dt><dd>${out(contact.whatsapp, 'WhatsApp')}</dd></div>
+        <div><dt>Profiles</dt><dd>${out(contact.linkedin, 'LinkedIn')}${out(contact.github, 'GitHub')}${out(contact.instagram, 'Instagram')}</dd></div>
+      </dl>
+      ${cvControl}
     </div>
   </div>
   <div class="foot-base">
-    <span>${escape(cv.name)}</span>
-    <span>${escape(cv.location)}</span>
-    <span>© ${new Date().getFullYear()}</span>
+    <a class="foot-brand" href="overview">${brandMark(MONOGRAM, 'foot-mark')}<span>${escape(cv.name)}</span></a>
+    <nav class="foot-nav" aria-label="Footer">${PAGES.map((p) => `<a href="${p.slug}"${p.slug === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('')}</nav>
+    <span class="foot-meta">${escape(cv.location)} · © ${new Date().getFullYear()}</span>
+    <a class="foot-top" href="#main">Back to top <span aria-hidden="true">↑</span></a>
   </div>
 </footer>`;
 
@@ -374,12 +380,8 @@ const script = `
     }));
     viewer.addEventListener('click', (e) => { if (e.target === viewer) viewer.close(); });
   }
-  // Download CV prints the resume page; other pages link to it with ?print.
-  document.querySelectorAll('button[data-print]').forEach((b) => b.addEventListener('click', () => window.print()));
+  // Printing the experience page by hand still gives a plain CV, with the client list expanded.
   window.addEventListener('beforeprint', () => document.querySelectorAll('details.clients').forEach((d) => { d.open = true; }));
-  if (new URLSearchParams(location.search).has('print') && document.querySelector('button[data-print]')) {
-    window.addEventListener('load', () => document.fonts.ready.then(() => setTimeout(() => window.print(), 300)));
-  }
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
@@ -412,9 +414,8 @@ const meta = (url, title, description) => `
 
 function page({ slug, title, description, heading, lede, body, extra = '' }) {
   const url = SITE_URL + slug;
-  const printControl = slug === 'experience'
-    ? (cls) => `<button class="btn ${cls}" type="button" data-print>Download CV</button>`
-    : (cls) => `<a class="btn ${cls}" href="experience?print">Download CV</a>`;
+  // Download CV fetches the PDF from Google Drive.
+  const cvLink = (cls) => `<a class="btn ${cls}" href="${escape(cv.cvUrl)}" target="_blank" rel="noopener">Download CV <span aria-hidden="true">↓</span></a>`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>${meta(url, title, description)}
@@ -432,22 +433,20 @@ function page({ slug, title, description, heading, lede, body, extra = '' }) {
 <!-- Generated from content/resume.json by scripts/build.mjs. Edit the content file, not this one. -->
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar">
-  <a class="bar-name" href="overview">${brandMark(cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join(''))}<span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
+  <a class="bar-name" href="overview">${brandMark(MONOGRAM)}<span class="bar-id"><strong>${escape(cv.name)}</strong><span class="bar-role">${escape(cv.title)}</span></span></a>
   <nav class="bar-nav" aria-label="Pages">${navLinks(slug)}</nav>
   <details class="bar-menu">
     <summary>Menu</summary>
-    <nav aria-label="Pages menu">${navLinks(slug)}${printControl('menu-print')}</nav>
+    <nav aria-label="Pages menu">${navLinks(slug)}${cvLink('menu-print')}</nav>
   </details>
-  ${printControl('bar-print')}
+  ${cvLink('bar-print')}
 </header>
 <main id="main" class="board">
 ${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
 ${lede ? `<p class="page-lede">${inline(lede)}</p>` : ''}
 ${body}
 </main>
-${contactFooter(slug === 'experience'
-    ? '<button class="foot-cv" type="button" data-print>Download CV <span aria-hidden="true">↓</span></button>'
-    : '<a class="foot-cv" href="experience?print">Download CV <span aria-hidden="true">↓</span></a>')}
+${contactFooter(`<a class="foot-cv" href="${escape(cv.cvUrl)}" target="_blank" rel="noopener">Download CV <span aria-hidden="true">↓</span></a>`, slug)}
 ${extra}
 ${script}
 </body>
