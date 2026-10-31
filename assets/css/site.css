@@ -123,11 +123,8 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .pinned-photo { position: relative; margin: 8px 0 0; padding: 12px 12px 36px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 6px 18px rgb(0 0 0 / 12%); transform: rotate(2deg); }
 .pinned-photo::before { content: ""; position: absolute; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
 .pinned-photo img { aspect-ratio: 1; object-fit: cover; width: 100%; }
-.note-years, .note-tests { position: absolute; display: flex; align-items: center; gap: 6px; }
-.note-years { right: 330px; top: -6px; }
+.note-years { position: absolute; display: flex; align-items: center; gap: 6px; right: 330px; top: -6px; }
 .note-years .arrow-left { transform: scaleX(-1) rotate(40deg) translateY(10px); }
-.note-tests { right: 24px; bottom: -44px; }
-.note-tests .arrow-down { transform: rotate(-150deg); }
 /* Availability is a fact, not a reviewer's note, so it is set in body type with the pen's tick. */
 .availability { display: flex; align-items: center; gap: 8px; margin: -8px 0 18px; font-weight: 600; font-size: 15px; }
 .avail-tick { flex: none; fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -334,8 +331,6 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .do-list div:nth-child(3) { border-top: 1px dashed var(--line); padding-top: 14px; }
   .note-years { position: static; margin: 16px 0 0; }
   .note-years .arrow-left { display: none; }
-  .note-tests { position: static; margin: 12px 0 0; }
-  .note-tests .arrow-down { display: none; }
   .pair { grid-template-columns: 1fr; }
   .connector { height: 72px; margin-top: 0; }
   .connector::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 2px dashed var(--pen); }

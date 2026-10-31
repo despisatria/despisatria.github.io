@@ -89,8 +89,7 @@ const hero = frame('Overview', 'about', `
       <img src="${cv.photo}" alt="Portrait of ${escape(cv.name)}" width="480" height="480" fetchpriority="high">
     </figure>
   </div>
-  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>
-  <p class="note note-tests">${escape(cv.annotations[1])}${penArrow('arrow-down')}</p>`, 'wrap-hero', true);
+  <p class="note note-years">${penArrow('arrow-left')}${escape(cv.annotations[0])}</p>`, 'wrap-hero', true);
 
 const experience = frame('Experience', 'experience', `
   <div class="frame">
