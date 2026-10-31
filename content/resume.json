@@ -482,15 +482,14 @@
   "contactNote": "Have a product that needs testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role. Email or WhatsApp works best.",
   "howIWork": {
     "title": "How I work",
-    "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the quarterly report.",
+    "intro": "The flow from the QA guide book I wrote for our squads. QA takes part in every phase, from the first requirement to the release in production.",
     "note": "QA starts here, before any code",
     "steps": [
       { "title": "Requirement & design", "text": "Join context gathering, design review, and grooming. Flag cases the design or PRD misses, dependencies, and the impact on existing features." },
       { "title": "Sprint planning", "text": "Estimate testing effort, ask to split stories that are too big, and make sure estimates leave room to fix QA feedback." },
       { "title": "During the sprint", "text": "A QA subtask on every story, test cases in a shared template, execution against acceptance criteria, and bugs filed as feedback tickets." },
       { "title": "Sprint review", "text": "Present the test summary and demo each story from its test cases: the happy path first, then edge cases." },
-      { "title": "Release preparation", "text": "Sanity and targeted regression on staging, a release test report, the go-ahead to PM and Tech Lead, then sanity and smoke tests in production." },
-      { "title": "Quarter report", "text": "QA metrics per squad: feedback adoption, early feedback, execution and pass rate, fix rate, and defect escape." }
+      { "title": "Release preparation", "text": "Sanity and targeted regression on staging, a release test report, the go-ahead to PM and Tech Lead, then sanity and smoke tests in production." }
     ],
     "branch": {
       "note": "any time production breaks",
