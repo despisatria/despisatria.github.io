@@ -59,7 +59,8 @@ const PAGES = [
   { file: 'portfolio.html', label: 'Portfolio' },
   { file: 'recommendations.html', label: 'Testimonials' },
 ];
-const navLinks = (current) => PAGES.map((p) => `<a href="${p.file}"${p.file === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('');
+// Contact is the footer of every page, so its link stays on the current page.
+const navLinks = (current) => PAGES.map((p) => `<a href="${p.file}"${p.file === current ? ' aria-current="page"' : ''}>${p.label}</a>`).join('') + '<a href="#contact">Contact</a>';
 
 const figures = (m) => `<dl class="figures">
   ${m.map((x) => `<div><dt>${escape(x.label)}</dt><dd class="trend">${x.values.map(([q, v], i) => `<span class="q${i === x.values.length - 1 ? ' q-now' : ''}"><span class="q-label">${escape(q)}</span><span class="q-val">${escape(v)}</span></span>`).join('<span class="q-step" aria-hidden="true">→</span>')}</dd></div>`).join('')}

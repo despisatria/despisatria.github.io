@@ -27,6 +27,15 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-padding-top: 72px; }
+/* In-page jumps (Get in touch, Contact) glide and pages cross-fade instead of cutting, unless the visitor
+   asked for less motion. The bar keeps its own transition name so it stays still while the page changes.
+   Browsers without cross-document view transitions simply navigate as before. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; }
+}
+.bar { view-transition-name: site-bar; }
 body {
   margin: 0;
   color: var(--ink);
