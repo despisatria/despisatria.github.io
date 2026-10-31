@@ -272,7 +272,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .suite-bar { grid-column: 1 / -1; grid-row: 2; width: calc(var(--share) * 100%); height: 6px; border-radius: 2px; background: var(--ink); }
 .teaser-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: auto; font-weight: 600; }
 .archive { margin: 24px 0 0; max-width: 90ch; font-size: 15px; }
-.archive a { font-weight: 600; }
+.archive a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 
 /* Earlier work: smaller frames, the app screens on top and the redacted samples as evidence below. */
 .section-note { color: var(--muted); font-size: 15px; margin: -4px 0 18px 2px; }
