@@ -334,19 +334,31 @@ const other = frame('Projects, mentoring and education', 'more', `
     </article>`).join('')}
   </div>`);
 
+// Notes are grouped by who wrote them, one paper colour per group, and the reviewer's marker picks out
+// one phrase in each. Every phrase must appear verbatim in its note, and every note must be in one group.
+const byName = Object.fromEntries(cv.recommendations.map((r) => [r.name, r]));
+const grouped = cv.testimonialGroups.flatMap((g) => g.members.map((m) => m.name));
+for (const r of cv.recommendations) if (grouped.filter((n) => n === r.name).length !== 1) throw new Error(`${r.name} must be in exactly one testimonial group`);
+const marked = (r, phrase) => {
+  const html = paragraphs(r.text);
+  if (!html.includes(escape(phrase))) throw new Error(`Highlight not found in ${r.name}'s note: ${phrase}`);
+  return html.replace(escape(phrase), `<mark>${escape(phrase)}</mark>`);
+};
 const recommendations = `
 <section class="frame-wrap" id="recommendations" aria-label="Testimonials">
-  <div class="notes">
-  ${cv.recommendations.map((r) => `
-    <figure class="sticky">
-      <blockquote class="clamp">${paragraphs(r.text)}</blockquote>
+  ${cv.testimonialGroups.map((g, gi) => `
+  <h2 class="note group-label" id="group-${gi}">${escape(g.label)} <span class="group-count">(${g.members.length})</span></h2>
+  <div class="notes paper-${g.paper}" role="list" aria-labelledby="group-${gi}">
+  ${g.members.map(({ name, highlight }) => [byName[name], highlight]).map(([r, highlight]) => `
+    <figure class="sticky" role="listitem">
+      <blockquote class="clamp">${marked(r, highlight)}</blockquote>
       <button class="more" type="button" hidden>Read the full note</button>
       <figcaption>
         ${r.photo ? `<img src="${r.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(r.name)}</span>`}
         <span><strong>${escape(r.name)}</strong><br>${escape(r.role)}</span>
       </figcaption>
     </figure>`).join('')}
-  </div>
+  </div>`).join('')}
 </section>`;
 
 // Contact is the footer of every page: the dark edge of the board, so it is the last thing on each page.
@@ -478,7 +490,7 @@ function page({ slug, title, description, heading, lede, body, extra = '' }) {
   ${cvLink('bar-print')}
 </header>
 <main id="main" class="board">
-${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
+${heading ? `<h1 class="page-title"><mark>${escape(heading)}</mark></h1>` : ''}
 ${lede ? `<p class="page-lede">${inline(lede)}</p>` : ''}
 ${body}
 </main>

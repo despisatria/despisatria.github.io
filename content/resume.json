@@ -459,6 +459,28 @@
   "contactAside": "W. Edwards Deming",
   "contactCircle": "everyone’s",
   "cvUrl": "https://drive.google.com/uc?export=download&id=1x5IjS5VYK3cgNaJh23TKadtP98V1HhaS",
+  "testimonialGroups": [
+    { "label": "from QA engineers", "paper": "yellow", "members": [
+      { "name": "enie yuliani", "highlight": "one of the most thoughtful leads I have worked with" },
+      { "name": "Erna Novia Safitri", "highlight": "very detailed and critical" }
+    ] },
+    { "label": "from designers", "paper": "pink", "members": [
+      { "name": "Stevanie Yuliana", "highlight": "a critical eye to product quality beyond just functional requirements" },
+      { "name": "Muhamad Gibran Augusthiko", "highlight": "an amazing attention to detail to every project" },
+      { "name": "Rahman Abdul Razak", "highlight": "meticulous attention to detail, unwavering commitment to quality" },
+      { "name": "Rizky Destian", "highlight": "a professional and great QA Engineer" }
+    ] },
+    { "label": "from product managers", "paper": "blue", "members": [
+      { "name": "Irfan Nurdin Salman", "highlight": "meticulous and dedicated Quality Assurance professional" },
+      { "name": "Sang Made Naufal", "highlight": "not afraid to always face the new challenge in product" }
+    ] },
+    { "label": "from engineers", "paper": "green", "members": [
+      { "name": "Ariya Agustian Riyadhi", "highlight": "played a key role in finding and fixing a particularly tricky bug" },
+      { "name": "Joseph Sanjaya", "highlight": "place software under severe stress to test its mettle" },
+      { "name": "Otrinanda Gandhi", "highlight": "seorang profesional QA yang luar biasa" },
+      { "name": "Abdul Hafiidh S", "highlight": "dedication to ensuring exceptional product quality" }
+    ] }
+  ],
   "testimonialsNote": "Recommendations from designers, product managers, engineers, and QA engineers I have worked with, written on my LinkedIn profile. [Read the originals on LinkedIn](https://www.linkedin.com/in/despisatria/details/recommendations/).",
   "contactNote": "Need testing, test automation, or a clearer QA process? I take on freelance and part-time projects alongside my full-time role.",
   "howIWork": {

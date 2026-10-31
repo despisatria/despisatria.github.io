@@ -102,10 +102,14 @@ a, button, summary { cursor: pointer; }
 .frame-wrap { position: relative; margin-bottom: clamp(48px, 7vw, 88px); }
 .page-title { font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -0.02em; margin: 8px 0 clamp(24px, 4vw, 40px); }
 .page-title:has(+ .page-lede) { margin-bottom: 10px; }
+/* Page titles get the same marker stroke the reviewer uses on the testimonials. */
+.page-title mark { padding: 0 0.1em; margin: 0 -0.1em; color: inherit; background: linear-gradient(transparent 56%, rgb(180 35 24 / 24%) 56%, rgb(180 35 24 / 24%) 90%, transparent 90%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .page-lede { max-width: 70ch; margin: 0 0 clamp(28px, 4vw, 44px); color: var(--muted); }
-.page-lede a { font-weight: 600; color: var(--ink); }
+.page-lede a { font-weight: 600; }
 .frame-label { margin: 0 0 10px 2px; font-size: 13px; font-weight: 600; color: var(--muted); }
 h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
+/* A short pen stroke under each section heading marks where a section starts, quieter than the title's marker. */
+h2.frame-label::after { content: ""; display: block; width: 48px; height: 8px; margin-top: 6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 8'%3E%3Cpath d='M2 5.2 C 12 3.4, 26 4.6, 46 2.8' fill='none' stroke='%23b42318' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat left center / 100% 100%; }
 .frame { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: clamp(20px, 3vw, 36px); }
 .meta { color: var(--muted); font-size: 14px; margin: 4px 0 16px; }
 
@@ -316,12 +320,30 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .tool-card li { display: flex; align-items: center; gap: 6px; margin: 0; padding: 4px 0 4px 22px; color: var(--muted); font-size: 15px; }
 .tool-card li.daily { padding-left: 0; color: var(--ink); font-weight: 600; }
 
-/* Recommendations: sticky notes pinned straight on the board. */
-.notes { columns: 3 280px; column-gap: 28px; }
-.sticky { break-inside: avoid; margin: 0 0 28px; padding: 22px 22px 18px; background: var(--sticky); color: var(--sticky-ink); border-radius: 2px; box-shadow: 0 2px 0 rgb(0 0 0 / 5%), 0 10px 18px -10px rgb(0 0 0 / 30%); }
-.sticky:nth-child(3n + 1) { transform: rotate(-1.2deg); }
-.sticky:nth-child(3n + 2) { transform: rotate(0.8deg); }
-.sticky:nth-child(4n) { transform: rotate(1.4deg); }
+/* Recommendations: sticky notes on the board, one paper colour per group of writers (QA, design, product,
+   engineering), so the spread of people reads at a glance. The pen marks one phrase in each note. */
+.sticky { break-inside: avoid; margin: 0 0 28px; padding: 22px 22px 18px; background: var(--paper-note, var(--sticky)); color: var(--sticky-ink); border-radius: 2px; box-shadow: 0 2px 0 rgb(0 0 0 / 5%), 0 10px 18px -10px rgb(0 0 0 / 30%); transform: rotate(var(--tilt, 0deg)); }
+.paper-yellow { --paper-note: var(--sticky); }
+.paper-pink { --paper-note: #ffd9de; }
+.paper-blue { --paper-note: #d6e9fb; }
+.paper-green { --paper-note: #d9f0d3; }
+.group-label { margin: 0 0 14px 2px; font-size: 28px; }
+.group-count { font-size: 22px; opacity: 0.7; }
+.notes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; align-items: start; margin-bottom: 36px; }
+.notes .sticky:nth-child(4n + 1) { --tilt: -1.2deg; }
+.notes .sticky:nth-child(4n + 2) { --tilt: 0.8deg; }
+.notes .sticky:nth-child(4n + 3) { --tilt: -0.5deg; }
+.notes .sticky:nth-child(4n) { --tilt: 1.3deg; }
+.notes .sticky { padding: 20px 18px 16px; }
+/* Narrower notes need two more lines before the cut so every marked phrase shows without expanding. */
+.notes .clamp { -webkit-line-clamp: 10; line-clamp: 10; }
+@media (max-width: 1239px) { .notes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 999px) { .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sticky mark { padding: 0 2px; color: inherit; background: linear-gradient(transparent 52%, rgb(180 35 24 / 24%) 52%, rgb(180 35 24 / 24%) 92%, transparent 92%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Hover lifts a note off the board and straightens it, like picking it up to read. */
+.notes .sticky { transition: transform 180ms ease-out, box-shadow 180ms ease-out; }
+.notes .sticky:hover { transform: rotate(0deg) translateY(-4px) scale(1.015); box-shadow: 0 4px 0 rgb(0 0 0 / 5%), 0 18px 28px -12px rgb(0 0 0 / 35%); }
+@media (prefers-reduced-motion: reduce) { .notes .sticky { transition: none; } .notes .sticky:hover { transform: rotate(var(--tilt, 0deg)); } }
 .sticky blockquote { margin: 0; font-size: 15px; }
 .clamp { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 8; line-clamp: 8; overflow: hidden; }
 .more { min-height: 44px; padding: 0; border: 0; background: none; color: var(--sticky-ink); font: 600 14px var(--body); text-decoration: underline; text-decoration-color: var(--pen); text-underline-offset: 3px; }
@@ -394,7 +416,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .flow-step:nth-child(2n)::after { display: none; }
   .flow-branch { flex-direction: column; align-items: flex-start; gap: 6px; }
   .teaser-grid, .foot-inner { grid-template-columns: 1fr; }
-  .know-notes, .tool-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .know-notes, .tool-cards, .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   /* One card per row: a fixed height keeps the previews from turning into full screens. */
   .teaser-visual { aspect-ratio: auto; height: 210px; }
   .do-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -435,7 +457,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .case-cols, .case-results, .teaser-cols { grid-template-columns: 1fr; display: grid; }
   .teaser-cols { gap: 8px; }
   .case-results ul { grid-column: 1; grid-row: auto; }
-  .know-notes, .tool-cards { grid-template-columns: 1fr; }
+  .know-notes, .tool-cards, .notes { grid-template-columns: minmax(0, 1fr); }
   .know-note:nth-child(n), .tool-card:nth-child(n) { transform: none; }
   .do-list { grid-template-columns: 1fr; }
   .do-list div:nth-child(2) { border-top: 1px dashed var(--line); padding-top: 14px; }
@@ -463,6 +485,7 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .board { width: 100%; padding: 0; }
   .frame-wrap { margin-bottom: 14px; }
   .frame, .wrap-case .frame { border: 0; padding: 0; }
+  h2.frame-label::after { display: none; }
   h2.frame-label { font-size: 15pt; border-bottom: 1px solid #999; padding-bottom: 4px; break-after: avoid; }
   .hero { grid-template-columns: 1fr 110px; }
   .hero h1 { font-size: 24pt; }
