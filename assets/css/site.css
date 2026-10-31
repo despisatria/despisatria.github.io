@@ -53,7 +53,7 @@ a, button, summary { cursor: pointer; }
 
 /* Buttons: ink outline, the primary one filled with ink. */
 .btn {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px;
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px;
   border: 1.5px solid var(--ink); border-radius: 6px; background: var(--paper); color: var(--ink);
   font: 600 15px/1 var(--body); text-decoration: none;
 }
@@ -111,8 +111,6 @@ h2.frame-label { font-size: clamp(20px, 2.4vw, 24px); font-weight: 800; color: v
 .hero-role { font-size: clamp(18px, 2vw, 21px); font-weight: 600; margin: 12px 0 20px; }
 .hero-summary { max-width: 64ch; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-top: 24px; }
-.hero-links { display: inline-flex; flex-wrap: wrap; gap: 0 4px; margin-left: 8px; }
-.hero-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; font-weight: 600; }
 .pinned-photo { position: relative; margin: 8px 0 0; padding: 12px 12px 36px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 6px 18px rgb(0 0 0 / 12%); transform: rotate(2deg); }
 .pinned-photo::before { content: ""; position: absolute; top: -12px; left: 50%; width: 96px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgb(255 241 168 / 80%); border: 1px solid rgb(0 0 0 / 6%); }
 .pinned-photo img { aspect-ratio: 1; object-fit: cover; width: 100%; }
@@ -317,7 +315,6 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .hero { grid-template-columns: 1fr; }
   .pinned-photo { order: -1; width: 168px; padding: 8px 8px 22px; margin: 14px 0 4px 6px; }
   .pinned-photo::before { width: 64px; height: 20px; top: -9px; }
-  .hero-links { margin-left: 0; }
   .case-cols, .case-results, .teaser-cols { grid-template-columns: 1fr; display: grid; }
   .teaser-cols { gap: 8px; }
   .case-results ul { grid-column: 1; grid-row: auto; }

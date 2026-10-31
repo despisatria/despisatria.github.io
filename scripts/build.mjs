@@ -73,13 +73,8 @@ const hero = frame('Overview', 'about', `
       <p class="availability"><svg class="avail-tick" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>${escape(cv.availability)}</p>
       ${cv.summary.map((p) => `<p class="hero-summary">${inline(p)}</p>`).join('')}
       <div class="hero-actions">
-        <a class="btn btn-ink" href="mailto:${contact.email}">Email me</a>
-        <a class="btn" href="${contact.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
-        <span class="hero-links">
-          <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="${contact.github}" target="_blank" rel="noopener">GitHub</a>
-          <a href="${contact.instagram}" target="_blank" rel="noopener">Instagram</a>
-        </span>
+        <a class="btn btn-ink" href="portfolio.html">See my work</a>
+        <a class="btn" href="#contact">Get in touch <span aria-hidden="true">↓</span></a>
       </div>
       <p class="print-only">${escape(contact.email)} · ${escape(contact.phone)} · linkedin.com/in/despisatria · Portfolio: despisatria.github.io</p>
     </div>
@@ -323,6 +318,7 @@ const contactFooter = (cvControl) => `
         <li><a href="${contact.whatsapp}" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a></li>
         <li><a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
         <li><a href="${contact.github}" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+        <li><a href="${contact.instagram}" target="_blank" rel="noopener">Instagram <span aria-hidden="true">↗</span></a></li>
         <li>${cvControl}</li>
       </ul>
     </div>
