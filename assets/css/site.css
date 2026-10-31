@@ -242,25 +242,28 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
 .sticky figcaption img, .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex: none; }
 .avatar { display: grid; place-items: center; background: var(--paper); font-weight: 800; font-size: 13px; }
 
-/* What I do and Contact share the last row of the overview. */
-.duo { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
-.do-list { margin: 0; display: grid; }
-.do-list div { padding: 12px 0; border-bottom: 1px dashed var(--line); }
-.do-list div:first-child { padding-top: 0; }
-.do-list div:last-child { border-bottom: 0; padding-bottom: 0; }
+/* What I do: three columns of short entries, separated by the board's dashed rule. */
+.do-list { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+.do-list div { padding: 14px 0; border-top: 1px dashed var(--line); }
+.do-list div:nth-child(-n + 3) { border-top: 0; padding-top: 0; }
 .do-list dt { font-weight: 800; font-size: 15px; }
 .do-list dd { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.bar-name { display: inline-flex; align-items: center; min-height: 44px; }
 
-/* Contact */
-.contact-note { margin: 0 0 12px; }
-.contact-list { margin: 0; display: grid; gap: 4px; }
-.contact-list div { display: grid; grid-template-columns: 110px 1fr; align-items: center; min-height: 44px; border-bottom: 1px dashed var(--line); }
-.contact-list dt { color: var(--muted); font-size: 14px; }
-.contact-list dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
-.contact-list dd a, .bar-name { display: inline-flex; align-items: center; min-height: 44px; }
-.foot { text-align: center; color: var(--muted); font-size: 14px; padding: 0 16px 32px; }
-.foot p { margin: 0 0 4px; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
+/* Contact footer: the dark edge of the board. The pen turns a lighter red so it keeps its contrast on ink. */
+.foot { --pen-light: #ff8f80; background: var(--ink); color: #f3f2ec; padding: clamp(48px, 8vw, 96px) var(--gap) 28px; }
+.foot-inner, .foot-base { width: min(1180px, 100%); margin: 0 auto; }
+.foot-inner { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 80px); align-items: end; }
+.foot-title { font-size: clamp(34px, 5.4vw, 64px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+.foot-aside { margin-top: 14px; color: var(--pen-light); font-size: 24px; }
+.foot-side p { margin: 0 0 18px; color: #b9b7ae; }
+.foot a, .foot-cv { color: #f3f2ec; font-weight: 600; text-decoration: underline; text-decoration-color: var(--pen-light); text-underline-offset: 5px; }
+.foot-email { display: inline-flex; align-items: center; min-height: 44px; font-size: clamp(19px, 2.2vw, 24px); overflow-wrap: anywhere; }
+.foot-links { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 0 22px; }
+.foot-links li { margin: 0; }
+.foot-links a, .foot-cv { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }
+.foot-cv { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; cursor: pointer; }
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 24px; margin-top: clamp(48px, 7vw, 80px); padding-top: 20px; border-top: 1px solid rgb(255 255 255 / 16%); color: #b9b7ae; font-size: 14px; }
 
 /* Small laptops and tablets */
 @media (max-width: 1080px) {
@@ -282,7 +285,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .flow-step:nth-child(3n)::after { display: block; }
   .flow-step:nth-child(2n)::after { display: none; }
   .flow-branch { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .teaser-grid, .duo { grid-template-columns: 1fr; }
+  .teaser-grid, .foot-inner { grid-template-columns: 1fr; }
+  .do-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .do-list div:nth-child(3) { border-top: 1px dashed var(--line); padding-top: 14px; }
   .note-years { position: static; margin: 16px 0 0; }
   .note-years .arrow-left { display: none; }
   .note-tests { position: static; margin: 12px 0 0; }
@@ -317,7 +322,9 @@ img.logo { border: 1px solid var(--line); background: #fff; width: auto; max-wid
   .teaser-cols { gap: 8px; }
   .case-results ul { grid-column: 1; grid-row: auto; }
   .skill-cols { grid-template-columns: 1fr; }
-  .contact-list div { grid-template-columns: 1fr; padding: 8px 0; }
+  .do-list { grid-template-columns: 1fr; }
+  .do-list div:nth-child(2) { border-top: 1px dashed var(--line); padding-top: 14px; }
+  .foot-base { flex-direction: column; }
   .sticky:nth-child(n) { transform: none; }
 }
 /* Below 360px the role line would stack the sticky bar four lines high; the name alone identifies the page. */

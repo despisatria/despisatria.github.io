@@ -308,16 +308,31 @@ const recommendations = `
   </div>
 </section>`;
 
-const contactFrame = frame('Contact', 'contact', `
-  <div class="frame contact">
-    <p class="contact-note">${escape(cv.contactNote)}</p>
-    <dl class="contact-list">
-      <div><dt>Email</dt><dd><a href="mailto:${contact.email}">${escape(contact.email)}</a></dd></div>
-      <div><dt>WhatsApp</dt><dd><a href="${contact.whatsapp}" target="_blank" rel="noopener">${escape(contact.phone)}</a></dd></div>
-      <div><dt>LinkedIn</dt><dd><a href="${contact.linkedin}" target="_blank" rel="noopener">linkedin.com/in/despisatria</a></dd></div>
-      <div><dt>GitHub</dt><dd><a href="${contact.github}" target="_blank" rel="noopener">github.com/despisatria</a></dd></div>
-    </dl>
-  </div>`, 'wrap-contact');
+// Contact is the footer of every page: the dark edge of the board, so it is the last thing on each page.
+const contactFooter = (cvControl) => `
+<footer class="foot" id="contact" aria-labelledby="contact-title">
+  <div class="foot-inner">
+    <div class="foot-main">
+      <h2 class="foot-title" id="contact-title">${escape(cv.contactTitle)}</h2>
+      <p class="note foot-aside">(${escape(cv.contactAside)})</p>
+    </div>
+    <div class="foot-side">
+      <p>${escape(cv.contactNote)}</p>
+      <a class="foot-email" href="mailto:${contact.email}">${escape(contact.email)}</a>
+      <ul class="foot-links">
+        <li><a href="${contact.whatsapp}" target="_blank" rel="noopener">WhatsApp <span aria-hidden="true">↗</span></a></li>
+        <li><a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+        <li><a href="${contact.github}" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
+        <li>${cvControl}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span>${escape(cv.name)}</span>
+    <span>${escape(cv.location)}</span>
+    <span>© ${new Date().getFullYear()}</span>
+  </div>
+</footer>`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -327,6 +342,7 @@ const jsonLd = {
   url: SITE_URL,
   image: SITE_URL + cv.photo,
   email: `mailto:${contact.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Bandung', addressRegion: 'West Java', addressCountry: 'ID' },
   sameAs: [contact.linkedin, contact.github],
 };
 
@@ -426,10 +442,9 @@ ${heading ? `<h1 class="page-title">${escape(heading)}</h1>` : ''}
 ${lede ? `<p class="page-lede">${inline(lede)}</p>` : ''}
 ${body}
 </main>
-<footer class="foot">
-  <p><a href="mailto:${contact.email}">${escape(contact.email)}</a> · <a href="${contact.linkedin}" target="_blank" rel="noopener">LinkedIn</a> · <a href="${contact.github}" target="_blank" rel="noopener">GitHub</a></p>
-  <p>© ${new Date().getFullYear()} ${escape(cv.name)}</p>
-</footer>
+${contactFooter(file === 'resume.html'
+    ? '<button class="foot-cv" type="button" data-print>Download CV <span aria-hidden="true">↓</span></button>'
+    : '<a class="foot-cv" href="resume.html?print">Download CV <span aria-hidden="true">↓</span></a>')}
 ${extra}
 ${script}
 </body>
@@ -443,7 +458,7 @@ const pages = [
     file: 'index.html',
     title: `${NAME} | Software QA Engineer - Resume &amp; Portfolio`,
     description: DESCRIPTION,
-    body: `${hero}\n${howIWork}\n${caseTeaser}\n${workTeaser}\n<div class="duo">${whatIDo}\n${contactFrame}</div>`,
+    body: `${hero}\n${howIWork}\n${caseTeaser}\n${workTeaser}\n${whatIDo}`,
   },
   {
     file: 'resume.html',
