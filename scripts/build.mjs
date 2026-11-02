@@ -137,17 +137,24 @@ const caseStudy = frame('Case study', 'case-study', `
     </div>
   </article>`, 'wrap-case', true);
 
-// One note from a teammate sits next to the case it speaks about; the rest live on the testimonials page.
-const quoted = cv.recommendations.find((r) => r.name === cv.featuredQuote.from);
-const featuredQuote = `
-        <figure class="sticky sticky-quote">
-          <blockquote><p>${escape(cv.featuredQuote.text)}</p></blockquote>
+// A teammate's note sits next to the claim it backs up; the rest live on the testimonials page.
+// The quoted words must appear in the full recommendation (ellipses aside), or the build stops.
+const quoteNote = (q, cls) => {
+  const r = cv.recommendations.find((x) => x.name === q.from);
+  if (!r || !r.text.includes(q.text.replace(/^…|…$/g, ''))) throw new Error(`Quote from ${q.from} is not in their recommendation`);
+  // The note uses the paper colour of the writer's group on the testimonials page.
+  const group = cv.testimonialGroups.find((g) => g.members.some((m) => m.name === q.from));
+  return `
+        <figure class="sticky sticky-quote ${cls}${group ? ` paper-${group.paper}` : ''}">
+          <blockquote><p>${escape(q.text)}</p></blockquote>
           <figcaption>
-            ${quoted.photo ? `<img src="${quoted.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(quoted.name)}</span>`}
-            <span><strong>${escape(quoted.name)}</strong><br>${escape(quoted.role)}</span>
+            ${r.photo ? `<img src="${r.photo}" alt="" width="40" height="40" loading="lazy">` : `<span class="avatar" aria-hidden="true">${initials(r.name)}</span>`}
+            <span><strong>${escape(r.name)}</strong><br>${escape(r.role)}</span>
           </figcaption>
           <a class="quote-more" href="testimonials">Read all testimonials</a>
         </figure>`;
+};
+const featuredQuote = quoteNote(cv.featuredQuote, 'quote-case');
 
 // The workflow is drawn as a flow on the board: each step a card, arrows in the reviewer's pen.
 const hw = cv.howIWork;
@@ -201,6 +208,13 @@ const whatIDo = frame('What I do', 'what-i-do', `
     <dl class="do-list">
       ${cv.whatIDo.map((d) => `<div><dt>${escape(d.title)}</dt><dd>${escape(d.text)}</dd>${d.proof ? `<dd class="proof"><a href="${d.proof.url}"><span aria-hidden="true">↳</span> ${escape(d.proof.label)}</a></dd>` : ''}</div>`).join('')}
     </dl>
+  </div>
+  <div class="proof-notes">
+    ${cv.proofQuotes.map((q) => `
+    <div class="proof-note proof-${q.side}">
+      ${quoteNote(q, '')}
+      <p class="note proof-note-label">${escape(q.label)}</p>
+    </div>`).join('')}
   </div>`);
 
 // Home keeps the case study short: the goal and the evidence, with the full story on the portfolio page.
@@ -317,7 +331,7 @@ const other = frame('Projects, mentoring and education', 'more', `
         <details class="clients">
           <summary>Show the ${o.projects.length} client projects</summary>
           <ul class="client-list">
-            ${o.projects.map((p) => `<li><strong>${escape(p.name)}</strong> <span class="muted">${escape(p.period)}</span><br>${inline(p.text)}</li>`).join('')}
+            ${o.projects.map((p) => `<li><p class="client-head"><strong>${escape(p.name)}</strong><span class="client-period">${escape(p.period)}</span></p>${inline(p.text)}</li>`).join('')}
           </ul>
         </details>` : ''}
       </div>
@@ -348,9 +362,12 @@ const marked = (r, phrase) => {
 };
 const recommendations = `
 <section class="frame-wrap" id="recommendations" aria-label="Testimonials">
+  <nav class="group-tabs" aria-label="Jump to a group">
+    ${cv.testimonialGroups.map((g) => `<a class="group-tab paper-${g.paper}" href="#${slugify(g.label)}">${escape(g.label.replace(/^from /, ''))} <span class="group-count">${g.members.length}</span></a>`).join('')}
+  </nav>
   ${cv.testimonialGroups.map((g, gi) => `
-  <h2 class="note group-label" id="group-${gi}">${escape(g.label)} <span class="group-count">(${g.members.length})</span></h2>
-  <div class="notes paper-${g.paper}" role="list" aria-labelledby="group-${gi}">
+  <h2 class="note group-label" id="${slugify(g.label)}">${escape(g.label)} <span class="group-count">(${g.members.length})</span></h2>
+  <div class="notes paper-${g.paper}" role="list" aria-labelledby="${slugify(g.label)}">
   ${g.members.map(({ name, highlight }) => [byName[name], highlight]).map(([r, highlight]) => `
     <figure class="sticky" role="listitem">
       <blockquote class="clamp">${marked(r, highlight)}</blockquote>
@@ -375,8 +392,12 @@ const contactFooter = (cvControl, current) => `
     </div>
     <div class="foot-side">
       <p>${escape(cv.contactNote)}</p>
-      <a class="foot-email" href="mailto:${contact.email}">${escape(contact.email)}</a>
-      <p class="foot-links">${out(contact.whatsapp, 'WhatsApp')}${out(contact.linkedin, 'LinkedIn')}${out(contact.github, 'GitHub')}${out(contact.instagram, 'Instagram')}</p>
+      <p class="foot-direct">
+        <a class="foot-email" href="mailto:${contact.email}">${escape(contact.email)} <span aria-hidden="true">↗</span></a>
+        <span class="foot-sep" aria-hidden="true">|</span>
+        <a class="foot-email" href="${contact.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp ${escape(contact.phone)}">${escape(contact.phone)} <span aria-hidden="true">↗</span></a>
+      </p>
+      <p class="foot-links">${out(contact.linkedin, 'LinkedIn')}${out(contact.github, 'GitHub')}${out(contact.instagram, 'Instagram')}</p>
       ${cvControl}
     </div>
   </div>
@@ -435,6 +456,53 @@ const script = `
   const menu = document.querySelector('.bar-menu');
   menu.addEventListener('click', (e) => { if (e.target.closest('a, button')) menu.open = false; });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); } });
+  // Testimonial tabs stick under the bar: keep their offset in step with the bar's real height, show a rule
+  // once they are stuck, and mark the group being read.
+  const tabs = document.querySelector('.group-tabs');
+  if (tabs) {
+    const root = document.documentElement;
+    const bar = document.querySelector('.bar');
+    const measure = () => {
+      root.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+      root.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
+    };
+    measure();
+    new ResizeObserver(measure).observe(bar);
+    new ResizeObserver(measure).observe(tabs);
+    const links = [...tabs.querySelectorAll('a')];
+    const update = () => {
+      tabs.classList.toggle('is-stuck', tabs.getBoundingClientRect().top <= bar.offsetHeight + 1);
+      const line = bar.offsetHeight + tabs.offsetHeight + 40;
+      let current = null;
+      for (const a of links) if (document.querySelector(a.hash).getBoundingClientRect().top <= line) current = a;
+      // At the bottom of the page the last groups cannot scroll up to the line, so take the last one in view.
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) {
+        for (const a of links) if (document.querySelector(a.hash).getBoundingClientRect().top < innerHeight) current = a;
+      }
+      for (const a of links) a.toggleAttribute('aria-current', a === current);
+      // On phones the strip scrolls sideways: bring the current tab into view.
+      if (current && current.hash !== tabs.dataset.current && tabs.scrollWidth > tabs.clientWidth) tabs.scrollTo({ left: current.offsetLeft - 16, behavior: 'smooth' });
+      tabs.dataset.current = current ? current.hash : '';
+    };
+    addEventListener('scroll', update, { passive: true });
+    update();
+  }
+  // A clamped note always shows its marked phrase: if the mark falls below the cut, the cut moves down to it.
+  const fitClamp = (text) => {
+    text.style.webkitLineClamp = text.style.lineClamp = '';
+    const mark = text.querySelector('mark');
+    if (!mark || !text.classList.contains('clamp')) return;
+    const box = text.getBoundingClientRect();
+    const end = mark.getClientRects()[mark.getClientRects().length - 1].bottom;
+    if (end <= box.bottom) return;
+    const lines = Math.ceil((end - box.top) / parseFloat(getComputedStyle(text).lineHeight));
+    text.style.webkitLineClamp = text.style.lineClamp = String(lines);
+  };
+  const clamped = [...document.querySelectorAll('.notes .clamp')];
+  clamped.forEach(fitClamp);
+  addEventListener('resize', () => clamped.forEach(fitClamp));
+  // Web fonts change where lines break, so fit again once they have loaded.
+  document.fonts.ready.then(() => clamped.forEach(fitClamp));
   for (const note of document.querySelectorAll('.notes .sticky')) {
     const text = note.querySelector('.clamp');
     const button = note.querySelector('.more');
@@ -521,6 +589,7 @@ const pages = [
     title: `Experience &amp; Skills | ${NAME}`,
     description: 'Experience, skills, and education of Desphi Satria Nurjaya, Software QA Engineer: Mengantar, Telkom Indonesia, Finansialku, and Variable Indonesia.',
     heading: 'Experience & Skills',
+    lede: cv.experienceNote,
     body: `${printHeader}\n${experience}\n${other}\n${skills}`,
   },
   {
@@ -528,13 +597,14 @@ const pages = [
     title: `Portfolio | ${NAME}`,
     description: 'QA case study, test automation work, and earlier test documentation samples by Desphi Satria Nurjaya.',
     heading: 'Portfolio',
+    lede: cv.portfolioNote,
     body: `${caseStudy}\n${work}\n${earlier}`,
     extra: viewerDialog,
   },
   {
     slug: 'testimonials',
     title: `Testimonials | ${NAME}`,
-    description: 'Recommendations from designers, engineers, product managers, and QA engineers who worked with Desphi Satria Nurjaya.',
+    description: 'Recommendations from QA engineers, developers, designers, product and project managers, and non-tech teammates who worked with Desphi Satria Nurjaya.',
     heading: 'Testimonials',
     lede: cv.testimonialsNote,
     body: recommendations,
