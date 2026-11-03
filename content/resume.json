@@ -381,6 +381,18 @@
   ],
   "recommendations": [
     {
+      "name": "Fairuz Salsabila",
+      "role": "Customer Support Officer",
+      "photo": "assets/img/recommendations/fairuz.jpg",
+      "text": "Selama bekerja bersama Mas Desphi, beliau menjadi salah satu yang paling helpful dan reliable. Selalu gercep dalam merespon setiap kendala, responsif, dan selalu membantu sampai menemukan solusi.\nSatu hal yang paling saya apresiasi adalah kemampuan menyampaikan informasi yang clear dan mudah dipahami, especially bagi saya yang tidak memiliki background IT. Selain itu, Mas Desphi juga approachable dan supportive, sehingga komunikasi dan koordinasinya jauh lebih mudah. Keep up the great work, Mas Desphi."
+    },
+    {
+      "name": "Bagas Gizkara",
+      "role": "Quality Assurance Engineer",
+      "photo": "assets/img/recommendations/bagas.jpg",
+      "text": "I worked under Desphi, and he's a great lead to have. He's easy to talk to, and you can bring him questions anytime without it feeling awkward. He knows QA well and is good at figuring out what matters most before a release. He gives clear direction but still lets you work things out on your own. A supportive lead with a solid QA mindset."
+    },
+    {
       "name": "Indra Prasetya",
       "role": "Backend Engineer",
       "photo": "assets/img/recommendations/indra.jpg",
@@ -511,6 +523,7 @@
     { "label": "from QA Engineers", "paper": "yellow", "members": [
       { "name": "enie yuliani", "highlight": "one of the most thoughtful leads I have worked with" },
       { "name": "Eko Puji Santoso", "highlight": "one of the best parts of my time on the team" },
+      { "name": "Bagas Gizkara", "highlight": "good at figuring out what matters most before a release" },
       { "name": "Muhammad Ridwan Maulana", "highlight": "an exceptional Quality Assurance professional" },
       { "name": "Erna Novia Safitri", "highlight": "very detailed and critical" }
     ] },
@@ -536,7 +549,8 @@
       { "name": "Sang Made Naufal", "highlight": "not afraid to always face the new challenge in product" }
     ] },
     { "label": "from Non-Tech Teams", "paper": "lavender", "members": [
-      { "name": "Adinda Dwi Putri Wahyuni", "highlight": "caranya membantu menyelesaikan masalah" }
+      { "name": "Adinda Dwi Putri Wahyuni", "highlight": "caranya membantu menyelesaikan masalah" },
+      { "name": "Fairuz Salsabila", "highlight": "menyampaikan informasi yang clear dan mudah dipahami" }
     ] }
   ],
   "experienceNote": "7+ years of software QA across logistics, e-commerce, fintech, and agritech, from manual tester to leading QA across squads at Mengantar. The same experience is in my [CV as a PDF](https://drive.google.com/uc?export=download&id=1x5IjS5VYK3cgNaJh23TKadtP98V1HhaS).",
