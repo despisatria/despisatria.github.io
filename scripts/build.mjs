@@ -47,6 +47,8 @@ const MONOGRAM = cv.name.split(/\s+/).map((w) => w[0].toUpperCase()).join('');
 // The same pen stretched wide, for circling a figure or a word. It is stretched to its box, so the stroke thins at top and bottom like a quick pen loop.
 const PEN_RING = 'M41.1 24.2 L48.5 21.9 L56.5 19.8 L64.9 18.0 L73.7 16.6 L82.8 15.5 L92.1 14.6 L101.4 14.1 L110.7 14.0 L119.9 14.3 L128.9 15.0 L137.6 16.1 L145.9 17.6 L153.8 19.5 L161.2 21.7 L167.9 24.2 L173.9 27.0 L179.2 30.1 L183.5 33.3 L186.8 36.7 L189.1 40.1 L190.3 43.4 L190.6 46.6 L190.0 49.9 L188.5 53.4 L185.9 56.9 L182.2 60.5 L177.6 64.0 L172.0 67.4 L165.7 70.6 L158.7 73.6 L151.1 76.3 L143.0 78.7 L134.5 80.8 L125.7 82.6 L116.6 84.1 L107.2 85.3 L97.7 86.1 L88.2 86.5 L78.6 86.6 L69.1 86.2 L59.9 85.3 L51.0 84.0 L42.7 82.3 L34.9 80.1 L28.0 77.5 L21.8 74.7 L16.6 71.6 L12.4 68.2 L9.3 64.6 L7.1 60.9 L6.0 57.1 L5.8 53.1 L6.6 49.1 L8.4 45.0 L11.2 40.9 L14.9 36.9 L19.5 32.9 L25.0 29.1 L31.3 25.6 L38.4 22.2 L46.2 19.2 L54.7 16.5 L63.8 14.3 L73.2 12.4 L73.1 12.1 L63.7 13.9 L54.6 16.2 L46.1 18.7 L38.1 21.6 L30.9 24.7 L24.4 28.2 L18.7 31.9 L13.8 35.7 L9.8 39.8 L6.7 44.0 L4.6 48.4 L3.5 52.9 L3.5 57.4 L4.6 61.9 L6.8 66.3 L10.1 70.6 L14.5 74.5 L19.9 78.2 L26.2 81.5 L33.5 84.4 L41.5 86.8 L50.1 88.8 L59.3 90.3 L68.7 91.3 L78.4 92.0 L88.2 92.1 L98.1 91.9 L107.8 91.3 L117.4 90.2 L126.8 88.9 L135.9 87.2 L144.7 85.1 L153.1 82.7 L161.1 80.0 L168.6 76.9 L175.4 73.5 L181.5 69.8 L186.8 65.8 L191.2 61.4 L194.5 56.8 L196.6 51.9 L197.3 46.8 L196.7 41.7 L194.7 37.0 L191.5 32.6 L187.4 28.7 L182.3 25.1 L176.5 21.9 L169.9 19.1 L162.8 16.6 L155.1 14.5 L146.9 12.8 L138.3 11.4 L129.3 10.4 L120.1 9.8 L110.7 9.6 L101.2 9.8 L91.7 10.4 L82.3 11.4 L73.1 13.1 L64.3 15.2 L55.9 17.7 L48.1 20.6 L40.9 23.9 Z';
 const penRing = `<svg class="pen-ring" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true"><path d="${PEN_RING}"/></svg>`;
+// The pen's tick, for everyday tools and the passing run summary.
+const tick = '<svg class="tick" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>';
 
 // The frame label is the section heading, like a frame name on a board. Frames with their own
 // title (About, Case study) keep the label as a plain caption.
@@ -184,10 +186,22 @@ const suiteChart = (rows) => {
       </div>`;
 };
 
-// The picture on a pinned project print: a screenshot, or the suite chart when there is nothing to show.
-const preview = (p) => `<div class="teaser-visual">${p.preview ? `<img src="${p.preview.src}" alt="${escape(p.preview.alt)}" width="740" height="400" loading="lazy">` : suiteChart(p.chart)}</div>`;
+// The Slack message a suite posts after each run, redrawn with neutral values: the real one carries internal
+// branches and channels. It is one picture to assistive tech, described by its alt text.
+const runCard = (r) => `<div class="run-board">
+        <div class="run-card" role="img" aria-label="${escape(r.alt)}">
+          <p class="run-head">${tick} ${escape(r.title)}</p>
+          <dl class="run-fields">${r.fields.map(([k, v]) => `<div><dt>${escape(k)}</dt><dd>${escape(v)}</dd></div>`).join('')}</dl>
+          <p class="run-results">${r.results.map(([k, v]) => `<span>${escape(k)} <b>${escape(v)}</b></span>`).join('')}<span>Success rate <b>${escape(r.rate)}</b></span></p>
+          <p class="run-buttons">${r.buttons.map((b, i) => `<span class="run-btn${i === 0 ? ' run-btn-go' : ''}">${escape(b)}</span>`).join('')}</p>
+        </div>
+        <p class="note run-note" aria-hidden="true">${escape(r.note)}</p>
+      </div>`;
 
-const [app, appTests, suites] = cv.portfolio;
+// The picture on a pinned project print: a screenshot, the suite chart, or the Slack run summary.
+const preview = (p) => `<div class="teaser-visual">${p.preview ? `<img src="${p.preview.src}" alt="${escape(p.preview.alt)}" width="740" height="400" loading="lazy">` : p.slack ? runCard(p.slack) : suiteChart(p.chart)}</div>`;
+
+const [app, appTests, suites, apiSuite] = cv.portfolio;
 const workTeaser = frame('Recent work', 'work', `
   <div class="teaser-grid">
     ${[app, appTests, suites].map((p) => `
@@ -236,6 +250,20 @@ const caseTeaser = frame('Case study', 'case-study', `
     </div>
   </article>`, 'wrap-case', true);
 
+// A suite's outcome as equal stat cells: the circled figure, what it measures, and one line of context.
+// The figure is shown first through CSS order; the markup keeps dt before dd as a dl requires.
+// A replaced figure ("was") stays visible, struck through in pen, and only its new value gets the circle;
+// the other figures stay plain ink so the pen keeps marking just the correction.
+const impact = (im) => `<div class="impact">
+        <h4>${escape(im.title)}</h4>
+        <dl class="impact-stats">${im.metrics.map((m) => `<div>
+          <dt>${escape(m.label)}</dt>
+          <dd class="impact-val">${m.was ? `<s class="impact-was"><span class="sr-only">was </span>${escape(m.was)}</s><span class="sr-only">, now </span>` : ''}${m.was ? `<span class="pen-word">${escape(m.value)}${penRing}</span>` : `<span class="impact-num">${escape(m.value)}</span>`}</dd>
+          <dd class="impact-detail">${escape(m.detail)}</dd>
+        </div>`).join('')}</dl>
+        <p class="small">${escape(im.note)}</p>
+      </div>`;
+
 const project = (p, cls = '') => `
   <article class="frame project pinned has-visual ${cls}" id="${p.id}">
     ${preview(p)}
@@ -243,7 +271,8 @@ const project = (p, cls = '') => `
       <h3>${escape(p.title)}</h3>
       <p class="meta">${escape(p.meta)}</p>
       ${paragraphs(p.intro)}
-      ${list(p.points)}
+      ${list(p.points ?? [])}
+      ${p.impact ? impact(p.impact) : ''}
       ${p.notes.map((n) => `<p class="small">${inline(n)}</p>`).join('')}
       ${p.links.length ? `<p class="project-links">${p.links.map((l) => link(l.url, escape(l.label))).join('')}</p>` : ''}
     </div>
@@ -255,14 +284,10 @@ const work = frame('Recent work', 'work', `
     <div class="connector" aria-hidden="true"><span class="note">tested by</span></div>
     ${project(appTests)}
   </div>
-  <div class="work-row">
-    ${project(suites, 'project-suites')}
-    <article class="frame project pinned">
-      <h3>${escape(cv.assessments.title)}</h3>
-      <p class="meta">${escape(cv.assessments.meta)}</p>
-      ${list(cv.assessments.points)}
-      <p class="project-links">${link(cv.archive.url, 'Full documents on Google Drive')}</p>
-    </article>
+  <div class="pair">
+    ${project(suites)}
+    <div class="connector" aria-hidden="true"><span class="note">up close</span></div>
+    ${project(apiSuite)}
   </div>`);
 
 // "Finansialku.com" -> "finansialku", "My First Step BJB" -> "my-first-step-bjb"
@@ -285,11 +310,18 @@ const earlier = frame(ew.title, 'earlier', `
         </ul>` : ''}
       </div>
     </article>`).join('')}
+    <article class="frame earlier earlier-text pinned" id="hiring-assessments">
+      <div class="earlier-body">
+        <h3>${escape(cv.assessments.title)} <span class="muted">${escape(cv.assessments.year)}</span></h3>
+        <p class="meta">${escape(cv.assessments.meta)}</p>
+        <ul class="small">${cv.assessments.points.map((x) => `<li>${inline(x)}</li>`).join('')}</ul>
+        <p class="project-links">${link(cv.archive.url, 'Full documents on Google Drive')}</p>
+      </div>
+    </article>
   </div>
   <p class="archive"><strong>${escape(cv.archive.title)}.</strong> ${escape(cv.archive.text)} ${link(cv.archive.url, 'Open the archive on Google Drive')}</p>`);
 
 // Skills on the board: what I know on sticky notes, tools on taped index cards, everyday tools ticked by the pen.
-const tick = '<svg class="tick" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M3 11 L8 16 L17 4"/></svg>';
 const sk = cv.skills;
 const skills = frame('Skills and tools', 'skills', `
   <h3 class="skills-sub">Industry knowledge</h3>
